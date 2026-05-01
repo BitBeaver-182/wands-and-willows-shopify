@@ -8,16 +8,13 @@
  * ------------------------------------------------------------
  */
  {
-  "type": "footer",
-  "name": "t:names.footer",
   "sections": {
-    "landing_footer": {
-      "type": "landing-footer",
-      "settings": {
-      }
+    "main": {
+      "type": "404",
+      "settings": {}
     }
   },
   "order": [
-    "landing_footer"
+    "main"
   ]
 }

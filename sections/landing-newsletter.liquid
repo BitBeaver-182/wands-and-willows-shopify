@@ -1,0 +1,39 @@
+<section id="newsletter-signup" class="py-24 bg-brand-parchment border-b border-brand-sand">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <i class="fa-solid fa-envelope-open-text text-brand-gold text-4xl mb-6" aria-hidden="true"></i>
+    <h2 class="font-heading text-4xl text-brand-forest mb-4">Join The Inner Circle</h2>
+    <p class="font-body text-brand-muted mb-10 max-w-2xl mx-auto">
+      Subscribe to our newsletter for exclusive early access to new collections, magical insights from our archivist, and special invitations to community events.
+    </p>
+
+    {% form 'customer', class: 'flex flex-col sm:flex-row gap-4 max-w-xl mx-auto' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <label class="sr-only" for="LandingNewsletterEmail">Email address</label>
+      <input
+        id="LandingNewsletterEmail"
+        type="email"
+        name="contact[email]"
+        autocomplete="email"
+        aria-label="Email address"
+        placeholder="Enter your email address"
+        class="flex-grow bg-white border border-brand-sand rounded-sm px-6 py-4 text-brand-text placeholder-brand-muted/70 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all"
+      >
+      <button type="submit" class="px-8 py-4 bg-brand-forest hover:bg-brand-dark text-white font-medium tracking-wide transition-all rounded-sm whitespace-nowrap">
+        Subscribe
+      </button>
+    {% endform %}
+
+    <p class="font-body text-xs text-brand-muted mt-4">By subscribing, you agree to our Privacy Policy and Terms of Service.</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing newsletter",
+  "tag": "section",
+  "class": "landing-newsletter",
+  "settings": [],
+  "presets": [{ "name": "Landing newsletter" }]
+}
+{% endschema %}
+

@@ -7,17 +7,6 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
-  "type": "footer",
-  "name": "t:names.footer",
-  "sections": {
-    "landing_footer": {
-      "type": "landing-footer",
-      "settings": {
-      }
-    }
-  },
-  "order": [
-    "landing_footer"
-  ]
+{
+  "current": {}
 }

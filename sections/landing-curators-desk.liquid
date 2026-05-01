@@ -1,0 +1,56 @@
+{% liquid
+  assign article_1 = section.settings.article_1
+  assign article_2 = section.settings.article_2
+  assign article_3 = section.settings.article_3
+%}
+
+<section id="curators-desk" class="py-24 bg-brand-parchment border-y border-brand-sand">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="text-center mb-16">
+      <h2 class="font-heading text-4xl text-brand-forest mb-4">The Curator's Desk</h2>
+      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+      <p class="font-body text-brand-muted max-w-2xl mx-auto">Stories, insights, and magical findings from our head archivist.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% if article_1 != blank %}
+        {% render 'landing-curators-desk-article-card', article: article_1 %}
+      {% endif %}
+
+      {% if article_2 != blank %}
+        {% render 'landing-curators-desk-article-card', article: article_2 %}
+      {% endif %}
+
+      {% if article_3 != blank %}
+        {% render 'landing-curators-desk-article-card', article: article_3 %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing curator",
+  "tag": "section",
+  "class": "landing-curators-desk",
+  "settings": [
+    {
+      "type": "article",
+      "id": "article_1",
+      "label": "Article 1"
+    },
+    {
+      "type": "article",
+      "id": "article_2",
+      "label": "Article 2"
+    },
+    {
+      "type": "article",
+      "id": "article_3",
+      "label": "Article 3"
+    }
+  ],
+  "presets": [{ "name": "Landing curator" }]
+}
+{% endschema %}
+

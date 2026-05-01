@@ -1,0 +1,120 @@
+{% liquid
+  assign image = section.settings.image
+  assign image_alt = section.settings.image_alt
+  assign eyebrow = section.settings.eyebrow
+  assign quote_richtext = section.settings.quote_richtext
+  assign paragraph_1_richtext = section.settings.paragraph_1_richtext
+  assign paragraph_2_richtext = section.settings.paragraph_2_richtext
+  assign signature_name = section.settings.signature_name
+  assign signature_role = section.settings.signature_role
+
+  assign quote_html = quote_richtext | replace: '<p>', '' | replace: '</p>', ''
+%}
+
+<section id="our-story" class="py-24 bg-white text-brand-text relative overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+    <div class="flex flex-col lg:flex-row items-center gap-16">
+      <div class="lg:w-1/2 relative">
+        <div class="aspect-[3/4] w-full max-w-md mx-auto rounded-t-full overflow-hidden border-4 border-brand-gold/30">
+          {% if image != blank %}
+            <img
+              class="w-full h-full object-cover"
+              src="{{ image | image_url: width: 1200 }}"
+              alt="{{ image_alt | default: image.alt | escape }}"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+              loading="lazy"
+            >
+          {% else %}
+            <img
+              class="w-full h-full object-cover"
+              src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d64fe16129-266fcd93025e01ddfe94.png"
+              alt="Founder portrait in a magical study"
+              width="1200"
+              height="1600"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
+        <div class="absolute -bottom-6 -right-6 bg-brand-forest p-6 rounded-full border border-brand-gold/20 hidden md:block">
+          <i class="fa-solid fa-quote-right text-brand-gold text-3xl" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="lg:w-1/2 text-center lg:text-left">
+        <span class="text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase block">{{ eyebrow }}</span>
+        <h2 class="font-heading text-4xl lg:text-5xl mb-8 leading-tight text-brand-forest">
+          {{ quote_html }}
+        </h2>
+        <div class="font-body text-brand-text text-lg mb-6 font-light leading-relaxed">
+          {{ paragraph_1_richtext }}
+        </div>
+        <div class="font-body text-brand-text text-lg mb-10 font-light leading-relaxed">
+          {{ paragraph_2_richtext }}
+        </div>
+        <div>
+          <p class="font-heading text-xl text-brand-gold mb-1">{{ signature_name }}</p>
+          <p class="font-body text-sm text-brand-muted uppercase tracking-widest">{{ signature_role }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing story",
+  "tag": "section",
+  "class": "landing-our-story",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Origins"
+    },
+    {
+      "type": "richtext",
+      "id": "quote_richtext",
+      "label": "Quote",
+      "default": "<p>\\\"Magic isn't just found in books; it's woven into the very fabric of our daily lives.\\\"</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph_1_richtext",
+      "label": "Paragraph 1",
+      "default": "<p>What started as a humble pursuit to craft the perfect replica wand has blossomed into Wand &amp; Willow. We believe that the stories we love hold real power, and surrounding ourselves with objects that reflect those stories can bring genuine enchantment to our everyday routines.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph_2_richtext",
+      "label": "Paragraph 2",
+      "default": "<p>Every artifact in our collection is sourced or crafted with reverence for the lore, ensuring that when you hold a piece from Wand &amp; Willow, you feel the magic it was meant to convey.</p>"
+    },
+    {
+      "type": "text",
+      "id": "signature_name",
+      "label": "Signature name",
+      "default": "Eleanor Vance"
+    },
+    {
+      "type": "text",
+      "id": "signature_role",
+      "label": "Signature role",
+      "default": "Founder &amp; Head Archivist"
+    }
+  ],
+  "presets": [{ "name": "Landing story" }]
+}
+{% endschema %}
+

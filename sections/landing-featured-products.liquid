@@ -1,0 +1,183 @@
+<script src="{{ 'embla-carousel.umd.js' | asset_url }}" defer></script>
+<script>
+  (() => {
+    const init = (sectionEl) => {
+      const viewport = sectionEl.querySelector('[data-embla-viewport]');
+      const prevButton = sectionEl.querySelector('[data-embla-prev]');
+      const nextButton = sectionEl.querySelector('[data-embla-next]');
+
+      if (!viewport || !window.EmblaCarousel) return;
+
+      const embla = window.EmblaCarousel(viewport, {
+        align: 'start',
+        containScroll: 'trimSnaps',
+        loop: false,
+      });
+
+      const updateButtons = () => {
+        if (prevButton) prevButton.disabled = !embla.canScrollPrev();
+        if (nextButton) nextButton.disabled = !embla.canScrollNext();
+      };
+
+      if (prevButton) prevButton.addEventListener('click', () => embla.scrollPrev());
+      if (nextButton) nextButton.addEventListener('click', () => embla.scrollNext());
+
+      embla.on('select', updateButtons);
+      embla.on('reInit', updateButtons);
+      updateButtons();
+    };
+
+    const initAll = () => {
+      document
+        .querySelectorAll('[data-featured-products-section-id]')
+        .forEach((sectionEl) => init(sectionEl));
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAll, { once: true });
+    } else {
+      initAll();
+    }
+  })();
+</script>
+
+{% liquid
+  assign title = section.settings.title
+  assign subtitle = section.settings.subtitle
+  assign selected_collection = section.settings.collection
+  assign max_products = section.settings.max_products
+  assign show_view_all = section.settings.show_view_all
+  assign view_all_label = section.settings.view_all_label
+
+  if view_all_label == blank
+    assign view_all_label = 'View All Artifacts'
+  endif
+%}
+
+<section id="featured-products" class="py-24 bg-white" data-featured-products-section-id="{{ section.id }}">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="flex justify-between items-end mb-12">
+      <div>
+        <h2 class="font-heading text-4xl text-brand-forest mb-2">{{ title }}</h2>
+        <p class="font-body text-brand-muted">{{ subtitle }}</p>
+      </div>
+      <div class="hidden md:flex gap-2" data-embla-controls>
+        <button
+          class="w-10 h-10 rounded-full border border-brand-sand flex items-center justify-center text-brand-forest hover:bg-brand-forest hover:text-white transition-colors"
+          type="button"
+          aria-label="Previous products"
+          data-embla-prev
+        >
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        </button>
+        <button
+          class="w-10 h-10 rounded-full border border-brand-sand flex items-center justify-center text-brand-forest hover:bg-brand-forest hover:text-white transition-colors"
+          type="button"
+          aria-label="Next products"
+          data-embla-next
+        >
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="embla" data-embla-viewport>
+      <div class="embla__container" data-embla-container>
+        {% if selected_collection != blank and selected_collection.products_count > 0 %}
+          {% for product in selected_collection.products limit: max_products %}
+            <div class="embla__slide">
+              {% render 'landing-featured-product-card', product: product %}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="mt-12 text-center">
+      {% if show_view_all and selected_collection != blank %}
+        <a
+          class="px-8 py-3 border-2 border-brand-forest text-brand-forest font-medium hover:bg-brand-forest hover:text-white transition-colors rounded-sm inline-block"
+          href="{{ selected_collection.url }}"
+        >
+          {{ view_all_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing featured",
+  "tag": "section",
+  "class": "landing-featured-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Curated Artifacts"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Hand-selected magical goods for your collection."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "Max products",
+      "min": 1,
+      "max": 16,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show view all button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all label",
+      "default": "View All Artifacts"
+    }
+  ],
+  "presets": [{ "name": "Landing featured" }]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .embla {
+    overflow: hidden;
+  }
+
+  .embla__container {
+    display: flex;
+    gap: 2rem; /* matches gap-8 */
+  }
+
+  .embla__slide {
+    flex: 0 0 100%;
+  }
+
+  @media (min-width: 640px) {
+    .embla__slide {
+      flex-basis: calc(50% - 1rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .embla__slide {
+      flex-basis: calc(25% - 1.5rem);
+    }
+  }
+{% endstylesheet %}

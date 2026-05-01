@@ -1,0 +1,183 @@
+{% liquid
+  assign footer_menu_1 = section.settings.menu_1
+  assign footer_menu_2 = section.settings.menu_2
+
+  # Prioritize the default logo from theme settings as requested
+  assign logo = settings.logo
+  if settings.logo_inverse != blank
+    assign logo = settings.logo_inverse
+  endif
+%}
+
+<footer id="footer" class="bg-brand-dark text-brand-sand pt-20 pb-10 border-t border-brand-forest">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
+      <div class="space-y-6">
+        <a href="{{ routes.root_url }}" class="flex items-center gap-2">
+          {%- if logo != blank -%}
+            {{
+              logo
+              | image_url: width: 400
+              | image_tag:
+                loading: 'lazy',
+                class: 'h-8 w-auto object-contain',
+                alt: shop.name
+            }}
+          {%- else -%}
+            <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl" aria-hidden="true"></i>
+            <span class="font-heading text-2xl font-bold text-white tracking-tight">{{ shop.name }}</span>
+          {%- endif -%}
+        </a>
+        {%- if section.settings.description != blank -%}
+          <p class="font-body text-sm text-brand-muted leading-relaxed">
+            {{ section.settings.description }}
+          </p>
+        {%- endif -%}
+        <div class="flex gap-4">
+          {%- if section.settings.social_instagram_link != blank -%}
+            <a
+              href="{{ section.settings.social_instagram_link }}"
+              class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors"
+              aria-label="Instagram"
+            >
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_tiktok_link != blank -%}
+            <a
+              href="{{ section.settings.social_tiktok_link }}"
+              class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors"
+              aria-label="TikTok"
+            >
+              <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_pinterest_link != blank -%}
+            <a
+              href="{{ section.settings.social_pinterest_link }}"
+              class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors"
+              aria-label="Pinterest"
+            >
+              <i class="fa-brands fa-pinterest" aria-hidden="true"></i>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_facebook_link != blank -%}
+            <a
+              href="{{ section.settings.social_facebook_link }}"
+              class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors"
+              aria-label="Facebook"
+            >
+              <i class="fa-brands fa-facebook" aria-hidden="true"></i>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-heading text-white text-lg mb-6">{{ footer_menu_1.title | default: 'Shop' }}</h4>
+        <ul class="space-y-4 font-body text-sm text-brand-muted">
+          {%- if footer_menu_1 != blank -%}
+            {%- for link in footer_menu_1.links -%}
+              <li>
+                <a href="{{ link.url }}" class="hover:text-brand-gold transition-colors">{{ link.title }}</a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="{{ routes.all_products_collection_url }}" class="hover:text-brand-gold transition-colors">All Products</a></li>
+            <li><a href="#" class="hover:text-brand-gold transition-colors">Wands</a></li>
+            <li><a href="#" class="hover:text-brand-gold transition-colors">Apothecary</a></li>
+            <li><a href="#" class="hover:text-brand-gold transition-colors">Apparel</a></li>
+            <li><a href="#" class="hover:text-brand-gold transition-colors">Jewelry</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-heading text-white text-lg mb-6">{{ footer_menu_2.title | default: 'Support' }}</h4>
+        <ul class="space-y-4 font-body text-sm text-brand-muted">
+          {%- if footer_menu_2 != blank -%}
+            {%- for link in footer_menu_2.links -%}
+              <li>
+                <a href="{{ link.url }}" class="hover:text-brand-gold transition-colors">{{ link.title }}</a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+            <li><a href="#" class="hover:text-brand-gold transition-colors">Shipping &amp; Returns</a></li>
+            <li><a href="#" class="hover:text-brand-gold transition-colors">Track Order</a></li>
+            <li><a href="{{ routes.contact_url }}" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-body text-xs text-brand-muted">
+      <p>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      <div class="flex gap-6">
+        {%- for policy in shop.policies -%}
+          {%- if policy != blank -%}
+            <a href="{{ policy.url }}" class="hover:text-white transition-colors">{{ policy.title }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Landing footer",
+  "tag": "section",
+  "class": "landing-footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Curators of fine magical goods, official merchandise, and handcrafted artifacts for the modern witch and wizard."
+    },
+    {
+      "type": "header",
+      "content": "Menus"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu 1",
+      "default": "footer",
+      "info": "This menu replaces the 'Shop' column"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2",
+      "info": "This menu replaces the 'Support' column"
+    },
+    {
+      "type": "header",
+      "content": "Social Links"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram_link",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok_link",
+      "label": "TikTok"
+    },
+    {
+      "type": "url",
+      "id": "social_pinterest_link",
+      "label": "Pinterest"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook_link",
+      "label": "Facebook"
+    }
+  ],
+  "presets": [{ "name": "Landing footer" }]
+}
+{% endschema %}

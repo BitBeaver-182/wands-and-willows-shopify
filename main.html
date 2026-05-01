@@ -1,0 +1,590 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wand &amp; Willow - Magical Goods &amp; Merchandise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f1f15',
+                            forest: '#1a3322',
+                            gold: '#c4a661',
+                            goldHover: '#d4b671',
+                            parchment: '#f8f5ee',
+                            sand: '#e8e2d2',
+                            text: '#2d3748',
+                            muted: '#718096'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f5ee; color: #2d3748; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-panel { background: rgba(26, 51, 34, 0.85); backdrop-filter: blur(10px); }
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(26, 51, 34, 0.1); }
+    </style>
+</head>
+<body class="w-full min-h-screen text-brand-text bg-brand-parchment overflow-x-hidden">
+
+    <!-- Promo Bar -->
+    <div id="promo-bar" class="bg-brand-dark text-brand-parchment text-center py-2 text-sm font-body tracking-wider">
+        <span>Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off.</span>
+    </div>
+
+    <!-- Navigation -->
+    <header id="header" class="sticky top-0 z-50 bg-brand-parchment/95 backdrop-blur-md border-b border-brand-sand">
+<script>window.FontAwesomeConfig = { autoReplaceSvg: "nest"};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        
+        <button class="lg:hidden text-brand-forest text-xl">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="#" class="flex-shrink-0 flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+            <span class="font-heading text-2xl font-bold text-brand-forest tracking-tight">Wand &amp; Willow</span>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-8">
+            <div class="relative group">
+                <button class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest flex items-center gap-2 py-8">
+                    Collections
+                    <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                </button>
+                <div class="absolute top-[80px] left-0 w-64 bg-white border border-brand-sand shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <div class="flex flex-col">
+                        <a href="#" class="px-6 py-4 text-brand-forest hover:bg-brand-parchment hover:text-brand-gold transition-colors font-body text-base">
+                            Harry Potter
+                        </a>
+                        <a href="#" class="px-6 py-4 text-brand-forest hover:bg-brand-parchment hover:text-brand-gold transition-colors font-body text-base">
+                            Handmade
+                        </a>
+                        <a href="#" class="px-6 py-4 text-brand-forest hover:bg-brand-parchment hover:text-brand-gold transition-colors font-body text-base">
+                            Wicked
+                        </a>
+                        <a href="#" class="px-6 py-4 text-brand-forest hover:bg-brand-parchment hover:text-brand-gold transition-colors font-body text-base">
+                            Kpop
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative group">
+                <button class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest flex items-center gap-2 py-8">
+                    Subscriptions
+                    <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                </button>
+                <div class="absolute top-[80px] left-0 w-64 bg-white border border-brand-sand shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <div class="flex flex-col">
+                        <a href="#" class="px-6 py-4 text-brand-forest hover:bg-brand-parchment hover:text-brand-gold transition-colors font-body text-base">
+                            Monthly Box
+                        </a>
+                        <a href="#" class="px-6 py-4 text-brand-forest hover:bg-brand-parchment hover:text-brand-gold transition-colors font-body text-base">
+                            Gift Subscriptions
+                        </a>
+                        <a href="#" class="px-6 py-4 text-brand-forest hover:bg-brand-parchment hover:text-brand-gold transition-colors font-body text-base">
+                            Manage Subscription
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest py-8">Community</a>
+            <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest py-8">Our Story</a>
+        </nav>
+
+        <div class="flex items-center gap-6">
+            <button class="text-brand-forest hover:text-brand-gold transition-colors">
+                <i class="fa-solid fa-magnifying-glass text-lg"></i>
+            </button>
+            <button class="text-brand-forest hover:text-brand-gold transition-colors hidden sm:block">
+                <i class="fa-regular fa-user text-lg"></i>
+            </button>
+            <button class="text-brand-forest hover:text-brand-gold transition-colors relative">
+                <i class="fa-solid fa-bag-shopping text-lg"></i>
+                <span class="absolute -top-2 -right-2 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">3</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative w-full h-[800px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/73adfd8ef7-484881777d73dc7933e7.png" alt="dark mystical library interior, towering bookshelves filled with ancient leather-bound books, ornate wooden ladder, soft candlelight casting warm glow, magical atmosphere, deep forest green walls, antique gold accents, floating dust particles in light beams, gothic architecture, premium cinematic photography">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/60 via-brand-dark/40 to-brand-forest/80"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-brand-parchment">
+            <span class="block text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">Curated Enchantments</span>
+            <h1 class="font-heading text-5xl md:text-7xl font-bold mb-6 leading-tight">Bring Magic Into<br>Your Everyday</h1>
+            <p class="font-body text-lg md:text-xl mb-10 text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">
+                Discover our curated collection of official merchandise, handcrafted wands, and artisanal goods inspired by the world's most beloved magical realms.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button class="w-full sm:w-auto px-8 py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm">
+                    Shop Collections
+                </button>
+                <button class="w-full sm:w-auto px-8 py-4 bg-transparent border border-brand-sand hover:bg-brand-sand/10 text-brand-parchment font-medium tracking-wide transition-all rounded-sm">
+                    Explore Wands
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop by House -->
+    <section id="shop-by-house" class="py-24 bg-brand-parchment">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">Shop by House</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- House Courage -->
+                <a href="#" class="group relative h-[450px] overflow-hidden rounded-sm card-hover">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/f8c0c2b741-2817399d9bea7d712de4.png" alt="aesthetic flatlay of red and gold magical items, gryffindor inspired, lion motif, rich crimson tones, dark background, premium lighting">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h3 class="font-heading text-2xl text-white mb-2">House of Courage</h3>
+                        <p class="font-body text-brand-sand text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">Crimson &amp; Gold Collection</p>
+                    </div>
+                </a>
+
+                <!-- House Loyalty -->
+                <a href="#" class="group relative h-[450px] overflow-hidden rounded-sm card-hover">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d64fe16129-266fcd93025e01ddfe94.png" alt="aesthetic flatlay of yellow and black magical items, hufflepuff inspired, badger motif, warm amber and charcoal tones, earthy, premium lighting">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h3 class="font-heading text-2xl text-white mb-2">House of Loyalty</h3>
+                        <p class="font-body text-brand-sand text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">Amber &amp; Charcoal Collection</p>
+                    </div>
+                </a>
+
+                <!-- House Wisdom -->
+                <a href="#" class="group relative h-[450px] overflow-hidden rounded-sm card-hover">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/44478a4c92-32f648236626a8be01ea.png" alt="aesthetic flatlay of blue and bronze magical items, ravenclaw inspired, eagle motif, deep sapphire and bronze tones, intellectual, premium lighting">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h3 class="font-heading text-2xl text-white mb-2">House of Wisdom</h3>
+                        <p class="font-body text-brand-sand text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">Sapphire &amp; Bronze Collection</p>
+                    </div>
+                </a>
+
+                <!-- House Ambition -->
+                <a href="#" class="group relative h-[450px] overflow-hidden rounded-sm card-hover">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/4b438908f3-2c2ac96ba0761d14f1f3.png" alt="aesthetic flatlay of green and silver magical items, slytherin inspired, snake motif, emerald and silver tones, elegant, premium lighting">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h3 class="font-heading text-2xl text-white mb-2">House of Ambition</h3>
+                        <p class="font-body text-brand-sand text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">Emerald &amp; Silver Collection</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="featured-products" class="py-24 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="font-heading text-4xl text-brand-forest mb-2">Curated Artifacts</h2>
+                    <p class="font-body text-brand-muted">Hand-selected magical goods for your collection.</p>
+                </div>
+                <div class="hidden md:flex gap-2">
+                    <button class="w-10 h-10 rounded-full border border-brand-sand flex items-center justify-center text-brand-forest hover:bg-brand-forest hover:text-white transition-colors">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button class="w-10 h-10 rounded-full border border-brand-sand flex items-center justify-center text-brand-forest hover:bg-brand-forest hover:text-white transition-colors">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="group relative bg-brand-parchment rounded-sm p-4 border border-brand-sand/50 hover:shadow-xl transition-all duration-300">
+                    <button class="absolute top-6 right-6 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-4 relative">
+                        <img class="w-full h-full object-cover mix-blend-multiply p-4" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="premium handcrafted wooden wand, dark oak, intricate carvings, isolated on white background, high resolution product photography">
+                        <div class="absolute top-4 left-4 bg-brand-forest text-white text-xs font-bold px-2 py-1 uppercase tracking-wider">New</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-heading text-lg text-brand-forest font-medium leading-tight">Elderwood Artisan Wand</h3>
+                            <span class="font-body font-semibold text-brand-text">$85.00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-brand-gold text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="text-brand-muted ml-1">(42)</span>
+                        </div>
+                        <button class="w-full mt-4 py-3 bg-brand-forest text-white font-medium text-sm hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group relative bg-brand-parchment rounded-sm p-4 border border-brand-sand/50 hover:shadow-xl transition-all duration-300">
+                    <button class="absolute top-6 right-6 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-4 relative">
+                        <img class="w-full h-full object-cover mix-blend-multiply p-4" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/aa4984facf-0c09be89a7c3f0c59529.png" alt="premium apothecary candle in dark amber glass jar with gold label,">
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-heading text-lg text-brand-forest font-medium leading-tight">Amortentia Soy Candle</h3>
+                            <span class="font-body font-semibold text-brand-text">$32.00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-brand-gold text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-brand-muted ml-1">(128)</span>
+                        </div>
+                        <button class="w-full mt-4 py-3 bg-brand-forest text-white font-medium text-sm hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group relative bg-brand-parchment rounded-sm p-4 border border-brand-sand/50 hover:shadow-xl transition-all duration-300">
+                    <button class="absolute top-6 right-6 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-4 relative">
+                        <img class="w-full h-full object-cover mix-blend-multiply p-4" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5b4e979cc7-61b3cdcffd2494b04633.png" alt="time turner necklace replica, gold plating, intricate details, isolated on white background, premium jewelry photography">
+                        <div class="absolute top-4 left-4 bg-red-800 text-white text-xs font-bold px-2 py-1 uppercase tracking-wider">Low Stock</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-heading text-lg text-brand-forest font-medium leading-tight">Time-Turner Pendant</h3>
+                            <span class="font-body font-semibold text-brand-text">$65.00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-brand-gold text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <span class="text-brand-muted ml-1">(89)</span>
+                        </div>
+                        <button class="w-full mt-4 py-3 bg-brand-forest text-white font-medium text-sm hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="group relative bg-brand-parchment rounded-sm p-4 border border-brand-sand/50 hover:shadow-xl transition-all duration-300">
+                    <button class="absolute top-6 right-6 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-4 relative">
+                        <img class="w-full h-full object-cover mix-blend-multiply p-4" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/109c5d63a0-1bf006a727145c51721a.png" alt="premium leather bound notebook, dark green with silver embossing, blank pages, isolated on white background, product photography">
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-heading text-lg text-brand-forest font-medium leading-tight">Serpent Leather Journal</h3>
+                            <span class="font-body font-semibold text-brand-text">$48.00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-brand-gold text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-brand-muted ml-1">(215)</span>
+                        </div>
+                        <button class="w-full mt-4 py-3 bg-brand-forest text-white font-medium text-sm hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <button class="px-8 py-3 border-2 border-brand-forest text-brand-forest font-medium hover:bg-brand-forest hover:text-white transition-colors rounded-sm">
+                    View All Artifacts
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Curator's Desk (Editorial) -->
+    <section id="curators-desk" class="py-24 bg-brand-parchment border-y border-brand-sand">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">The Curator's Desk</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+                <p class="font-body text-brand-muted max-w-2xl mx-auto">Stories, insights, and magical findings from our head archivist.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Editorial 1 -->
+                <article class="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div class="h-64 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/fd23b53748-52dc6f8ed6830fce6874.png" alt="vintage books stacked on a wooden desk, warm candlelight, reading glasses, dark academia aesthetic">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Current Read</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-3">The History of Wandlore in the 19th Century</h3>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 line-clamp-3">Explore the fascinating evolution of wand crafting techniques during the industrial revolution and how traditional makers adapted.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Read Article <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Editorial 2 -->
+                <article class="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div class="h-64 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/af0e3f0348-daab6d0bab4d9bbe518e.png" alt="close up of intricate magical artifact, glowing faintly, dark moody lighting, premium photography">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Artifact Spotlight</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-3">Unearthing the Lost Diadem Replicas</h3>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 line-clamp-3">Our journey to recreate one of the most sought-after magical artifacts using authentic materials and historical references.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Read Article <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Editorial 3 -->
+                <article class="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div class="h-64 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/b924168c24-8e6728b54876727d2976.png" alt="cozy magical room interior, green velvet armchair, fireplace, plants, witchy aesthetic">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Magic of Life</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-3">Creating a Magical Sanctuary at Home</h3>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 line-clamp-3">Simple ways to incorporate enchantment into your everyday living space using lighting, scents, and curated objects.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Read Article <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Box -->
+    <section id="subscription" class="py-0 flex flex-col lg:flex-row min-h-[600px]">
+        <div class="lg:w-1/2 relative min-h-[400px]">
+            <img class="absolute inset-0 w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ad23f1cf92-3d8a0dd85349a36be390.png" alt="premium unboxing experience, beautiful dark green box with gold foil stamping, magical items inside, tissue paper, aesthetic lighting">
+        </div>
+        <div class="lg:w-1/2 bg-brand-forest text-brand-parchment p-12 lg:p-24 flex flex-col justify-center">
+            <span class="text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">Monthly Owl Post</span>
+            <h2 class="font-heading text-4xl lg:text-5xl mb-6">The Monthly Dose of Magic</h2>
+            <p class="font-body text-brand-sand text-lg mb-8 font-light leading-relaxed max-w-lg">
+                Receive a carefully curated parcel of exclusive merchandise, handcrafted apothecary items, and magical artifacts delivered to your door every month.
+            </p>
+            <ul class="space-y-4 mb-10 text-brand-sand font-body">
+                <li class="flex items-center gap-3">
+                    <i class="fa-solid fa-check text-brand-gold"></i>
+                    <span>3-5 premium magical items per box</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <i class="fa-solid fa-check text-brand-gold"></i>
+                    <span>Exclusive items not sold in store</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <i class="fa-solid fa-check text-brand-gold"></i>
+                    <span>Personalized to your chosen House</span>
+                </li>
+            </ul>
+            <div>
+                <button class="px-8 py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm inline-block">
+                    Subscribe Now - $45/mo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Room Community Section -->
+    <section id="common-room" class="py-24 bg-brand-parchment border-y border-brand-sand">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">The Common Room</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+                <p class="font-body text-brand-muted max-w-2xl mx-auto">See how our community brings magic into their everyday lives. Tag us to be featured.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="group relative aspect-square overflow-hidden rounded-sm">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/b924168c24-8e6728b54876727d2976.png" alt="user generated content showing magical setup">
+                    <div class="absolute inset-0 bg-brand-forest/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fa-brands fa-instagram text-white text-3xl"></i>
+                    </div>
+                </div>
+                <div class="group relative aspect-square overflow-hidden rounded-sm">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/fd23b53748-52dc6f8ed6830fce6874.png" alt="user generated content showing wand collection">
+                    <div class="absolute inset-0 bg-brand-forest/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fa-brands fa-instagram text-white text-3xl"></i>
+                    </div>
+                </div>
+                <div class="group relative aspect-square overflow-hidden rounded-sm">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/af0e3f0348-daab6d0bab4d9bbe518e.png" alt="user generated content showing reading nook">
+                    <div class="absolute inset-0 bg-brand-forest/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fa-brands fa-instagram text-white text-3xl"></i>
+                    </div>
+                </div>
+                <div class="group relative aspect-square overflow-hidden rounded-sm">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ad23f1cf92-3d8a0dd85349a36be390.png" alt="user generated content showing potion bottles">
+                    <div class="absolute inset-0 bg-brand-forest/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fa-brands fa-instagram text-white text-3xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <button class="px-8 py-3 bg-transparent border-2 border-brand-forest text-brand-forest font-medium hover:bg-brand-forest hover:text-white transition-colors rounded-sm">
+                    Follow @WandAndWillow
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curated Collections -->
+    <section id="curated-collections" class="hidden">
+</section>
+
+    <!-- Our Story -->
+    <section id="our-story" class="py-24 bg-white text-brand-text relative overflow-hidden">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2 relative">
+                <div class="aspect-[3/4] w-full max-w-md mx-auto rounded-t-full overflow-hidden border-4 border-brand-gold/30">
+                    <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d64fe16129-266fcd93025e01ddfe94.png" alt="Founder portrait in a magical study">
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-brand-forest p-6 rounded-full border border-brand-gold/20 hidden md:block">
+                    <i class="fa-solid fa-quote-right text-brand-gold text-3xl"></i>
+                </div>
+            </div>
+            
+            <div class="lg:w-1/2 text-center lg:text-left">
+                <span class="text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase block">Our Origins</span>
+                <h2 class="font-heading text-4xl lg:text-5xl mb-8 leading-tight text-brand-forest">"Magic isn't just found in books; it's woven into the very fabric of our daily lives."</h2>
+                <p class="font-body text-brand-text text-lg mb-6 font-light leading-relaxed">
+                    What started as a humble pursuit to craft the perfect replica wand has blossomed into Wand &amp; Willow. We believe that the stories we love hold real power, and surrounding ourselves with objects that reflect those stories can bring genuine enchantment to our everyday routines.
+                </p>
+                <p class="font-body text-brand-text text-lg mb-10 font-light leading-relaxed">
+                    Every artifact in our collection is sourced or crafted with reverence for the lore, ensuring that when you hold a piece from Wand &amp; Willow, you feel the magic it was meant to convey.
+                </p>
+                <div>
+                    <p class="font-heading text-xl text-brand-gold mb-1">Eleanor Vance</p>
+                    <p class="font-body text-sm text-brand-muted uppercase tracking-widest">Founder &amp; Head Archivist</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Subscribe Section -->
+    <section id="newsletter-signup" class="py-24 bg-brand-parchment border-b border-brand-sand">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <i class="fa-solid fa-envelope-open-text text-brand-gold text-4xl mb-6"></i>
+            <h2 class="font-heading text-4xl text-brand-forest mb-4">Join The Inner Circle</h2>
+            <p class="font-body text-brand-muted mb-10 max-w-2xl mx-auto">
+                Subscribe to our newsletter for exclusive early access to new collections, magical insights from our archivist, and special invitations to community events.
+            </p>
+            
+            <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                <input type="email" placeholder="Enter your email address" class="flex-grow bg-white border border-brand-sand rounded-sm px-6 py-4 text-brand-text placeholder-brand-muted/70 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all">
+                <button type="submit" class="px-8 py-4 bg-brand-forest hover:bg-brand-dark text-white font-medium tracking-wide transition-all rounded-sm whitespace-nowrap">
+                    Subscribe
+                </button>
+            </form>
+            <p class="font-body text-xs text-brand-muted mt-4">By subscribing, you agree to our Privacy Policy and Terms of Service.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-brand-dark text-brand-sand pt-20 pb-10 border-t border-brand-forest">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
+            <div class="space-y-6">
+                <a href="#" class="flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                    <span class="font-heading text-2xl font-bold text-white tracking-tight">Wand &amp; Willow</span>
+                </a>
+                <p class="font-body text-sm text-brand-muted leading-relaxed">
+                    Curators of fine magical goods, official merchandise, and handcrafted artifacts for the modern witch and wizard.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-pinterest"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-heading text-white text-lg mb-6">Shop</h4>
+                <ul class="space-y-4 font-body text-sm text-brand-muted">
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">All Products</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Wands</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Apothecary</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Apparel</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Jewelry</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-heading text-white text-lg mb-6">Support</h4>
+                <ul class="space-y-4 font-body text-sm text-brand-muted">
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Shipping &amp; Returns</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Track Order</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-body text-xs text-brand-muted">
+            <p>© 2024 Wand &amp; Willow. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+</body></html>

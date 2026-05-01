@@ -1,0 +1,133 @@
+{% liquid
+  assign image = section.settings.image
+  assign image_alt = section.settings.image_alt
+  assign eyebrow = section.settings.eyebrow
+  assign heading = section.settings.heading
+  assign body = section.settings.body
+  assign feature_1 = section.settings.feature_1
+  assign feature_2 = section.settings.feature_2
+  assign feature_3 = section.settings.feature_3
+  assign submit_label = section.settings.submit_label
+%}
+
+<section id="subscription" class="py-0 flex flex-col lg:flex-row min-h-[600px]">
+  <div class="lg:w-1/2 relative min-h-[400px]">
+    {% if image != blank %}
+      <img
+        class="absolute inset-0 w-full h-full object-cover"
+        src="{{ image | image_url: width: 1600 }}"
+        alt="{{ image_alt | default: image.alt | escape }}"
+        width="{{ image.width }}"
+        height="{{ image.height }}"
+        loading="lazy"
+      >
+    {% else %}
+      <img
+        class="absolute inset-0 w-full h-full object-cover"
+        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ad23f1cf92-3d8a0dd85349a36be390.png"
+        alt="premium unboxing experience, beautiful dark green box with gold foil stamping, magical items inside, tissue paper, aesthetic lighting"
+        width="1200"
+        height="1600"
+        loading="lazy"
+      >
+    {% endif %}
+  </div>
+  <div class="lg:w-1/2 bg-brand-forest text-brand-parchment p-12 lg:p-24 flex flex-col justify-center">
+    <span class="text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">{{ eyebrow }}</span>
+    <h2 class="font-heading text-4xl lg:text-5xl mb-6">{{ heading }}</h2>
+    <div class="font-body text-brand-sand text-lg mb-8 font-light leading-relaxed max-w-lg">
+      {{ body }}
+    </div>
+    <ul class="space-y-4 mb-10 text-brand-sand font-body">
+      <li class="flex items-center gap-3">
+        <i class="fa-solid fa-check text-brand-gold" aria-hidden="true"></i>
+        <span>{{ feature_1 }}</span>
+      </li>
+      <li class="flex items-center gap-3">
+        <i class="fa-solid fa-check text-brand-gold" aria-hidden="true"></i>
+        <span>{{ feature_2 }}</span>
+      </li>
+      <li class="flex items-center gap-3">
+        <i class="fa-solid fa-check text-brand-gold" aria-hidden="true"></i>
+        <span>{{ feature_3 }}</span>
+      </li>
+    </ul>
+    <div>
+      <a
+        href="{{ section.settings.button_link | default: '#' }}"
+        class="px-8 py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm inline-block whitespace-nowrap"
+      >
+        {{ submit_label }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing subscription",
+  "tag": "section",
+  "class": "landing-subscription",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Monthly Owl Post"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Monthly Dose of Magic"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Receive a carefully curated parcel of exclusive merchandise, handcrafted apothecary items, and magical artifacts delivered to your door every month.</p>"
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Feature 1",
+      "default": "3-5 premium magical items per box"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Feature 2",
+      "default": "Exclusive items not sold in store"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Feature 3",
+      "default": "Personalized to your chosen House"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Button label",
+      "default": "Subscribe Now - $45/mo"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [{ "name": "Landing subscription" }]
+}
+{% endschema %}
+

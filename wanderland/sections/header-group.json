@@ -7,17 +7,16 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
-  "type": "footer",
-  "name": "t:names.footer",
+{
+  "type": "header",
+  "name": "t:general.header",
   "sections": {
-    "landing_footer": {
-      "type": "landing-footer",
-      "settings": {
-      }
+    "header": {
+      "type": "header",
+      "settings": {}
     }
   },
   "order": [
-    "landing_footer"
-  ]
+    "header"
+  ],
 }

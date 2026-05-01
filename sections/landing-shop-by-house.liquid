@@ -1,0 +1,132 @@
+<section id="shop-by-house" class="py-24 bg-brand-parchment">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="text-center mb-16">
+      <h2 class="font-heading text-4xl text-brand-forest mb-4">Shop by House</h2>
+      <div class="w-16 h-0.5 bg-brand-gold mx-auto"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 grid-rows-2">
+      {% for block in section.blocks limit: 4 %}
+        {% liquid
+          assign card_collection = block.settings.collection
+          assign card_href = '#'
+          if card_collection != blank
+            assign card_href = card_collection.url
+          endif
+        %}
+
+        <a
+          href="{{ card_href }}"
+          class="group relative h-[450px] overflow-hidden rounded-sm card-hover"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.background_image != blank %}
+            {{
+              block.settings.background_image
+              | image_url: width: 1600
+              | image_tag:
+                class: 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105',
+                loading: 'lazy',
+                fetchpriority: 'low',
+                alt: block.settings.background_image_alt
+            }}
+          {% endif %}
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-8 w-full">
+            {% if block.settings.title != blank %}
+              <h3 class="font-heading text-2xl text-white mb-2">{{ block.settings.title }}</h3>
+            {% endif %}
+            {% if block.settings.description != blank %}
+              <div class="font-body text-brand-sand text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                {{ block.settings.description }}
+              </div>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing houses",
+  "tag": "section",
+  "class": "landing-shop-by-house",
+  "settings": [],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "house_card",
+      "name": "House card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background image"
+        },
+        {
+          "type": "text",
+          "id": "background_image_alt",
+          "label": "Background image alt text",
+          "default": "House collection image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "House of Courage"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Crimson &amp; Gold Collection</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing houses",
+      "blocks": {
+        "card_1": {
+          "type": "house_card",
+          "settings": {
+            "title": "House of Courage",
+            "description": "<p>Crimson &amp; Gold Collection</p>"
+          }
+        },
+        "card_2": {
+          "type": "house_card",
+          "settings": {
+            "title": "House of Loyalty",
+            "description": "<p>Amber &amp; Charcoal Collection</p>"
+          }
+        },
+        "card_3": {
+          "type": "house_card",
+          "settings": {
+            "title": "House of Wisdom",
+            "description": "<p>Sapphire &amp; Bronze Collection</p>"
+          }
+        },
+        "card_4": {
+          "type": "house_card",
+          "settings": {
+            "title": "House of Ambition",
+            "description": "<p>Emerald &amp; Silver Collection</p>"
+          }
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3", "card_4"]
+    }
+  ]
+}
+{% endschema %}
+

@@ -57,6 +57,28 @@
     ]
   },
   {
+    "name": "Promo bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "promo_bar_enabled",
+        "label": "Enable promo bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "promo_bar_text",
+        "label": "Promo text",
+        "default": "Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off."
+      },
+      {
+        "type": "url",
+        "id": "promo_bar_link",
+        "label": "Promo link (optional)"
+      }
+    ]
+  },
+  {
     "name": "t:names.colors",
     "settings": [
       {

@@ -1,0 +1,154 @@
+{% liquid
+  assign hero_id = section.settings.custom_id | default: 'hero'
+
+  assign eyebrow = section.settings.eyebrow
+  assign heading = section.settings.heading
+  assign body = section.settings.body
+
+  assign primary_label = section.settings.primary_button_label
+  assign primary_link = section.settings.primary_button_link
+
+  assign secondary_label = section.settings.secondary_button_label
+  assign secondary_link = section.settings.secondary_button_link
+%}
+
+<section
+  id="{{ hero_id }}"
+  class="relative w-full h-[800px] flex items-center justify-center overflow-hidden"
+>
+  {% if section.settings.background_image != blank %}
+    <div class="absolute inset-0 z-0">
+      {{
+        section.settings.background_image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'w-full h-full object-cover',
+          loading: 'lazy',
+          fetchpriority: 'low',
+          alt: section.settings.background_image_alt
+      }}
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/60 via-brand-dark/40 to-brand-forest/80"></div>
+    </div>
+  {% endif %}
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-brand-parchment">
+    {% if eyebrow != blank %}
+      <span class="block text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">
+        {{ eyebrow }}
+      </span>
+    {% endif %}
+
+    {% if heading != blank %}
+      <div class="font-heading text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        {{ heading }}
+      </div>
+    {% endif %}
+
+    {% if body != blank %}
+      <div class="font-body text-lg md:text-xl mb-10 text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">
+        {{ body }}
+      </div>
+    {% endif %}
+
+    {% if primary_label != blank or secondary_label != blank %}
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        {% if primary_label != blank and primary_link != blank %}
+          <a
+            class="w-full sm:w-auto px-8 py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm text-center"
+            href="{{ primary_link }}"
+          >
+            {{ primary_label }}
+          </a>
+        {% endif %}
+
+        {% if secondary_label != blank and secondary_link != blank %}
+          <a
+            class="w-full sm:w-auto px-8 py-4 bg-transparent border border-brand-sand hover:bg-brand-sand/10 text-brand-parchment font-medium tracking-wide transition-all rounded-sm text-center"
+            href="{{ secondary_link }}"
+          >
+            {{ secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing hero",
+  "tag": "section",
+  "class": "landing-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Section ID",
+      "default": "hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "background_image_alt",
+      "label": "Background image alt text",
+      "default": "Hero background image",
+      "info": "Describe the image for screen readers."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Curated Enchantments"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Bring Magic Into<br>Your Everyday</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body text",
+      "default": "<p>Discover our curated collection of official merchandise, handcrafted wands, and artisanal goods inspired by the world's most beloved magical realms.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Label",
+      "default": "Shop Collections"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Label",
+      "default": "Explore Wands"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [{ "name": "Landing hero" }]
+}
+{% endschema %}
+

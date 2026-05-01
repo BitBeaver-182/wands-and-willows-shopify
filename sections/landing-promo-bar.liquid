@@ -1,0 +1,83 @@
+{% liquid
+  assign use_global = section.settings.use_global
+
+  if use_global
+    assign promo_enabled = settings.promo_bar_enabled
+    assign promo_text = settings.promo_bar_text
+    assign promo_link = settings.promo_bar_link
+  else
+    assign promo_enabled = section.settings.enabled
+    assign promo_text = section.settings.text
+    assign promo_link = section.settings.link
+  endif
+%}
+
+{% if promo_enabled and promo_text != blank %}
+  <div
+    id="promo-bar"
+    class="bg-brand-dark text-brand-parchment text-center py-2 text-sm font-body tracking-wider"
+  >
+    {% if promo_link != blank %}
+      <a href="{{ promo_link }}" class="promo-bar__link">
+        <span>{{ promo_text }}</span>
+      </a>
+    {% else %}
+      <span>{{ promo_text }}</span>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  #promo-bar .promo-bar__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #promo-bar .promo-bar__link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    text-decoration: underline;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Landing promo bar",
+  "tag": "section",
+  "class": "landing-promo-bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_global",
+      "label": "Use global promo bar settings",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section override"
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable promo bar",
+      "default": true,
+      "visible_if": "{{ section.settings.use_global == false }}"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Promo text",
+      "default": "Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off.",
+      "visible_if": "{{ section.settings.use_global == false }}"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Promo link (optional)",
+      "visible_if": "{{ section.settings.use_global == false }}"
+    }
+  ],
+  "presets": [{ "name": "Landing promo bar" }]
+}
+{% endschema %}
+

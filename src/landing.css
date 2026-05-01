@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .landing {
+    font-family: theme('fontFamily.body');
+    background-color: theme('colors.brand.parchment');
+    color: theme('colors.brand.text');
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .landing :is(h1, h2, h3, h4, h5, h6) {
+    font-family: theme('fontFamily.heading');
+  }
+}
+
+@layer utilities {
+  .landing .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .landing .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .landing .glass-panel {
+    background: rgba(26, 51, 34, 0.85);
+    backdrop-filter: blur(10px);
+  }
+
+  .landing .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .landing .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(26, 51, 34, 0.1);
+  }
+}
+

@@ -1,0 +1,117 @@
+{% liquid
+  assign desktop_menu = section.settings.menu
+%}
+
+<header
+  id="header"
+  class="sticky top-0 z-50 bg-brand-parchment/95 backdrop-blur-md border-b border-brand-sand"
+>
+  {% style %}
+    #header details[open] > .landing-header__dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #header details[open] > summary .landing-header__chevron {
+      transform: rotate(180deg);
+    }
+  {% endstyle %}
+
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+    <button class="lg:hidden text-brand-forest text-xl" type="button" aria-label="Open menu">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+
+    <a href="{{ routes.root_url }}" class="flex-shrink-0 flex items-center gap-2">
+      <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl" aria-hidden="true"></i>
+      <span class="font-heading text-2xl font-bold text-brand-forest tracking-tight">{{ shop.name }}</span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-8" aria-label="Primary">
+      {%- for link in desktop_menu.links -%}
+        {%- if link.links != blank -%}
+          <details class="relative group">
+            <summary
+              class="list-none text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest flex items-center gap-2 py-8 cursor-pointer"
+              aria-label="{{ link.title | escape }}"
+            >
+              {{ link.title }}
+              <i class="landing-header__chevron fa-solid fa-chevron-down text-xs transition-transform group-open:rotate-180" aria-hidden="true"></i>
+            </summary>
+            <div
+              class="landing-header__dropdown absolute top-[80px] left-0 w-64 bg-white border border-brand-sand shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-open:opacity-100 group-open:visible transition-all duration-200"
+            >
+              <div class="flex flex-col">
+                {%- for childlink in link.links -%}
+                  <a
+                    href="{{ childlink.url }}"
+                    class="px-6 py-4 text-brand-forest hover:bg-brand-parchment hover:text-brand-gold transition-colors font-body text-base"
+                    {% if childlink.current %}
+                      aria-current="page"
+                    {% endif %}
+                  >
+                    {{ childlink.title }}
+                  </a>
+                {%- endfor -%}
+              </div>
+            </div>
+          </details>
+        {%- else -%}
+          <a
+            href="{{ link.url }}"
+            class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest py-8"
+            {% if link.current %}
+              aria-current="page"
+            {% endif %}
+          >
+            {{ link.title }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+
+    <div class="flex items-center gap-6">
+      <button
+        class="text-brand-forest hover:text-brand-gold transition-colors"
+        type="button"
+        aria-label="Search"
+        aria-haspopup="dialog"
+        on:click="#search-modal/showDialog"
+      >
+        <i class="fa-solid fa-magnifying-glass text-lg" aria-hidden="true"></i>
+      </button>
+      <a class="text-brand-forest hover:text-brand-gold transition-colors hidden sm:block" href="{{ routes.account_url }}" aria-label="Account">
+        <i class="fa-regular fa-user text-lg" aria-hidden="true"></i>
+      </a>
+      <a class="text-brand-forest hover:text-brand-gold transition-colors relative" href="{{ routes.cart_url }}" aria-label="Cart">
+        <i class="fa-solid fa-bag-shopping text-lg" aria-hidden="true"></i>
+        {%- if cart.item_count > 0 -%}
+          <span
+            class="absolute -top-2 -right-2 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center"
+            aria-hidden="true"
+          >
+            {{ cart.item_count }}
+          </span>
+        {%- endif -%}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Landing header",
+  "tag": "section",
+  "class": "landing-header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ],
+  "presets": [{ "name": "Landing header" }]
+}
+{% endschema %}
+

@@ -1,0 +1,16 @@
+{
+  "name": "wand-and-willow-horizon",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/landing.css -o ./assets/landing-tailwind.css --minify",
+    "dev:css": "tailwindcss -i ./src/landing.css -o ./assets/landing-tailwind.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "embla-carousel": "^8.6.0"
+  }
+}

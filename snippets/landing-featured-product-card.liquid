@@ -1,0 +1,88 @@
+{%- doc -%}
+  Landing featured product card (design-locked)
+
+  Renders the exact card markup used by `sections/landing-featured-products.liquid`,
+  but wired to real product data + integrations.
+
+  @param {object} product - Shopify product
+{%- enddoc -%}
+
+{%- liquid
+  assign product = product | default: blank
+  if product == blank
+    break
+  endif
+
+  assign variant = product.selected_or_first_available_variant
+  assign featured_image = product.featured_media.preview_image
+  if variant.featured_media != blank
+    assign featured_image = variant.featured_media.preview_image
+  endif
+
+  assign product_url = variant.url | default: product.url
+  assign can_add_to_cart = product.available
+-%}
+
+<div class="group relative bg-brand-parchment rounded-sm p-4 border border-brand-sand/50 hover:shadow-xl transition-all duration-300">
+  {% render 'wishlisthero-collection-product', product: product %}
+
+  <a href="{{ product_url }}" class="block" aria-label="{{ product.title | escape }}">
+    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-4 relative">
+      {% if featured_image != blank %}
+        {{
+          featured_image
+          | image_url: width: 900
+          | image_tag:
+            class: 'w-full h-full object-cover mix-blend-multiply p-4',
+            loading: 'lazy',
+            fetchpriority: 'low',
+            alt: featured_image.alt | default: product.title
+        }}
+      {% endif %}
+
+      {% if product.tags contains 'New' %}
+        <div class="absolute top-4 left-4 bg-brand-forest text-white text-xs font-bold px-2 py-1 uppercase tracking-wider">New</div>
+      {% endif %}
+    </div>
+  </a>
+
+  <div class="space-y-2">
+    <div class="flex justify-between items-start">
+      <h3 class="font-heading text-lg text-brand-forest font-medium leading-tight">
+        <a href="{{ product_url }}">{{ product.title }}</a>
+      </h3>
+      <span class="font-body font-semibold text-brand-text">
+        {{ product.price | money }}
+      </span>
+    </div>
+
+    <div class="flex items-center gap-1 text-brand-gold text-xs">
+      <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+        {{ product.metafields.judgeme.badge }}
+      </div>
+    </div>
+
+    <form method="post" action="{{ routes.cart_add_url }}" class="m-0">
+      <input type="hidden" name="id" value="{{ variant.id }}">
+      <button
+        class="w-full mt-4 py-3 bg-brand-forest text-white font-medium text-sm hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2"
+        type="submit"
+        {% unless can_add_to_cart %}
+          disabled
+        {% endunless %}
+        aria-label="Add {{ product.title | escape }} to cart"
+      >
+        <i class="fa-solid fa-cart-plus" aria-hidden="true"></i> Add to Cart
+      </button>
+    </form>
+  </div>
+</div>
+
+{% stylesheet %}
+  /* Keep Judge.me badge aligned to existing design slot */
+  .jdgm-widget.jdgm-preview-badge {
+    display: inline-flex;
+    align-items: center;
+  }
+{% endstylesheet %}
+
