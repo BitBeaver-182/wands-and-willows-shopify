@@ -40,32 +40,20 @@
       "type": "landing-shop-by-house",
       "blocks": {
         "house_1": {
-          "type": "house_card",
-          "settings": {
-            "title": "House of Courage",
-            "description": "<p>Crimson &amp; Gold Collection</p>"
-          }
+          "type": "featured_collection",
+          "settings": {}
         },
         "house_2": {
-          "type": "house_card",
-          "settings": {
-            "title": "House of Loyalty",
-            "description": "<p>Amber &amp; Charcoal Collection</p>"
-          }
+          "type": "featured_collection",
+          "settings": {}
         },
         "house_3": {
-          "type": "house_card",
-          "settings": {
-            "title": "House of Wisdom",
-            "description": "<p>Sapphire &amp; Bronze Collection</p>"
-          }
+          "type": "featured_collection",
+          "settings": {}
         },
         "house_4": {
-          "type": "house_card",
-          "settings": {
-            "title": "House of Ambition",
-            "description": "<p>Emerald &amp; Silver Collection</p>"
-          }
+          "type": "featured_collection",
+          "settings": {}
         }
       },
       "block_order": ["house_1", "house_2", "house_3", "house_4"],

@@ -10,6 +10,7 @@
   @param {string} [icon] - Optional Font Awesome icon class
   @param {string} [element] - `a` or `button`
   @param {string} [type] - Button type when rendering a button element
+  @param {string} [tone] - `light` or `dark` surface treatment
 {%- enddoc -%}
 
 {%- liquid
@@ -17,6 +18,7 @@
   assign button_class = class | default: ''
   assign button_element = element | default: 'a'
   assign button_type = type | default: 'button'
+  assign button_tone = tone | default: 'light'
   assign width_class = ''
 
   if full_width
@@ -28,9 +30,17 @@
     echo width_class
 
     if button_style == 'secondary'
-      echo ' bg-transparent border border-brand-sand text-brand-parchment hover:bg-brand-sand/10'
+      if button_tone == 'dark'
+        echo ' bg-transparent border border-brand-sand text-brand-parchment hover:bg-brand-sand/10'
+      else
+        echo ' bg-transparent border-2 border-brand-forest text-brand-forest hover:bg-brand-forest hover:text-white'
+      endif
     else
-      echo ' bg-brand-gold text-white hover:bg-brand-goldHover'
+      if button_tone == 'dark'
+        echo ' bg-brand-gold text-white hover:bg-brand-goldHover'
+      else
+        echo ' bg-brand-forest text-white hover:bg-brand-dark'
+      endif
     endif
 
     if button_class != blank
