@@ -14,6 +14,7 @@
           <form
             class="bg-brand-parchment rounded-sm p-6 sticky top-24"
             method="get"
+            action="{{ collection.url }}"
             data-collection-filter-form
           >
             <input type="hidden" name="sort_by" value="{{ collection.sort_by | default: collection.default_sort_by }}">
@@ -35,7 +36,13 @@
           </aside>
 
           <div id="products-main" class="flex-1" data-collection-results aria-live="polite">
-            <form class="mb-6 lg:mb-8" method="get" data-collection-filter-form>
+            <form
+              class="mb-6 lg:mb-8"
+              method="get"
+              action="{{ collection.url }}"
+              data-collection-filter-form
+              data-collection-sort-form
+            >
             {% for filter in collection.filters %}
               {% for active_value in filter.active_values %}
                 <input type="hidden" name="{{ active_value.param_name }}" value="{{ active_value.value }}">
@@ -156,7 +163,7 @@
         id="CollectionFilterDrawer-{{ section.id }}"
         class="fixed top-0 left-0 h-full w-[85%] max-w-sm bg-brand-parchment z-50 overflow-y-auto lg:hidden"
       >
-        <form class="p-6" method="get" data-collection-filter-form>
+        <form class="p-6" method="get" action="{{ collection.url }}" data-collection-filter-form>
           <input type="hidden" name="sort_by" value="{{ collection.sort_by | default: collection.default_sort_by }}">
           <div class="flex items-center justify-between mb-8">
             <h3 class="font-heading text-xl text-brand-forest">{{ 'content.filters' | t }}</h3>

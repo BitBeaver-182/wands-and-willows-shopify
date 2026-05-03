@@ -38,7 +38,7 @@ if (!customElements.get('collection-catalog-filters')) {
 
       if (target.matches('[data-collection-sort]')) {
         event.preventDefault();
-        this.renderFromUrl(this.urlFromForm(target.form));
+        this.handleSortChange(target);
         return;
       }
 
@@ -75,6 +75,13 @@ if (!customElements.get('collection-catalog-filters')) {
       if (!(form instanceof HTMLFormElement) || !form.matches('[data-collection-filter-form]')) return;
 
       event.preventDefault();
+      this.renderFromUrl(this.urlFromForm(form));
+    }
+
+    handleSortChange(select) {
+      const form = select.form;
+      if (!form) return;
+
       this.renderFromUrl(this.urlFromForm(form));
     }
 
