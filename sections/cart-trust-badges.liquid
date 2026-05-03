@@ -1,0 +1,83 @@
+<section id="trust-badges" class="py-12 bg-brand-parchment border-t border-brand-sand">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {% for block in section.blocks %}
+        <div class="flex items-center gap-4" {{ block.shopify_attributes }}>
+          <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="{{ block.settings.icon }} text-brand-gold text-2xl" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h2 class="font-body font-semibold text-brand-forest mb-1">{{ block.settings.heading }}</h2>
+            <p class="font-body text-sm text-brand-muted">{{ block.settings.text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart trust badges",
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon class",
+          "default": "fa-solid fa-truck"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "On orders over $75"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart trust badges",
+      "blocks": [
+        {
+          "type": "badge"
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "fa-solid fa-shield-halved",
+            "heading": "Secure Payment",
+            "text": "100% protected"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "fa-solid fa-rotate-left",
+            "heading": "Easy Returns",
+            "text": "30-day guarantee"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "fa-solid fa-headset",
+            "heading": "24/7 Support",
+            "text": "Always here to help"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
