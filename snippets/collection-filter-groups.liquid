@@ -34,9 +34,17 @@
         </div>
       {% when 'price_range' %}
         {%- liquid
-          assign range_max_amount = filter.range_max | money_without_currency | replace: ',', ''
-          assign current_min_amount = filter.min_value.value | money_without_currency | replace: ',', '' | default: 0
-          assign current_max_amount = filter.max_value.value | money_without_currency | replace: ',', '' | default: range_max_amount
+          assign range_max_amount = filter.range_max | divided_by: 100.0
+          assign current_min_amount = 0
+          assign current_max_amount = range_max_amount
+
+          if filter.min_value.value
+            assign current_min_amount = filter.min_value.value | divided_by: 100.0
+          endif
+
+          if filter.max_value.value
+            assign current_max_amount = filter.max_value.value | divided_by: 100.0
+          endif
         -%}
         <div class="space-y-4">
           <div
@@ -52,6 +60,7 @@
                 type="range"
                 min="0"
                 max="{{ range_max_amount }}"
+                step="0.01"
                 value="{{ current_min_amount }}"
                 class="price-range-slider price-range-slider-min"
                 data-price-range-slider="min"
@@ -60,6 +69,7 @@
                 type="range"
                 min="0"
                 max="{{ range_max_amount }}"
+                step="0.01"
                 value="{{ current_max_amount }}"
                 class="price-range-slider price-range-slider-max"
                 data-price-range-slider="max"
@@ -77,6 +87,7 @@
               value="{{ current_min_amount }}"
               placeholder="Min"
               min="0"
+              step="0.01"
               class="w-full border border-brand-sand rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-brand-gold bg-white"
               data-price-range-input="min"
             >
@@ -87,6 +98,7 @@
               value="{{ current_max_amount }}"
               placeholder="Max"
               min="0"
+              step="0.01"
               class="w-full border border-brand-sand rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-brand-gold bg-white"
               data-price-range-input="max"
             >
