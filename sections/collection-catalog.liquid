@@ -1,50 +1,16 @@
-<script>
-  document.addEventListener(
-    'DOMContentLoaded',
-    () => {
-      document.querySelectorAll('[data-collection-filter-form]').forEach((form) => {
-        form.querySelectorAll('input[type="checkbox"]').forEach((input) => {
-          input.addEventListener('change', () => form.submit());
-        });
-
-        const sortSelect = form.querySelector('[data-collection-sort]');
-        if (sortSelect) {
-          sortSelect.addEventListener('change', () => form.submit());
-        }
-      });
-
-      const drawer = document.getElementById('CollectionFilterDrawer-{{ section.id }}');
-      const overlay = document.getElementById('CollectionFilterOverlay-{{ section.id }}');
-      const openButtons = document.querySelectorAll('[data-open-collection-filters="{{ section.id }}"]');
-      const closeButtons = document.querySelectorAll('[data-close-collection-filters="{{ section.id }}"]');
-
-      if (!drawer || !overlay) return;
-
-      const openDrawer = () => {
-        drawer.classList.add('open');
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      };
-
-      const closeDrawer = () => {
-        drawer.classList.remove('open');
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      };
-
-      openButtons.forEach((button) => button.addEventListener('click', openDrawer));
-      closeButtons.forEach((button) => button.addEventListener('click', closeDrawer));
-      overlay.addEventListener('click', closeDrawer);
-    },
-    { once: true }
-  );
-</script>
+<script src="{{ 'collection-catalog.js' | asset_url }}" defer></script>
 
 {% paginate collection.products by section.settings.products_per_page %}
-  <section id="product-listing" class="py-6 lg:py-16 bg-white">
-    <div class="max-w-[1440px] mx-auto px-4 lg:px-6 xl:px-12">
-      <div class="flex flex-col lg:flex-row gap-6 lg:gap-12">
-        <aside id="filters-sidebar" class="hidden lg:block lg:w-72 flex-shrink-0">
+  <collection-catalog-filters
+    class="block"
+    data-section-id="{{ section.id }}"
+    data-lock-body-scroll="true"
+    data-currency-code="{{ localization.country.currency.iso_code | default: cart.currency.iso_code | default: shop.currency }}"
+  >
+    <section id="product-listing" class="py-6 lg:py-16 bg-white">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+        <div class="flex flex-col lg:flex-row gap-6 lg:gap-12">
+          <aside id="filters-sidebar" class="hidden lg:block lg:w-[250px] lg:max-w-[250px] flex-shrink-0">
           <form
             class="bg-brand-parchment rounded-sm p-6 sticky top-24"
             method="get"
@@ -54,7 +20,11 @@
             <div class="mb-8">
               <h3 class="font-heading text-xl text-brand-forest mb-4 flex items-center justify-between">
                 {{ 'content.filters' | t }}
-                <a href="{{ collection.url }}" class="text-brand-gold text-sm font-body hover:underline">
+                <a
+                  href="{{ collection.url }}"
+                  class="text-brand-gold text-sm font-body hover:underline"
+                  data-collection-ajax-link
+                >
                   {{ 'actions.clear_all' | t }}
                 </a>
               </h3>
@@ -62,10 +32,10 @@
 
             {% render 'collection-filter-groups', collection_resource: collection %}
           </form>
-        </aside>
+          </aside>
 
-        <div id="products-main" class="flex-1">
-          <form class="mb-6 lg:mb-8" method="get" data-collection-filter-form>
+          <div id="products-main" class="flex-1" data-collection-results aria-live="polite">
+            <form class="mb-6 lg:mb-8" method="get" data-collection-filter-form>
             {% for filter in collection.filters %}
               {% for active_value in filter.active_values %}
                 <input type="hidden" name="{{ active_value.param_name }}" value="{{ active_value.value }}">
@@ -80,126 +50,130 @@
               {% endif %}
             {% endfor %}
 
-            <div class="flex items-center justify-between mb-4 lg:hidden">
-              <p class="font-body text-brand-text text-sm">
-                <span class="font-semibold">{{ collection.products_count }}</span>
-                {{ 'content.search_results_resource_products_count' | t: count: collection.products_count }}
-              </p>
-              <button
-                class="flex items-center gap-2 px-4 py-2 bg-brand-parchment border border-brand-sand rounded-sm text-sm font-medium text-brand-forest"
-                type="button"
-                data-open-collection-filters="{{ section.id }}"
-              >
-                <i class="fa-solid fa-sliders text-brand-gold" aria-hidden="true"></i>
-                {{ 'actions.show_filters' | t }}
-              </button>
-            </div>
-
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-              <div class="hidden lg:block">
-                <p class="font-body text-brand-text">
+              <div class="flex items-center justify-between mb-4 lg:hidden">
+                <p class="font-body text-brand-text text-sm">
                   <span class="font-semibold">{{ collection.products_count }}</span>
                   {{ 'content.search_results_resource_products_count' | t: count: collection.products_count }}
                 </p>
+                <button
+                  class="flex items-center gap-2 px-4 py-2 bg-brand-parchment border border-brand-sand rounded-sm text-sm font-medium text-brand-forest"
+                  type="button"
+                  data-open-collection-filters="{{ section.id }}"
+                >
+                  <i class="fa-solid fa-sliders text-brand-gold" aria-hidden="true"></i>
+                  {{ 'actions.show_filters' | t }}
+                </button>
               </div>
 
-              <div class="flex items-center gap-3 lg:gap-4 w-full sm:w-auto">
-                <span class="font-body text-xs lg:text-sm text-brand-muted whitespace-nowrap">{{ 'actions.sort' | t }}:</span>
-                <select
-                  class="flex-1 sm:flex-none border border-brand-sand rounded-sm px-3 lg:px-4 py-2 text-sm font-body text-brand-text focus:outline-none focus:border-brand-gold bg-brand-parchment"
-                  name="sort_by"
-                  data-collection-sort
-                >
-                  {% for option in collection.sort_options %}
-                    <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
-                      {{ option.name }}
-                    </option>
-                  {% endfor %}
-                </select>
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+                <div class="hidden lg:block">
+                  <p class="font-body text-brand-text">
+                    <span class="font-semibold">{{ collection.products_count }}</span>
+                    {{ 'content.search_results_resource_products_count' | t: count: collection.products_count }}
+                  </p>
+                </div>
+
+                <div class="flex items-center gap-3 lg:gap-4 w-full sm:w-auto">
+                  <span class="font-body text-xs lg:text-sm text-brand-muted whitespace-nowrap">{{ 'actions.sort' | t }}:</span>
+                  <select
+                    class="flex-1 sm:flex-none border border-brand-sand rounded-sm px-3 lg:px-4 py-2 text-sm font-body text-brand-text focus:outline-none focus:border-brand-gold bg-brand-parchment"
+                    name="sort_by"
+                    data-collection-sort
+                  >
+                    {% for option in collection.sort_options %}
+                      <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+                        {{ option.name }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
               </div>
+            </form>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
+              {% for product in collection.products %}
+                {% render 'collection-product-card', product: product %}
+              {% else %}
+                <div class="col-span-full py-12 text-center">
+                  <p class="font-body text-brand-muted">{{ 'content.no_products_found' | t }}</p>
+                </div>
+              {% endfor %}
             </div>
-          </form>
 
-          <div class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-6">
-            {% for product in collection.products %}
-              {% render 'collection-product-card', product: product %}
-            {% else %}
-              <div class="col-span-full py-12 text-center">
-                <p class="font-body text-brand-muted">{{ 'content.no_products_found' | t }}</p>
-              </div>
-            {% endfor %}
-          </div>
-
-          {% if paginate.pages > 1 %}
-            <div class="mt-12 lg:mt-16 flex items-center justify-center gap-2 flex-wrap">
-              {% if paginate.previous %}
-                <a
-                  href="{{ paginate.previous.url }}"
-                  class="w-10 h-10 rounded-sm border border-brand-sand flex items-center justify-center text-brand-muted hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment"
-                  aria-label="{{ 'content.pagination.previous' | t }}"
-                >
-                  <i class="fa-solid fa-chevron-left text-sm" aria-hidden="true"></i>
-                </a>
-              {% endif %}
-
-              {% for part in paginate.parts %}
-                {% if part.is_link %}
+            {% if paginate.pages > 1 %}
+              <div class="mt-12 lg:mt-16 flex items-center justify-center gap-2 flex-wrap">
+                {% if paginate.previous %}
                   <a
+                    href="{{ paginate.previous.url }}"
+                    class="w-10 h-10 rounded-sm border border-brand-sand flex items-center justify-center text-brand-muted hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment"
+                    aria-label="{{ 'content.pagination.previous' | t }}"
+                    data-collection-ajax-link
+                  >
+                    <i class="fa-solid fa-chevron-left text-sm" aria-hidden="true"></i>
+                  </a>
+                {% endif %}
+
+                {% for part in paginate.parts %}
+                  {% if part.is_link %}
+                    <a
                     href="{{ part.url }}"
                     class="w-10 h-10 rounded-sm border border-brand-sand flex items-center justify-center text-brand-text hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment"
+                    data-collection-ajax-link
                   >
-                    {{ part.title }}
-                  </a>
-                {% elsif part.title == paginate.current_page %}
-                  <span class="w-10 h-10 rounded-sm bg-brand-forest text-white flex items-center justify-center font-semibold">
-                    {{ part.title }}
-                  </span>
-                {% else %}
-                  <span class="text-brand-muted px-2">{{ part.title }}</span>
-                {% endif %}
-              {% endfor %}
+                      {{ part.title }}
+                    </a>
+                  {% elsif part.title == paginate.current_page %}
+                    <span class="w-10 h-10 rounded-sm bg-brand-forest text-white flex items-center justify-center font-semibold">
+                      {{ part.title }}
+                    </span>
+                  {% else %}
+                    <span class="text-brand-muted px-2">{{ part.title }}</span>
+                  {% endif %}
+                {% endfor %}
 
-              {% if paginate.next %}
-                <a
-                  href="{{ paginate.next.url }}"
-                  class="w-10 h-10 rounded-sm border border-brand-sand flex items-center justify-center text-brand-muted hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment"
-                  aria-label="{{ 'content.pagination.next' | t }}"
-                >
-                  <i class="fa-solid fa-chevron-right text-sm" aria-hidden="true"></i>
-                </a>
-              {% endif %}
-            </div>
-          {% endif %}
+                {% if paginate.next %}
+                  <a
+                    href="{{ paginate.next.url }}"
+                    class="w-10 h-10 rounded-sm border border-brand-sand flex items-center justify-center text-brand-muted hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment"
+                    aria-label="{{ 'content.pagination.next' | t }}"
+                    data-collection-ajax-link
+                  >
+                    <i class="fa-solid fa-chevron-right text-sm" aria-hidden="true"></i>
+                  </a>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
         </div>
       </div>
-    </div>
 
-    <div
-      class="filter-overlay fixed inset-0 bg-black/50 z-40 lg:hidden"
-      id="CollectionFilterOverlay-{{ section.id }}"
-    ></div>
+      <div
+        class="filter-overlay fixed inset-0 bg-black/50 z-40 lg:hidden"
+        id="CollectionFilterOverlay-{{ section.id }}"
+      ></div>
 
-    <aside
-      id="CollectionFilterDrawer-{{ section.id }}"
-      class="fixed top-0 left-0 h-full w-[85%] max-w-sm bg-brand-parchment z-50 overflow-y-auto lg:hidden"
-    >
-      <form class="p-6" method="get" data-collection-filter-form>
-        <input type="hidden" name="sort_by" value="{{ collection.sort_by | default: collection.default_sort_by }}">
-        <div class="flex items-center justify-between mb-8">
-          <h3 class="font-heading text-xl text-brand-forest">{{ 'content.filters' | t }}</h3>
-          <button
-            class="w-10 h-10 flex items-center justify-center text-brand-forest"
-            type="button"
-            data-close-collection-filters="{{ section.id }}"
-          >
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-          </button>
-        </div>
+      <aside
+        id="CollectionFilterDrawer-{{ section.id }}"
+        class="fixed top-0 left-0 h-full w-[85%] max-w-sm bg-brand-parchment z-50 overflow-y-auto lg:hidden"
+      >
+        <form class="p-6" method="get" data-collection-filter-form>
+          <input type="hidden" name="sort_by" value="{{ collection.sort_by | default: collection.default_sort_by }}">
+          <div class="flex items-center justify-between mb-8">
+            <h3 class="font-heading text-xl text-brand-forest">{{ 'content.filters' | t }}</h3>
+            <button
+              class="w-10 h-10 flex items-center justify-center text-brand-forest"
+              type="button"
+              data-close-collection-filters="{{ section.id }}"
+            >
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+          </div>
 
-        {% render 'collection-filter-groups', collection_resource: collection %}
-      </form>
-    </aside>
-  </section>
+          {% render 'collection-filter-groups', collection_resource: collection %}
+        </form>
+      </aside>
+    </section>
+  </collection-catalog-filters>
 {% endpaginate %}
 
 {% style %}

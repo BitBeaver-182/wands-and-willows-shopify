@@ -1,6 +1,7 @@
 {% liquid
   assign hero_title = collection.title
   assign hero_description = collection.description | strip_html | strip
+  assign hero_background = collection.image | default: collection.featured_image
 
   if hero_description == blank
     assign hero_description = section.settings.description_fallback
@@ -9,15 +10,15 @@
 
 <section id="page-hero" class="relative w-full h-[240px] lg:h-[300px] flex items-center justify-center overflow-hidden bg-brand-forest">
   <div class="absolute inset-0 z-0 opacity-20">
-    {% if section.settings.background_image != blank %}
+    {% if hero_background != blank %}
       {{
-        section.settings.background_image
+        hero_background
         | image_url: width: 2000
         | image_tag:
           class: 'w-full h-full object-cover',
           loading: 'lazy',
           fetchpriority: 'low',
-          alt: section.settings.background_image_alt
+          alt: hero_background.alt | default: collection.title
       }}
     {% else %}
       {{ 'hero-apparel-1' | placeholder_svg_tag: 'w-full h-full object-cover text-brand-sand' }}
@@ -49,17 +50,6 @@
   "tag": "section",
   "class": "collection-hero",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background image"
-    },
-    {
-      "type": "text",
-      "id": "background_image_alt",
-      "label": "Background image alt text",
-      "default": "Magical texture background"
-    },
     {
       "type": "text",
       "id": "description_fallback",
