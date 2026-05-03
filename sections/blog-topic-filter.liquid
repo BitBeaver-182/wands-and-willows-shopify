@@ -1,0 +1,77 @@
+<section id="topic-filter" class="py-4 md:py-12 bg-white border-b border-brand-sand sticky top-16 md:top-20 z-40">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <div class="flex md:flex-wrap md:justify-center items-center gap-2 md:gap-4 overflow-x-auto hide-scrollbar pb-2 md:pb-0">
+      <a href="{{ blog.url }}" class="flex-shrink-0 px-4 md:px-6 py-2.5 md:py-3 bg-brand-forest text-white font-medium text-xs md:text-sm uppercase tracking-wider md:tracking-widest rounded-sm transition-all">
+        {{ section.settings.all_label }}
+      </a>
+      {% for block in section.blocks %}
+        {%- assign tag_handle = block.settings.tag | handleize -%}
+        <a
+          href="{{ blog.url }}/tagged/{{ tag_handle }}"
+          class="flex-shrink-0 px-4 md:px-6 py-2.5 md:py-3 bg-transparent border-2 border-brand-sand text-brand-forest font-medium text-xs md:text-sm uppercase tracking-wider md:tracking-widest hover:border-brand-gold hover:text-brand-gold rounded-sm transition-all"
+          {{ block.shopify_attributes }}
+        >
+          {{ block.settings.label | default: block.settings.tag }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog topic filter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "all_label",
+      "label": "All label",
+      "default": "All Articles"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "topic",
+      "name": "Topic",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Current Read"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Blog tag",
+          "default": "Current Read"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog topic filter",
+      "blocks": [
+        {
+          "type": "topic"
+        },
+        {
+          "type": "topic",
+          "settings": {
+            "label": "Artifact Spotlight",
+            "tag": "Artifact Spotlight"
+          }
+        },
+        {
+          "type": "topic",
+          "settings": {
+            "label": "Magic of Life",
+            "tag": "Magic of Life"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
