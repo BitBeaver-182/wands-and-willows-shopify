@@ -26,14 +26,7 @@
               loading="lazy"
             >
           {% else %}
-            <img
-              class="w-full h-full object-cover"
-              src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d64fe16129-266fcd93025e01ddfe94.png"
-              alt="Founder portrait in a magical study"
-              width="1200"
-              height="1600"
-              loading="lazy"
-            >
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-brand-parchment text-brand-gold/40' }}
           {% endif %}
         </div>
         <div class="absolute -bottom-6 -right-6 bg-brand-forest p-6 rounded-full border border-brand-gold/20 hidden md:block">
@@ -117,4 +110,3 @@
   "presets": [{ "name": "Landing story" }]
 }
 {% endschema %}
-

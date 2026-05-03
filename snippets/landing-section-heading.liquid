@@ -1,0 +1,47 @@
+{%- doc -%}
+  Shared heading pattern for the editorial landing sections.
+
+  @param {string} [eyebrow] - Optional eyebrow text
+  @param {string} title - Section title
+  @param {string} [body] - Optional supporting copy
+  @param {string} [title_tag] - Heading tag, defaults to `h2`
+  @param {string} [alignment] - `left` or `center`
+  @param {boolean} [show_divider] - Show the gold divider rule
+  @param {string} [class] - Additional wrapper classes
+{%- enddoc -%}
+
+{%- liquid
+  assign heading_tag = title_tag | default: 'h2'
+  assign heading_alignment = alignment | default: 'center'
+  assign wrapper_class = class | default: ''
+
+  capture alignment_class
+    if heading_alignment == 'left'
+      echo 'text-left'
+    else
+      echo 'text-center'
+    endif
+  endcapture
+-%}
+
+<div class="{{ alignment_class }} {{ wrapper_class | strip }}">
+  {% if eyebrow != blank %}
+    <span class="block text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">
+      {{ eyebrow }}
+    </span>
+  {% endif %}
+
+  <{{ heading_tag }} class="font-heading text-4xl lg:text-5xl text-brand-forest mb-4">
+    {{ title }}
+  </{{ heading_tag }}>
+
+  {% if show_divider != false %}
+    <div class="w-16 h-0.5 bg-brand-gold {% if heading_alignment == 'left' %}mr-auto{% else %}mx-auto{% endif %} mb-6"></div>
+  {% endif %}
+
+  {% if body != blank %}
+    <div class="font-body text-brand-muted max-w-2xl {% if heading_alignment == 'left' %}mr-auto{% else %}mx-auto{% endif %}">
+      {{ body }}
+    </div>
+  {% endif %}
+</div>

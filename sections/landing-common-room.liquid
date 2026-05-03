@@ -1,63 +1,40 @@
 <section id="common-room" class="py-24 bg-brand-parchment border-y border-brand-sand">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <div class="text-center mb-16">
-      <h2 class="font-heading text-4xl text-brand-forest mb-4">The Common Room</h2>
-      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
-      <p class="font-body text-brand-muted max-w-2xl mx-auto">
-        See how our community brings magic into their everyday lives. Tag us to be featured.
-      </p>
-    </div>
+    {% render 'landing-section-heading',
+      title: section.settings.title,
+      body: section.settings.body,
+      class: 'mb-16'
+    %}
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="group relative aspect-square overflow-hidden rounded-sm">
-        <img
-          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          src="https://storage.googleapis.com/uxpilot-auth.appspot.com/b924168c24-8e6728b54876727d2976.png"
-          alt="user generated content showing magical setup"
-        >
-        <div class="absolute inset-0 bg-brand-forest/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <i class="fa-brands fa-instagram text-white text-3xl" aria-hidden="true"></i>
+      {% for block in section.blocks %}
+        <div class="group relative aspect-square overflow-hidden rounded-sm" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            {{
+              block.settings.image
+              | image_url: width: 900
+              | image_tag:
+                class: 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-110',
+                loading: 'lazy',
+                fetchpriority: 'low',
+                alt: block.settings.image_alt
+            }}
+          {% else %}
+            {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full object-cover text-brand-sand bg-white' }}
+          {% endif %}
+          <div class="absolute inset-0 bg-brand-forest/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <i class="fa-brands fa-instagram text-white text-3xl" aria-hidden="true"></i>
+          </div>
         </div>
-      </div>
-      <div class="group relative aspect-square overflow-hidden rounded-sm">
-        <img
-          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          src="https://storage.googleapis.com/uxpilot-auth.appspot.com/fd23b53748-52dc6f8ed6830fce6874.png"
-          alt="user generated content showing wand collection"
-        >
-        <div class="absolute inset-0 bg-brand-forest/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <i class="fa-brands fa-instagram text-white text-3xl" aria-hidden="true"></i>
-        </div>
-      </div>
-      <div class="group relative aspect-square overflow-hidden rounded-sm">
-        <img
-          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          src="https://storage.googleapis.com/uxpilot-auth.appspot.com/af0e3f0348-daab6d0bab4d9bbe518e.png"
-          alt="user generated content showing reading nook"
-        >
-        <div class="absolute inset-0 bg-brand-forest/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <i class="fa-brands fa-instagram text-white text-3xl" aria-hidden="true"></i>
-        </div>
-      </div>
-      <div class="group relative aspect-square overflow-hidden rounded-sm">
-        <img
-          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ad23f1cf92-3d8a0dd85349a36be390.png"
-          alt="user generated content showing potion bottles"
-        >
-        <div class="absolute inset-0 bg-brand-forest/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <i class="fa-brands fa-instagram text-white text-3xl" aria-hidden="true"></i>
-        </div>
-      </div>
+      {% endfor %}
     </div>
 
     <div class="mt-12 text-center">
-      <a
-        class="px-8 py-3 bg-transparent border-2 border-brand-forest text-brand-forest font-medium hover:bg-brand-forest hover:text-white transition-colors rounded-sm inline-block"
-        href="#"
-      >
-        Follow @WandAndWillow
-      </a>
+      {% render 'landing-button',
+        label: section.settings.button_label,
+        link: section.settings.button_link,
+        style: section.settings.button_style
+      %}
     </div>
   </div>
 </section>
@@ -67,8 +44,86 @@
   "name": "Landing community",
   "tag": "section",
   "class": "landing-common-room",
-  "settings": [],
-  "presets": [{ "name": "Landing community" }]
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "ugc_tile",
+      "name": "UGC tile",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt",
+          "default": "User generated content image"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The Common Room"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>See how our community brings magic into their everyday lives. Tag us to be featured.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Follow @WandAndWillow"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "secondary"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing community",
+      "blocks": {
+        "ugc_1": {
+          "type": "ugc_tile"
+        },
+        "ugc_2": {
+          "type": "ugc_tile"
+        },
+        "ugc_3": {
+          "type": "ugc_tile"
+        },
+        "ugc_4": {
+          "type": "ugc_tile"
+        }
+      },
+      "block_order": ["ugc_1", "ugc_2", "ugc_3", "ugc_4"]
+    }
+  ]
 }
 {% endschema %}
-

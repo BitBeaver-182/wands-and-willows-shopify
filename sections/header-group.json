@@ -11,9 +11,24 @@
   "type": "header",
   "name": "t:names.header",
   "sections": {
-    "landing_promo_bar": {
-      "type": "landing-promo-bar",
+    "header_announcements": {
+      "type": "header-announcements",
+      "blocks": {
+        "promo_message": {
+          "type": "_announcement",
+          "settings": {
+            "text": "<p>Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off.</p>"
+          }
+        }
+      },
+      "block_order": ["promo_message"],
       "settings": {
+        "speed": 5,
+        "section_width": "full-width",
+        "color_scheme": "scheme-5",
+        "divider_width": 0,
+        "padding-block-start": 8,
+        "padding-block-end": 8
       }
     },
     "landing_header": {
@@ -23,7 +38,7 @@
     }
   },
   "order": [
-    "landing_promo_bar",
+    "header_announcements",
     "landing_header"
   ]
 }

@@ -1,15 +1,18 @@
 {% liquid
   assign hero_id = section.settings.custom_id | default: 'hero'
-
   assign eyebrow = section.settings.eyebrow
   assign heading = section.settings.heading
   assign body = section.settings.body
+  assign heading_html = heading
+  assign body_html = body
 
-  assign primary_label = section.settings.primary_button_label
-  assign primary_link = section.settings.primary_button_link
+  if heading_html != blank
+    assign heading_html = heading_html | replace: '<p>', '' | replace: '</p>', ''
+  endif
 
-  assign secondary_label = section.settings.secondary_button_label
-  assign secondary_link = section.settings.secondary_button_link
+  if body_html != blank
+    assign body_html = body_html | replace: '<p>', '' | replace: '</p>', ''
+  endif
 %}
 
 <section
@@ -38,37 +41,33 @@
       </span>
     {% endif %}
 
-    {% if heading != blank %}
-      <div class="font-heading text-5xl md:text-7xl font-bold mb-6 leading-tight">
-        {{ heading }}
-      </div>
+    {% if heading_html != blank %}
+      <h1 class="font-heading text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        {{ heading_html }}
+      </h1>
     {% endif %}
 
-    {% if body != blank %}
-      <div class="font-body text-lg md:text-xl mb-10 text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">
-        {{ body }}
-      </div>
+    {% if body_html != blank %}
+      <p class="font-body text-lg md:text-xl mb-10 text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">
+        {{ body_html }}
+      </p>
     {% endif %}
 
-    {% if primary_label != blank or secondary_label != blank %}
+    {% if section.blocks.size > 0 %}
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        {% if primary_label != blank and primary_link != blank %}
-          <a
-            class="w-full sm:w-auto px-8 py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm text-center"
-            href="{{ primary_link }}"
-          >
-            {{ primary_label }}
-          </a>
-        {% endif %}
-
-        {% if secondary_label != blank and secondary_link != blank %}
-          <a
-            class="w-full sm:w-auto px-8 py-4 bg-transparent border border-brand-sand hover:bg-brand-sand/10 text-brand-parchment font-medium tracking-wide transition-all rounded-sm text-center"
-            href="{{ secondary_link }}"
-          >
-            {{ secondary_label }}
-          </a>
-        {% endif %}
+        {% for block in section.blocks %}
+          {% render 'landing-button',
+            label: block.settings.label,
+            link: block.settings.link,
+            style: block.settings.style,
+            tone: 'dark',
+            palette: block.settings.palette,
+            full_width: true,
+            open_in_new_tab: block.settings.open_in_new_tab,
+            class: 'sm:w-auto',
+            icon: block.settings.icon
+          %}
+        {% endfor %}
       </div>
     {% endif %}
   </div>
@@ -79,6 +78,73 @@
   "name": "Landing hero",
   "tag": "section",
   "class": "landing-hero",
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "cta_button",
+      "name": "CTA button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Shop Collections"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "select",
+          "id": "palette",
+          "label": "Color",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "gold",
+              "label": "Gold"
+            },
+            {
+              "value": "forest",
+              "label": "Forest"
+            }
+          ],
+          "default": "auto"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open in new tab",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Font Awesome icon class"
+        }
+      ]
+    }
+  ],
   "settings": [
     {
       "type": "text",
@@ -118,37 +184,32 @@
     },
     {
       "type": "header",
-      "content": "Primary button"
-    },
-    {
-      "type": "text",
-      "id": "primary_button_label",
-      "label": "Label",
-      "default": "Shop Collections"
-    },
-    {
-      "type": "url",
-      "id": "primary_button_link",
-      "label": "Link",
-      "default": "/collections/all"
-    },
-    {
-      "type": "header",
-      "content": "Secondary button"
-    },
-    {
-      "type": "text",
-      "id": "secondary_button_label",
-      "label": "Label",
-      "default": "Explore Wands"
-    },
-    {
-      "type": "url",
-      "id": "secondary_button_link",
-      "label": "Link"
+      "content": "Buttons"
     }
   ],
-  "presets": [{ "name": "Landing hero" }]
+  "presets": [
+    {
+      "name": "Landing hero",
+      "blocks": {
+        "primary_cta": {
+          "type": "cta_button",
+          "settings": {
+            "label": "Shop Collections",
+            "style": "primary",
+            "palette": "gold"
+          }
+        },
+        "secondary_cta": {
+          "type": "cta_button",
+          "settings": {
+            "label": "Explore Wands",
+            "style": "secondary",
+            "palette": "auto"
+          }
+        }
+      },
+      "block_order": ["primary_cta", "secondary_cta"]
+    }
+  ]
 }
 {% endschema %}
-

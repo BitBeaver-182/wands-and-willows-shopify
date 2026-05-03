@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    './blocks/*.liquid',
     './layout/**/*.liquid',
     './sections/**/*.liquid',
     './snippets/**/*.liquid',
@@ -8,19 +9,52 @@ module.exports = {
     './assets/**/*.{js,ts}',
   ],
   theme: {
-    extend: {
-      colors: {
-        brand: {
-          dark: '#0f1f15',
-          forest: '#1a3322',
-          gold: '#c4a661',
-          goldHover: '#d4b671',
-          parchment: '#f8f5ee',
-          sand: '#e8e2d2',
-          text: '#2d3748',
-          muted: '#718096',
-        },
+    colors: {
+      brand: {
+        dark: 'rgb(var(--landing-color-dark-rgb) / <alpha-value>)',
+        forest: 'rgb(var(--landing-color-forest-rgb) / <alpha-value>)',
+        gold: 'rgb(var(--landing-color-gold-rgb) / <alpha-value>)',
+        goldHover: 'rgb(var(--landing-color-gold-hover-rgb) / <alpha-value>)',
+        parchment: 'rgb(var(--landing-color-parchment-rgb) / <alpha-value>)',
+        sand: 'rgb(var(--landing-color-sand-rgb) / <alpha-value>)',
+        text: 'rgb(var(--landing-color-text-rgb) / <alpha-value>)',
+        muted: 'rgb(var(--landing-color-muted-rgb) / <alpha-value>)',
       },
+      white: '#ffffff',
+      black: '#000000',
+      red: {
+        500: '#ef4444',
+      },
+    },
+    spacing: {
+      0: '0px',
+      0.5: 'calc(var(--landing-space-unit) * 0.5)',
+      1: 'calc(var(--landing-space-unit) * 1)',
+      1.5: 'calc(var(--landing-space-unit) * 1.5)',
+      2: 'calc(var(--landing-space-unit) * 2)',
+      2.5: 'calc(var(--landing-space-unit) * 2.5)',
+      3: 'calc(var(--landing-space-unit) * 3)',
+      3.5: 'calc(var(--landing-space-unit) * 3.5)',
+      4: 'calc(var(--landing-space-unit) * 4)',
+      5: 'calc(var(--landing-space-unit) * 5)',
+      6: 'calc(var(--landing-space-unit) * 6)',
+      7: 'calc(var(--landing-space-unit) * 7)',
+      8: 'calc(var(--landing-space-unit) * 8)',
+      9: 'calc(var(--landing-space-unit) * 9)',
+      10: 'calc(var(--landing-space-unit) * 10)',
+      11: 'calc(var(--landing-space-unit) * 11)',
+      12: 'calc(var(--landing-space-unit) * 12)',
+      13: 'calc(var(--landing-space-unit) * 13)',
+      14: 'calc(var(--landing-space-unit) * 14)',
+      15: 'calc(var(--landing-space-unit) * 15)',
+      16: 'calc(var(--landing-space-unit) * 16)',
+      18: 'calc(var(--landing-space-unit) * 18)',
+      20: 'calc(var(--landing-space-unit) * 20)',
+      24: 'calc(var(--landing-space-unit) * 24)',
+      28: 'calc(var(--landing-space-unit) * 28)',
+      32: 'calc(var(--landing-space-unit) * 32)',
+    },
+    extend: {
       fontFamily: {
         heading: ['Playfair Display', 'serif'],
         body: ['Inter', 'sans-serif'],
@@ -29,4 +63,3 @@ module.exports = {
   },
   important: '.landing',
 };
-

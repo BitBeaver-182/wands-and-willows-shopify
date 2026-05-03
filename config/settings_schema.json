@@ -57,24 +57,65 @@
     ]
   },
   {
-    "name": "Promo bar",
+    "name": "Landing design tokens",
     "settings": [
       {
-        "type": "checkbox",
-        "id": "promo_bar_enabled",
-        "label": "Enable promo bar",
-        "default": true
+        "type": "color",
+        "id": "landing_color_dark",
+        "label": "Dark",
+        "default": "#0f1f15"
       },
       {
-        "type": "text",
-        "id": "promo_bar_text",
-        "label": "Promo text",
-        "default": "Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off."
+        "type": "color",
+        "id": "landing_color_forest",
+        "label": "Forest",
+        "default": "#1a3322"
       },
       {
-        "type": "url",
-        "id": "promo_bar_link",
-        "label": "Promo link (optional)"
+        "type": "color",
+        "id": "landing_color_gold",
+        "label": "Gold",
+        "default": "#c4a661"
+      },
+      {
+        "type": "color",
+        "id": "landing_color_gold_hover",
+        "label": "Gold hover",
+        "default": "#d4b671"
+      },
+      {
+        "type": "color",
+        "id": "landing_color_parchment",
+        "label": "Parchment",
+        "default": "#f8f5ee"
+      },
+      {
+        "type": "color",
+        "id": "landing_color_sand",
+        "label": "Sand",
+        "default": "#e8e2d2"
+      },
+      {
+        "type": "color",
+        "id": "landing_color_text",
+        "label": "Text",
+        "default": "#2d3748"
+      },
+      {
+        "type": "color",
+        "id": "landing_color_muted",
+        "label": "Muted",
+        "default": "#718096"
+      },
+      {
+        "type": "range",
+        "id": "landing_spacing_scale",
+        "label": "Spacing scale",
+        "min": 80,
+        "max": 140,
+        "step": 5,
+        "unit": "%",
+        "default": 100
       }
     ]
   },
