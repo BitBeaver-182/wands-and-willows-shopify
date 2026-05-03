@@ -1,0 +1,66 @@
+{% liquid
+  assign hero_title = collection.title
+  assign hero_description = collection.description | strip_html | strip
+  assign hero_background = collection.image | default: collection.featured_image
+
+  if hero_description == blank
+    assign hero_description = section.settings.description_fallback
+  endif
+%}
+
+<section id="page-hero" class="relative w-full h-[240px] lg:h-[300px] flex items-center justify-center overflow-hidden bg-brand-forest">
+  <div class="absolute inset-0 z-0 opacity-20">
+    {% if hero_background != blank %}
+      {{
+        hero_background
+        | image_url: width: 2000
+        | image_tag:
+          class: 'w-full h-full object-cover',
+          loading: 'lazy',
+          fetchpriority: 'low',
+          alt: hero_background.alt | default: collection.title
+      }}
+    {% else %}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'w-full h-full object-cover text-brand-sand' }}
+    {% endif %}
+  </div>
+
+  <div class="relative z-10 w-full max-w-[1440px] mx-auto px-4 lg:px-6 xl:px-12">
+    <div class="flex items-center gap-2 text-brand-sand text-xs lg:text-sm mb-3 lg:mb-4">
+      <a href="{{ routes.root_url }}" class="hover:text-brand-gold transition-colors">Home</a>
+      <i class="fa-solid fa-chevron-right text-[10px] lg:text-xs" aria-hidden="true"></i>
+      <span class="text-brand-gold">{{ collection.title }}</span>
+    </div>
+
+    <h1 class="font-heading text-3xl lg:text-5xl text-brand-parchment mb-3 lg:mb-4 leading-tight">
+      {{ hero_title }}
+    </h1>
+
+    {% if hero_description != blank %}
+      <p class="font-body text-brand-sand text-sm lg:text-lg max-w-2xl leading-relaxed">
+        {{ hero_description }}
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection hero",
+  "tag": "section",
+  "class": "collection-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "description_fallback",
+      "label": "Fallback description",
+      "default": "Discover our complete collection of handcrafted wands, official merchandise, apothecary goods, and curated magical artifacts."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection hero"
+    }
+  ]
+}
+{% endschema %}

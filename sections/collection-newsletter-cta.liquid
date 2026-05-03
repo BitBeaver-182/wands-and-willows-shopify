@@ -1,0 +1,71 @@
+<section id="newsletter-cta" class="py-12 lg:py-20 bg-brand-forest text-brand-parchment">
+  <div class="max-w-4xl mx-auto px-4 lg:px-6 text-center">
+    <i class="fa-solid fa-envelope-open-text text-brand-gold text-3xl mb-6" aria-hidden="true"></i>
+    <h2 class="font-heading text-3xl mb-4">{{ section.settings.title }}</h2>
+    <p class="font-body text-brand-sand text-sm lg:text-base mb-8 max-w-2xl mx-auto">
+      {{ section.settings.body }}
+    </p>
+
+    {% form 'customer', class: 'flex flex-col sm:flex-row gap-4 max-w-xl mx-auto' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <label class="sr-only" for="CollectionNewsletterEmail-{{ section.id }}">{{ 'blocks.email_signup.label' | t }}</label>
+      <input
+        id="CollectionNewsletterEmail-{{ section.id }}"
+        type="email"
+        name="contact[email]"
+        autocomplete="email"
+        aria-label="{{ 'blocks.email_signup.label' | t }}"
+        placeholder="{{ section.settings.placeholder }}"
+        class="flex-grow bg-white/10 border border-white/20 rounded-sm px-6 py-3 text-brand-parchment placeholder-brand-sand/50 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all"
+      >
+      {% render 'landing-button',
+        label: section.settings.button_label,
+        style: 'primary',
+        tone: 'dark',
+        palette: 'gold',
+        element: 'button',
+        type: 'submit',
+        class: 'whitespace-nowrap'
+      %}
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection newsletter",
+  "tag": "section",
+  "class": "collection-newsletter-cta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Stay Connected to the Magic"
+    },
+    {
+      "type": "text",
+      "id": "body",
+      "label": "Body",
+      "default": "Subscribe for exclusive early access to new collections and special offers."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Subscribe"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection newsletter"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,200 @@
+{%- doc -%}
+  Collection filter controls for desktop sidebar and mobile drawer.
+
+  @param {object} collection_resource - Collection object with filters
+{%- enddoc -%}
+
+{% for filter in collection_resource.filters %}
+  <div class="{% unless forloop.last %}mb-8 pb-8 border-b border-brand-sand{% endunless %}">
+    <h4 class="font-heading text-lg text-brand-forest mb-4">{{ filter.label }}</h4>
+
+    {% case filter.type %}
+      {% when 'boolean', 'list' %}
+        <div class="space-y-3">
+          {% for filter_value in filter.values %}
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                name="{{ filter_value.param_name }}"
+                value="{{ filter_value.value }}"
+                class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold"
+                {% if filter_value.active %}
+                  checked
+                {% endif %}
+                {% if filter_value.count == 0 and filter_value.active == false %}
+                  disabled
+                {% endif %}
+              >
+              <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">
+                {{ filter_value.label }}
+                <span class="text-brand-muted">({{ filter_value.count }})</span>
+              </span>
+            </label>
+          {% endfor %}
+        </div>
+      {% when 'price_range' %}
+        {%- liquid
+          assign range_max_amount = filter.range_max | divided_by: 100.0
+          assign current_min_amount = 0
+          assign current_max_amount = range_max_amount
+
+          if filter.min_value.value
+            assign current_min_amount = filter.min_value.value | divided_by: 100.0
+          endif
+
+          if filter.max_value.value
+            assign current_max_amount = filter.max_value.value | divided_by: 100.0
+          endif
+        -%}
+        <div class="space-y-4">
+          <div
+            class="space-y-2"
+            data-price-range-group
+            data-range-min="0"
+            data-range-max="{{ range_max_amount }}"
+          >
+            <div class="price-range-shell">
+              <div class="price-range-rail"></div>
+              <div class="price-range-active" data-price-range-track></div>
+              <input
+                type="range"
+                min="0"
+                max="{{ range_max_amount }}"
+                step="0.01"
+                value="{{ current_min_amount }}"
+                class="price-range-slider price-range-slider-min"
+                data-price-range-slider="min"
+              >
+              <input
+                type="range"
+                min="0"
+                max="{{ range_max_amount }}"
+                step="0.01"
+                value="{{ current_max_amount }}"
+                class="price-range-slider price-range-slider-max"
+                data-price-range-slider="max"
+              >
+            </div>
+            <div class="flex items-center justify-between font-body text-xs text-brand-muted">
+              <span data-price-range-output="min">{{ current_min_amount | times: 100 | money }}</span>
+              <span data-price-range-output="max">{{ current_max_amount | times: 100 | money }}</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <input
+              type="number"
+              name="{{ filter.min_value.param_name }}"
+              value="{{ current_min_amount }}"
+              placeholder="Min"
+              min="0"
+              step="0.01"
+              class="w-full border border-brand-sand rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-brand-gold bg-white"
+              data-price-range-input="min"
+            >
+            <span class="text-brand-muted">-</span>
+            <input
+              type="number"
+              name="{{ filter.max_value.param_name }}"
+              value="{{ current_max_amount }}"
+              placeholder="Max"
+              min="0"
+              step="0.01"
+              class="w-full border border-brand-sand rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-brand-gold bg-white"
+              data-price-range-input="max"
+            >
+          </div>
+          <p class="font-body text-xs text-brand-muted">
+            {{ 'content.price_filter_html' | t: price: filter.range_max | money }}
+          </p>
+        </div>
+    {% endcase %}
+  </div>
+{% endfor %}
+
+{% if collection_resource.filters.size > 0 %}
+  <button
+    class="w-full mt-8 py-3 bg-brand-forest text-white font-medium text-sm hover:bg-brand-dark transition-colors rounded-sm"
+    type="submit"
+  >
+    {{ 'actions.apply' | t }}
+  </button>
+{% endif %}
+
+{% stylesheet %}
+  .price-range-shell {
+    position: relative;
+    height: 1.5rem;
+  }
+
+  .price-range-rail,
+  .price-range-active {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 0.25rem;
+    border-radius: 9999px;
+  }
+
+  .price-range-rail {
+    left: 0;
+    right: 0;
+    background: #d8c8b0;
+  }
+
+  .price-range-active {
+    left: 0;
+    width: 100%;
+    background: #c19a6b;
+  }
+
+  .price-range-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    inset-inline: 0;
+    width: 100%;
+    height: 1.5rem;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .price-range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 9999px;
+    background: #f5efe6;
+    border: 2px solid #c19a6b;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .price-range-slider::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 9999px;
+    background: #f5efe6;
+    border: 2px solid #c19a6b;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .price-range-slider::-webkit-slider-runnable-track {
+    background: transparent;
+  }
+
+  .price-range-slider::-moz-range-track {
+    background: transparent;
+  }
+
+  .price-range-slider-min {
+    z-index: 20;
+  }
+
+  .price-range-slider-max {
+    z-index: 30;
+  }
+{% endstylesheet %}
