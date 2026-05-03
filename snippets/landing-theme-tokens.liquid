@@ -1,0 +1,14 @@
+{% style %}
+  :root {
+    --landing-color-dark-rgb: {{ settings.landing_color_dark.rgb | default: '15, 31, 21' }};
+    --landing-color-forest-rgb: {{ settings.landing_color_forest.rgb | default: '26, 51, 34' }};
+    --landing-color-gold-rgb: {{ settings.landing_color_gold.rgb | default: '196, 166, 97' }};
+    --landing-color-gold-hover-rgb: {{ settings.landing_color_gold_hover.rgb | default: '212, 182, 113' }};
+    --landing-color-parchment-rgb: {{ settings.landing_color_parchment.rgb | default: '248, 245, 238' }};
+    --landing-color-sand-rgb: {{ settings.landing_color_sand.rgb | default: '232, 226, 210' }};
+    --landing-color-text-rgb: {{ settings.landing_color_text.rgb | default: '45, 55, 72' }};
+    --landing-color-muted-rgb: {{ settings.landing_color_muted.rgb | default: '113, 128, 150' }};
+    --landing-spacing-scale: {{ settings.landing_spacing_scale | default: 100 | divided_by: 100.0 }};
+    --landing-space-unit: calc(0.25rem * var(--landing-spacing-scale));
+  }
+{% endstyle %}
