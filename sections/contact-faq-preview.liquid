@@ -1,0 +1,115 @@
+<section id="faq-preview" class="py-24 bg-brand-parchment">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+    <div class="text-center mb-16">
+      <h2 class="font-heading text-4xl text-brand-forest mb-4">{{ section.settings.title }}</h2>
+      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+      {% if section.settings.body != blank %}
+        <p class="font-body text-brand-muted max-w-2xl mx-auto">{{ section.settings.body }}</p>
+      {% endif %}
+    </div>
+
+    <div class="space-y-4 max-w-4xl mx-auto">
+      {% for block in section.blocks %}
+        <details class="group bg-white border border-brand-sand/50 rounded-sm overflow-hidden" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary class="w-full px-6 lg:px-8 py-5 lg:py-6 text-left flex justify-between items-center hover:bg-brand-sand/30 transition-colors cursor-pointer list-none">
+            <h3 class="font-heading text-lg lg:text-xl text-brand-forest">{{ block.settings.question }}</h3>
+            <i class="fa-solid fa-chevron-down text-brand-gold transition-transform group-open:rotate-180" aria-hidden="true"></i>
+          </summary>
+          {% if block.settings.answer != blank %}
+            <div class="px-6 lg:px-8 pb-6 font-body text-brand-text text-sm lg:text-base leading-relaxed">
+              {{ block.settings.answer }}
+            </div>
+          {% endif %}
+        </details>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.button_label != blank %}
+      <div class="text-center mt-12">
+        {% render 'landing-button',
+          label: section.settings.button_label,
+          link: section.settings.button_link,
+          style: 'secondary',
+          tone: 'light'
+        %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact FAQ",
+  "tag": "section",
+  "class": "contact-faq-preview",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Quick answers to common questions. Can't find what you're looking for? Contact us directly."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View All FAQs"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your return policy?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "We offer a 30-day return policy on all items in original condition. Handcrafted and personalized items cannot be returned unless defective."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact FAQ",
+      "blocks": [
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "Most orders ship within 2-4 business days. Delivery timing depends on destination and selected shipping method."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer international shipping?",
+            "answer": "Yes, we ship to select international destinations. Rates and delivery windows are shown at checkout."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

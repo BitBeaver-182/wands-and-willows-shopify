@@ -1,0 +1,166 @@
+<section id="newsletter-subscribe" class="py-24 bg-brand-forest relative overflow-hidden">
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute top-10 left-10 w-64 h-64 border border-brand-gold rounded-full"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 border border-brand-gold rounded-full"></div>
+  </div>
+
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-12 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="text-brand-parchment">
+        <div class="flex items-center gap-3 mb-6">
+          <i class="{{ section.settings.icon }} text-brand-gold text-3xl" aria-hidden="true"></i>
+          <span class="font-body text-brand-gold tracking-[0.2em] text-sm uppercase">{{ section.settings.eyebrow }}</span>
+        </div>
+        <h2 class="font-heading text-4xl lg:text-5xl text-white mb-6 leading-tight">{{ section.settings.title }}</h2>
+        <p class="font-body text-brand-sand text-base lg:text-lg leading-relaxed mb-8">{{ section.settings.body }}</p>
+
+        <div class="space-y-4">
+          {% for block in section.blocks %}
+            <div class="flex items-start gap-3" {{ block.shopify_attributes }}>
+              <i class="fa-solid fa-check text-brand-gold mt-1" aria-hidden="true"></i>
+              <p class="font-body text-brand-sand text-sm">{{ block.settings.text }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-sm p-6 lg:p-10 shadow-2xl">
+        {% form 'customer', class: 'space-y-6' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div>
+            <label class="block font-body text-sm font-medium text-brand-parchment mb-2" for="ContactNewsletterFirstName-{{ section.id }}">
+              {{ section.settings.first_name_label }}
+            </label>
+            <input id="ContactNewsletterFirstName-{{ section.id }}" type="text" name="contact[first_name]" class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all" placeholder="{{ section.settings.first_name_placeholder }}">
+          </div>
+
+          <div>
+            <label class="block font-body text-sm font-medium text-brand-parchment mb-2" for="ContactNewsletterEmail-{{ section.id }}">
+              {{ section.settings.email_label }}
+            </label>
+            <input id="ContactNewsletterEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all" placeholder="{{ section.settings.email_placeholder }}">
+          </div>
+
+          {% render 'landing-button',
+            label: section.settings.button_label,
+            style: 'primary',
+            tone: 'dark',
+            palette: 'gold',
+            element: 'button',
+            type: 'submit',
+            full_width: true,
+            icon: 'fa-solid fa-sparkles'
+          %}
+
+          <p class="font-body text-xs text-brand-sand/60 text-center">{{ section.settings.privacy_note }}</p>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact newsletter",
+  "tag": "section",
+  "class": "contact-newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icon class",
+      "default": "fa-solid fa-envelope-open-text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Stay Connected"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Subscribe to Our Emails"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Join our community of magical enthusiasts and be the first to know about new arrivals, exclusive collections, special offers, and enchanting stories from the wizarding world."
+    },
+    {
+      "type": "text",
+      "id": "first_name_label",
+      "label": "First name label",
+      "default": "First Name"
+    },
+    {
+      "type": "text",
+      "id": "first_name_placeholder",
+      "label": "First name placeholder",
+      "default": "Enter your first name"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email label",
+      "default": "Email Address *"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "your@email.com"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Subscribe Now"
+    },
+    {
+      "type": "text",
+      "id": "privacy_note",
+      "label": "Privacy note",
+      "default": "We respect your privacy. Unsubscribe anytime with a single click."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Early access to limited edition products"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact newsletter",
+      "blocks": [
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Exclusive subscriber-only discounts"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Behind-the-scenes stories and magical inspiration"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

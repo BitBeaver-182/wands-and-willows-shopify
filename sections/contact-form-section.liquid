@@ -1,0 +1,371 @@
+<section id="contact-form-section" class="py-24 bg-white">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+      <div class="lg:col-span-2 space-y-8">
+        <div>
+          <h2 class="font-heading text-4xl text-brand-forest mb-4">{{ section.settings.title }}</h2>
+          <div class="w-16 h-0.5 bg-brand-gold mb-6"></div>
+          <p class="font-body text-brand-text leading-relaxed mb-6">{{ section.settings.body }}</p>
+          <p class="font-body text-brand-muted text-sm leading-relaxed">{{ section.settings.note }}</p>
+        </div>
+
+        <div class="space-y-6 pt-8">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'hours' %}
+                <div {{ block.shopify_attributes }}>
+                  <h4 class="font-heading text-xl text-brand-forest mb-4">{{ block.settings.title }}</h4>
+                  <div class="space-y-2 font-body text-sm text-brand-text">
+                    <div class="flex justify-between gap-4">
+                      <span class="text-brand-muted">{{ block.settings.row_1_label }}</span>
+                      <span class="font-medium text-right">{{ block.settings.row_1_value }}</span>
+                    </div>
+                    <div class="flex justify-between gap-4">
+                      <span class="text-brand-muted">{{ block.settings.row_2_label }}</span>
+                      <span class="font-medium text-right">{{ block.settings.row_2_value }}</span>
+                    </div>
+                    <div class="flex justify-between gap-4">
+                      <span class="text-brand-muted">{{ block.settings.row_3_label }}</span>
+                      <span class="font-medium text-right">{{ block.settings.row_3_value }}</span>
+                    </div>
+                  </div>
+                </div>
+              {% when 'socials' %}
+                <div {{ block.shopify_attributes }}>
+                  <h4 class="font-heading text-xl text-brand-forest mb-4">{{ block.settings.title }}</h4>
+                  <div class="flex gap-4">
+                    {% if block.settings.instagram_link != blank %}
+                      <a href="{{ block.settings.instagram_link }}" class="w-12 h-12 rounded-full bg-brand-forest flex items-center justify-center text-white hover:bg-brand-gold transition-colors" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram text-lg" aria-hidden="true"></i>
+                      </a>
+                    {% endif %}
+                    {% if block.settings.tiktok_link != blank %}
+                      <a href="{{ block.settings.tiktok_link }}" class="w-12 h-12 rounded-full bg-brand-forest flex items-center justify-center text-white hover:bg-brand-gold transition-colors" aria-label="TikTok">
+                        <i class="fa-brands fa-tiktok text-lg" aria-hidden="true"></i>
+                      </a>
+                    {% endif %}
+                    {% if block.settings.pinterest_link != blank %}
+                      <a href="{{ block.settings.pinterest_link }}" class="w-12 h-12 rounded-full bg-brand-forest flex items-center justify-center text-white hover:bg-brand-gold transition-colors" aria-label="Pinterest">
+                        <i class="fa-brands fa-pinterest text-lg" aria-hidden="true"></i>
+                      </a>
+                    {% endif %}
+                    {% if block.settings.facebook_link != blank %}
+                      <a href="{{ block.settings.facebook_link }}" class="w-12 h-12 rounded-full bg-brand-forest flex items-center justify-center text-white hover:bg-brand-gold transition-colors" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook text-lg" aria-hidden="true"></i>
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="lg:col-span-3">
+        {% form 'contact', class: 'bg-brand-parchment p-6 lg:p-10 rounded-sm shadow-lg border border-brand-sand/30' %}
+          {% if form.posted_successfully? %}
+            <div class="mb-6 rounded-sm border border-brand-gold/40 bg-brand-gold/10 px-4 py-3 font-body text-sm text-brand-forest">
+              {{ section.settings.success_message }}
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="mb-6 rounded-sm border border-red-300 bg-red-50 px-4 py-3 font-body text-sm text-red-700">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="block font-body text-sm font-medium text-brand-forest mb-2" for="ContactFirstName-{{ section.id }}">
+                {{ section.settings.first_name_label }}
+              </label>
+              <input id="ContactFirstName-{{ section.id }}" type="text" name="contact[First name]" class="w-full bg-white border border-brand-sand rounded-sm px-4 py-3 text-brand-text placeholder-brand-muted/50 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all" placeholder="{{ section.settings.first_name_placeholder }}">
+            </div>
+            <div>
+              <label class="block font-body text-sm font-medium text-brand-forest mb-2" for="ContactLastName-{{ section.id }}">
+                {{ section.settings.last_name_label }}
+              </label>
+              <input id="ContactLastName-{{ section.id }}" type="text" name="contact[Last name]" class="w-full bg-white border border-brand-sand rounded-sm px-4 py-3 text-brand-text placeholder-brand-muted/50 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all" placeholder="{{ section.settings.last_name_placeholder }}">
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label class="block font-body text-sm font-medium text-brand-forest mb-2" for="ContactEmail-{{ section.id }}">
+              {{ section.settings.email_label }}
+            </label>
+            <input id="ContactEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required class="w-full bg-white border border-brand-sand rounded-sm px-4 py-3 text-brand-text placeholder-brand-muted/50 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all" placeholder="{{ section.settings.email_placeholder }}">
+          </div>
+
+          <div class="mb-6">
+            <label class="block font-body text-sm font-medium text-brand-forest mb-2" for="ContactPhone-{{ section.id }}">
+              {{ section.settings.phone_label }}
+            </label>
+            <input id="ContactPhone-{{ section.id }}" type="tel" name="contact[phone]" autocomplete="tel" class="w-full bg-white border border-brand-sand rounded-sm px-4 py-3 text-brand-text placeholder-brand-muted/50 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all" placeholder="{{ section.settings.phone_placeholder }}">
+          </div>
+
+          <div class="mb-6">
+            <label class="block font-body text-sm font-medium text-brand-forest mb-2" for="ContactSubject-{{ section.id }}">
+              {{ section.settings.subject_label }}
+            </label>
+            <select id="ContactSubject-{{ section.id }}" name="contact[Subject]" required class="w-full bg-white border border-brand-sand rounded-sm px-4 py-3 text-brand-text focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all">
+              <option value="">{{ section.settings.subject_placeholder }}</option>
+              <option value="Order Inquiry">Order Inquiry</option>
+              <option value="Product Question">Product Question</option>
+              <option value="Shipping & Delivery">Shipping & Delivery</option>
+              <option value="Returns & Exchanges">Returns & Exchanges</option>
+              <option value="Wholesale Inquiry">Wholesale Inquiry</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="mb-6">
+            <label class="block font-body text-sm font-medium text-brand-forest mb-2" for="ContactMessage-{{ section.id }}">
+              {{ section.settings.message_label }}
+            </label>
+            <textarea id="ContactMessage-{{ section.id }}" name="contact[body]" required rows="6" class="w-full bg-white border border-brand-sand rounded-sm px-4 py-3 text-brand-text placeholder-brand-muted/50 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all resize-none" placeholder="{{ section.settings.message_placeholder }}"></textarea>
+          </div>
+
+          <div class="mb-6">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" name="contact[Marketing opt-in]" value="Yes" class="mt-1 w-4 h-4 text-brand-gold border-brand-sand rounded focus:ring-brand-gold">
+              <span class="font-body text-sm text-brand-muted">{{ section.settings.opt_in_label }}</span>
+            </label>
+          </div>
+
+          {% render 'landing-button',
+            label: section.settings.button_label,
+            style: 'primary',
+            tone: 'light',
+            palette: 'forest',
+            element: 'button',
+            type: 'submit',
+            full_width: true,
+            icon: 'fa-solid fa-paper-plane'
+          %}
+
+          <p class="font-body text-xs text-brand-muted mt-4 text-center">{{ section.settings.privacy_note }}</p>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "tag": "section",
+  "class": "contact-form-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Send Us a Message"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Whether you have questions about our products, need assistance with an order, or just want to share your magical experience, we're here to help."
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note",
+      "default": "We typically respond within 24 hours during business days. For urgent matters, please call us directly."
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Your message has been sent. We'll reply as soon as possible."
+    },
+    {
+      "type": "text",
+      "id": "first_name_label",
+      "label": "First name label",
+      "default": "First Name"
+    },
+    {
+      "type": "text",
+      "id": "first_name_placeholder",
+      "label": "First name placeholder",
+      "default": "Harry"
+    },
+    {
+      "type": "text",
+      "id": "last_name_label",
+      "label": "Last name label",
+      "default": "Last Name"
+    },
+    {
+      "type": "text",
+      "id": "last_name_placeholder",
+      "label": "Last name placeholder",
+      "default": "Potter"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email label",
+      "default": "Email Address *"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "harry@hogwarts.edu"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone label",
+      "default": "Phone Number"
+    },
+    {
+      "type": "text",
+      "id": "phone_placeholder",
+      "label": "Phone placeholder",
+      "default": "+1 (555) 123-4567"
+    },
+    {
+      "type": "text",
+      "id": "subject_label",
+      "label": "Subject label",
+      "default": "Subject *"
+    },
+    {
+      "type": "text",
+      "id": "subject_placeholder",
+      "label": "Subject placeholder",
+      "default": "Select a topic"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Message label",
+      "default": "Message *"
+    },
+    {
+      "type": "textarea",
+      "id": "message_placeholder",
+      "label": "Message placeholder",
+      "default": "Tell us how we can help you..."
+    },
+    {
+      "type": "text",
+      "id": "opt_in_label",
+      "label": "Opt-in label",
+      "default": "I'd like to receive updates about new products and exclusive offers"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Send Message"
+    },
+    {
+      "type": "text",
+      "id": "privacy_note",
+      "label": "Privacy note",
+      "default": "By submitting this form, you agree to our Privacy Policy."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hours",
+      "name": "Business hours",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Business Hours"
+        },
+        {
+          "type": "text",
+          "id": "row_1_label",
+          "label": "Row 1 label",
+          "default": "Monday - Friday"
+        },
+        {
+          "type": "text",
+          "id": "row_1_value",
+          "label": "Row 1 value",
+          "default": "9:00 AM - 6:00 PM"
+        },
+        {
+          "type": "text",
+          "id": "row_2_label",
+          "label": "Row 2 label",
+          "default": "Saturday"
+        },
+        {
+          "type": "text",
+          "id": "row_2_value",
+          "label": "Row 2 value",
+          "default": "10:00 AM - 4:00 PM"
+        },
+        {
+          "type": "text",
+          "id": "row_3_label",
+          "label": "Row 3 label",
+          "default": "Sunday"
+        },
+        {
+          "type": "text",
+          "id": "row_3_value",
+          "label": "Row 3 value",
+          "default": "Closed"
+        }
+      ]
+    },
+    {
+      "type": "socials",
+      "name": "Social links",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Follow Us"
+        },
+        {
+          "type": "url",
+          "id": "instagram_link",
+          "label": "Instagram link"
+        },
+        {
+          "type": "url",
+          "id": "tiktok_link",
+          "label": "TikTok link"
+        },
+        {
+          "type": "url",
+          "id": "pinterest_link",
+          "label": "Pinterest link"
+        },
+        {
+          "type": "url",
+          "id": "facebook_link",
+          "label": "Facebook link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact form",
+      "blocks": [
+        {
+          "type": "hours"
+        },
+        {
+          "type": "socials"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

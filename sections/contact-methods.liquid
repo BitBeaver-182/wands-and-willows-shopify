@@ -1,0 +1,96 @@
+<section id="contact-info" class="py-16 bg-brand-parchment">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for block in section.blocks %}
+        <div class="bg-white p-10 rounded-sm text-center border border-brand-sand/50 hover:shadow-lg transition-shadow" {{ block.shopify_attributes }}>
+          <div class="w-16 h-16 bg-brand-forest rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="{{ block.settings.icon }} text-brand-gold text-2xl" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-heading text-2xl text-brand-forest mb-3">{{ block.settings.title }}</h3>
+          <p class="font-body text-brand-muted mb-4 text-sm">{{ block.settings.body }}</p>
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="font-body text-brand-forest hover:text-brand-gold transition-colors font-medium">
+              {{ block.settings.link_label }}
+            </a>
+          {% else %}
+            <p class="font-body text-brand-forest font-medium">{{ block.settings.link_label | newline_to_br }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact methods",
+  "tag": "section",
+  "class": "contact-methods",
+  "blocks": [
+    {
+      "type": "method",
+      "name": "Contact method",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon class",
+          "default": "fa-solid fa-envelope"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Email Us"
+        },
+        {
+          "type": "text",
+          "id": "body",
+          "label": "Body",
+          "default": "For general inquiries and support"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Label",
+          "default": "hello@wandandwillow.com"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Link",
+          "info": "Use mailto:, tel:, or a URL."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact methods",
+      "blocks": [
+        {
+          "type": "method"
+        },
+        {
+          "type": "method",
+          "settings": {
+            "icon": "fa-solid fa-phone",
+            "title": "Call Us",
+            "body": "Mon-Fri, 9am-6pm EST",
+            "link_label": "1-800-555-1234"
+          }
+        },
+        {
+          "type": "method",
+          "settings": {
+            "icon": "fa-solid fa-location-dot",
+            "title": "Visit Us",
+            "body": "Our flagship store",
+            "link_label": "123 Diagon Alley\nLondon, UK"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
