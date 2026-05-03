@@ -1,0 +1,117 @@
+<section id="community-impact" class="py-16 lg:py-24 bg-white px-5 lg:px-0">
+  <div class="w-full max-w-md lg:max-w-[1200px] mx-auto lg:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div class="order-2 lg:order-1">
+        {% if section.settings.eyebrow != blank %}
+          <span class="text-brand-gold font-body tracking-[0.15em] lg:tracking-[0.2em] text-xs lg:text-sm mb-3 lg:mb-4 uppercase block">
+            {{ section.settings.eyebrow }}
+          </span>
+        {% endif %}
+        <h2 class="font-heading text-3xl lg:text-4xl text-brand-forest mb-5 lg:mb-6 leading-tight">{{ section.settings.title }}</h2>
+        <p class="font-body text-brand-text text-base lg:text-lg mb-8 lg:mb-6 leading-relaxed">{{ section.settings.body }}</p>
+        <div class="grid grid-cols-2 gap-4 lg:gap-6 mt-0 lg:mt-10">
+          {% for block in section.blocks %}
+            <div class="text-center p-5 lg:p-6 bg-brand-parchment rounded-sm" {{ block.shopify_attributes }}>
+              <div class="font-heading text-3xl lg:text-4xl text-brand-gold mb-1.5 lg:mb-2">{{ block.settings.value }}</div>
+              <p class="font-body text-xs lg:text-sm text-brand-muted">{{ block.settings.label }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2 aspect-[4/5] overflow-hidden rounded-sm shadow-2xl bg-brand-parchment">
+        {% if section.settings.image != blank %}
+          {{
+            section.settings.image
+            | image_url: width: 1200
+            | image_tag: loading: 'lazy', class: 'w-full h-full object-cover'
+          }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About impact",
+  "tag": "section",
+  "class": "about-impact",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Impact"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Building a Global Community"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "What started as a one-woman operation has grown into a thriving community of over 50,000 members across 40 countries. We've hosted magical meetups, raised funds for literacy programs, and created a space where fans can connect over their shared love of enchantment."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "50K+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Community Members"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About impact",
+      "blocks": [
+        {
+          "type": "stat"
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "40+",
+            "label": "Countries Served"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "25K+",
+            "label": "Wands Crafted"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "$100K+",
+            "label": "Donated to Literacy"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

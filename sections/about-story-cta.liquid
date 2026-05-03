@@ -1,0 +1,121 @@
+<section id="cta-story" class="py-16 lg:py-24 bg-brand-forest text-brand-parchment px-5 lg:px-0">
+  <div class="w-full max-w-md lg:max-w-4xl mx-auto lg:px-6 text-center">
+    {% if section.settings.icon != blank %}
+      <i class="{{ section.settings.icon }} text-brand-gold text-3xl lg:text-4xl mb-5 lg:mb-6" aria-hidden="true"></i>
+    {% endif %}
+    <h2 class="font-heading text-3xl lg:text-5xl mb-5 lg:mb-6 leading-tight">{{ section.settings.title }}</h2>
+    <p class="font-body text-brand-sand text-base lg:text-lg mb-8 lg:mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+      {{ section.settings.body }}
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 lg:gap-4">
+      {% for block in section.blocks %}
+        {% render 'landing-button',
+          label: block.settings.label,
+          link: block.settings.link,
+          style: block.settings.style,
+          tone: 'dark',
+          palette: 'gold',
+          full_width: block.settings.full_width,
+          open_in_new_tab: block.settings.open_in_new_tab,
+          class: 'w-full sm:w-auto'
+        %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About CTA",
+  "tag": "section",
+  "class": "about-story-cta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icon class",
+      "default": "fa-solid fa-sparkles"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Be Part of Our Story"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Join our community of magic-makers, dreamers, and believers. Together, we're proving that enchantment exists in the everyday."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cta_button",
+      "name": "CTA button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Shop Our Collections"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "full_width",
+          "label": "Full width",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open in new tab",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About CTA",
+      "blocks": [
+        {
+          "type": "cta_button",
+          "settings": {
+            "label": "Shop Our Collections",
+            "style": "primary"
+          }
+        },
+        {
+          "type": "cta_button",
+          "settings": {
+            "label": "Join the Community",
+            "style": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

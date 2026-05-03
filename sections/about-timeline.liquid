@@ -1,0 +1,95 @@
+<section id="timeline" class="py-16 lg:py-24 bg-brand-parchment px-5 lg:px-0">
+  <div class="w-full max-w-md lg:max-w-[1200px] mx-auto lg:px-12">
+    <div class="text-center mb-12 lg:mb-16">
+      <h2 class="font-heading text-3xl lg:text-4xl text-brand-forest mb-3 lg:mb-4">{{ section.settings.title }}</h2>
+      <div class="w-12 lg:w-16 h-0.5 bg-brand-gold mx-auto"></div>
+    </div>
+
+    <div class="space-y-10 lg:space-y-16">
+      {% for block in section.blocks %}
+        <div class="flex flex-col md:flex-row gap-3 md:gap-8 items-start" {{ block.shopify_attributes }}>
+          <div class="md:w-1/4">
+            <div class="text-brand-gold font-heading text-4xl lg:text-5xl font-bold">{{ block.settings.year }}</div>
+          </div>
+          <div class="md:w-3/4">
+            <h3 class="font-heading text-xl lg:text-2xl text-brand-forest mb-3 lg:mb-4">{{ block.settings.title }}</h3>
+            <p class="font-body text-brand-text text-sm lg:text-base leading-relaxed">{{ block.settings.body }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About timeline",
+  "tag": "section",
+  "class": "about-timeline",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Journey"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Milestone",
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Year",
+          "default": "2019"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "The First Wand"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Eleanor crafts her first wand in her Edinburgh apartment. Friends and family are amazed by the quality and detail."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About timeline",
+      "blocks": [
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2019",
+            "title": "The First Wand",
+            "body": "Eleanor crafts her first wand in her Edinburgh apartment. Friends and family are amazed by the quality and detail. Word spreads through local fan communities, and the first orders begin to arrive."
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2020",
+            "title": "Wand & Willow is Born",
+            "body": "The brand officially launches with a small collection of handcrafted wands and apothecary candles. An Etsy shop gains traction, and Eleanor hires her first assistant to help with production."
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2021",
+            "title": "Expanding the Collection",
+            "body": "Jewelry, stationery, and home goods are added to the catalog. The team grows to five artisans, each specializing in different crafts."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

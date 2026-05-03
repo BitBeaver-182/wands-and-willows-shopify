@@ -1,0 +1,117 @@
+<section id="team" class="py-16 lg:py-24 bg-brand-parchment px-5 lg:px-0">
+  <div class="w-full max-w-md lg:max-w-[1200px] mx-auto lg:px-12">
+    <div class="text-center mb-10 lg:mb-16">
+      <h2 class="font-heading text-3xl lg:text-4xl text-brand-forest mb-3 lg:mb-4">{{ section.settings.title }}</h2>
+      <div class="w-12 lg:w-16 h-0.5 bg-brand-gold mx-auto mb-5 lg:mb-6"></div>
+      {% if section.settings.body != blank %}
+        <p class="font-body text-brand-muted text-sm lg:text-base leading-relaxed max-w-2xl mx-auto">{{ section.settings.body }}</p>
+      {% endif %}
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {% for block in section.blocks %}
+        <div class="text-center" {{ block.shopify_attributes }}>
+          <div class="w-40 h-40 lg:w-48 lg:h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-brand-gold/30 bg-white">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 600
+                | image_tag: loading: 'lazy', class: 'w-full h-full object-cover'
+              }}
+            {% endif %}
+          </div>
+          <h3 class="font-heading text-lg lg:text-xl text-brand-forest mb-1">{{ block.settings.name }}</h3>
+          <p class="font-body text-xs lg:text-sm text-brand-gold mb-1.5 lg:mb-2">{{ block.settings.role }}</p>
+          <p class="font-body text-xs lg:text-sm text-brand-muted">{{ block.settings.bio }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About team",
+  "tag": "section",
+  "class": "about-team-grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Meet the Makers"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "The talented artisans and creatives behind Wand & Willow."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "member",
+      "name": "Team member",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Eleanor Vance"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Role",
+          "default": "Founder & Head Archivist"
+        },
+        {
+          "type": "text",
+          "id": "bio",
+          "label": "Bio",
+          "default": "Master wandmaker and visionary"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About team",
+      "blocks": [
+        {
+          "type": "member"
+        },
+        {
+          "type": "member",
+          "settings": {
+            "name": "Thomas Blackwood",
+            "role": "Lead Artisan",
+            "bio": "Specialist in dark woods & metals"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+            "name": "Isla MacGregor",
+            "role": "Apothecary Master",
+            "bio": "Creator of our signature scents"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+            "name": "Marcus Chen",
+            "role": "Jewelry Designer",
+            "bio": "Precious metals & gemstones expert"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
