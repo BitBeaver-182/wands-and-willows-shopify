@@ -1,0 +1,69 @@
+{%- doc -%}
+  Renders the shared Wand & Willow CTA button pattern.
+
+  @param {string} label - Button label
+  @param {string} [link] - Link href when rendering an anchor
+  @param {string} [style] - `primary` or `secondary`
+  @param {boolean} [full_width] - Make the button fill the available width
+  @param {boolean} [open_in_new_tab] - Open the link in a new tab
+  @param {string} [class] - Additional classes
+  @param {string} [icon] - Optional Font Awesome icon class
+  @param {string} [element] - `a` or `button`
+  @param {string} [type] - Button type when rendering a button element
+{%- enddoc -%}
+
+{%- liquid
+  assign button_style = style | default: 'primary'
+  assign button_class = class | default: ''
+  assign button_element = element | default: 'a'
+  assign button_type = type | default: 'button'
+  assign width_class = ''
+
+  if full_width
+    assign width_class = 'w-full'
+  endif
+
+  capture base_class
+    echo 'inline-flex items-center justify-center gap-2 px-8 py-4 font-medium tracking-wide transition-all rounded-sm text-center '
+    echo width_class
+
+    if button_style == 'secondary'
+      echo ' bg-transparent border border-brand-sand text-brand-parchment hover:bg-brand-sand/10'
+    else
+      echo ' bg-brand-gold text-white hover:bg-brand-goldHover'
+    endif
+
+    if button_class != blank
+      echo ' '
+      echo button_class
+    endif
+  endcapture
+-%}
+
+{% if button_element == 'button' %}
+  <button class="{{ base_class | strip }}" type="{{ button_type }}">
+    {% if icon != blank %}
+      <i class="{{ icon }}" aria-hidden="true"></i>
+    {% endif %}
+    {{ label }}
+  </button>
+{% else %}
+  <a
+    {% if link == blank %}
+      role="link"
+      aria-disabled="true"
+    {% else %}
+      href="{{ link }}"
+    {% endif %}
+    class="{{ base_class | strip }}"
+    {%- if open_in_new_tab -%}
+      target="_blank"
+      rel="noopener noreferrer"
+    {%- endif -%}
+  >
+    {% if icon != blank %}
+      <i class="{{ icon }}" aria-hidden="true"></i>
+    {% endif %}
+    {{ label }}
+  </a>
+{% endif %}

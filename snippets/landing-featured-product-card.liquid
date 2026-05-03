@@ -72,7 +72,7 @@
         {% endunless %}
         aria-label="Add {{ product.title | escape }} to cart"
       >
-        <i class="fa-solid fa-cart-plus" aria-hidden="true"></i> Add to Cart
+        <i class="fa-solid fa-cart-plus" aria-hidden="true"></i> {{ 'actions.add_to_cart' | t }}
       </button>
     </form>
   </div>
@@ -85,4 +85,3 @@
     align-items: center;
   }
 {% endstylesheet %}
-
