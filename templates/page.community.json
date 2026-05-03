@@ -1,0 +1,81 @@
+{
+  "sections": {
+    "hero": {
+      "type": "community-hero",
+      "blocks": {
+        "share": { "type": "cta_button", "settings": { "label": "Share Your Magic", "link": "", "style": "primary", "palette": "gold", "open_in_new_tab": false } },
+        "join": { "type": "cta_button", "settings": { "label": "Join the Circle", "link": "", "style": "secondary", "palette": "auto", "open_in_new_tab": false } }
+      },
+      "block_order": ["share", "join"],
+      "settings": {
+        "image": "",
+        "kicker": "Welcome Home",
+        "heading": "The Common Room",
+        "text": "A gathering place for kindred spirits who believe in the magic of everyday moments. Share your story, find inspiration, and connect with fellow enchanters."
+      }
+    },
+    "stats": {
+      "type": "community-stats-strip",
+      "blocks": {
+        "members": { "type": "stat_card", "settings": { "value": "12.5K", "label": "Community Members" } },
+        "stories": { "type": "stat_card", "settings": { "value": "3.2K", "label": "Stories Shared" } },
+        "events": { "type": "stat_card", "settings": { "value": "850", "label": "Events Hosted" } },
+        "countries": { "type": "stat_card", "settings": { "value": "45", "label": "Countries" } }
+      },
+      "block_order": ["members", "stories", "events", "countries"],
+      "settings": {}
+    },
+    "stories": {
+      "type": "community-story-feed",
+      "blocks": {
+        "story_one": { "type": "story_card", "settings": { "image": "", "avatar": "", "author": "Sarah M.", "house": "House of Wisdom", "title": "Creating My Personal Library Sanctuary", "excerpt": "After years of collecting, I finally transformed my spare room into the magical library I've always dreamed of.", "link": "", "likes": "342", "comments": "28" } },
+        "story_two": { "type": "story_card", "settings": { "image": "", "avatar": "", "author": "Marcus T.", "house": "House of Ambition", "title": "My Monthly Ritual Space", "excerpt": "I've curated this sacred corner where I unwind with candles from the Apothecary collection.", "link": "", "likes": "287", "comments": "19" } }
+      },
+      "block_order": ["story_one", "story_two"],
+      "settings": { "heading": "Featured Stories", "text": "Discover how our community members weave magic into their daily lives.", "read_label": "Read Full Story", "button_label": "View All Stories", "button_link": "" }
+    },
+    "gallery": {
+      "type": "community-ugc-masonry",
+      "blocks": {
+        "tile_one": { "type": "ugc_tile", "settings": { "image": "", "avatar": "", "username": "@enchantedliving", "likes": "156" } },
+        "tile_two": { "type": "ugc_tile", "settings": { "image": "", "avatar": "", "username": "@mysticalmoments", "likes": "203" } },
+        "tile_three": { "type": "ugc_tile", "settings": { "image": "", "avatar": "", "username": "@bookishwitch", "likes": "421" } },
+        "tile_four": { "type": "ugc_tile", "settings": { "image": "", "avatar": "", "username": "@wanderingwizard", "likes": "189" } },
+        "tile_five": { "type": "ugc_tile", "settings": { "image": "", "avatar": "", "username": "@academiamagic", "likes": "312" } },
+        "tile_six": { "type": "ugc_tile", "settings": { "image": "", "avatar": "", "username": "@potterhead_daily", "likes": "267" } }
+      },
+      "block_order": ["tile_one", "tile_two", "tile_three", "tile_four", "tile_five", "tile_six"],
+      "settings": { "heading": "Community Gallery", "text": "Tag us @WandAndWillow or use #WandAndWillowMagic to be featured.", "button_label": "Load More", "button_link": "" }
+    },
+    "events": {
+      "type": "community-events-feed",
+      "blocks": {
+        "event_one": { "type": "event_card", "settings": { "day": "15", "month": "Jan", "kicker": "Virtual Workshop", "title": "Wand Crafting 101", "text": "Learn the basics of wand making with our master artisan.", "meta_icon": "fa-regular fa-clock", "meta": "7:00 PM EST", "button_label": "Register Now", "button_link": "" } },
+        "event_two": { "type": "event_card", "settings": { "day": "22", "month": "Jan", "kicker": "Book Club", "title": "Monthly Read Discussion", "text": "Join us to discuss this month's featured magical literature.", "meta_icon": "fa-regular fa-clock", "meta": "6:00 PM EST", "button_label": "Register Now", "button_link": "" } },
+        "event_three": { "type": "event_card", "settings": { "day": "28", "month": "Jan", "kicker": "In-Person", "title": "House Cup Trivia Night", "text": "Test your magical knowledge at our flagship store in Salem.", "meta_icon": "fa-solid fa-location-dot", "meta": "Salem, MA", "button_label": "Register Now", "button_link": "" } }
+      },
+      "block_order": ["event_one", "event_two", "event_three"],
+      "settings": { "heading": "Upcoming Events", "text": "Join us for magical gatherings, workshops, and community celebrations.", "button_label": "View All Events", "button_link": "" }
+    },
+    "spotlight": {
+      "type": "community-member-spotlight",
+      "blocks": {
+        "posts": { "type": "spotlight_stat", "settings": { "value": "156", "label": "Posts Shared" } },
+        "followers": { "type": "spotlight_stat", "settings": { "value": "2.3K", "label": "Followers" } },
+        "member_since": { "type": "spotlight_stat", "settings": { "value": "3 yrs", "label": "Member Since" } }
+      },
+      "block_order": ["posts", "followers", "member_since"],
+      "settings": { "background": "", "image": "", "heading": "Member of the Month", "name": "Emma Richardson", "badge": "House of Wisdom", "quote": "Being part of this community has transformed how I experience the stories I love.", "link_label": "View Profile", "link": "" }
+    },
+    "join_cta": {
+      "type": "community-join-cta",
+      "blocks": {
+        "account": { "type": "cta_button", "settings": { "label": "Create Free Account", "link": "", "style": "primary", "palette": "gold", "open_in_new_tab": false } },
+        "learn": { "type": "cta_button", "settings": { "label": "Learn More", "link": "", "style": "secondary", "palette": "auto", "open_in_new_tab": false } }
+      },
+      "block_order": ["account", "learn"],
+      "settings": { "icon": "fa-solid fa-users", "heading": "Become Part of Our Circle", "text": "Join thousands of magical enthusiasts sharing their stories, attending exclusive events, and connecting over a shared love of enchantment." }
+    }
+  },
+  "order": ["hero", "stats", "stories", "gallery", "events", "spotlight", "join_cta"]
+}

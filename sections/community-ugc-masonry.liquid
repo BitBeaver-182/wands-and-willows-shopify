@@ -1,0 +1,118 @@
+<section id="community-gallery" class="py-16 md:py-24 bg-white">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="font-heading text-4xl text-brand-forest mb-4">{{ section.settings.heading }}</h2>
+      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+      <p class="font-body text-brand-muted max-w-2xl mx-auto">{{ section.settings.text }}</p>
+    </div>
+
+    <div class="community-masonry">
+      {% for block in section.blocks %}
+        <div class="community-masonry-item group relative overflow-hidden rounded-sm" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            {{
+              block.settings.image
+              | image_url: width: 900
+              | image_tag:
+                class: 'w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110',
+                loading: 'lazy',
+                alt: block.settings.image.alt | default: block.settings.username
+            }}
+          {% else %}
+            {{ 'product-apparel-1' | placeholder_svg_tag: 'w-full h-auto object-cover text-brand-sand bg-brand-parchment' }}
+          {% endif %}
+          <div class="absolute inset-0 bg-brand-forest/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6">
+            {% if block.settings.avatar != blank %}
+              {{
+                block.settings.avatar
+                | image_url: width: 120
+                | image_tag:
+                  class: 'w-10 h-10 rounded-full object-cover mb-3',
+                  loading: 'lazy',
+                  alt: block.settings.username
+              }}
+            {% endif %}
+            <p class="text-white font-body text-sm mb-2">{{ block.settings.username }}</p>
+            <div class="flex gap-4 text-white text-sm">
+              <span><i class="fa-regular fa-heart" aria-hidden="true"></i> {{ block.settings.likes }}</span>
+              <span><i class="fa-brands fa-instagram" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.button_label != blank %}
+      <div class="mt-12 text-center">
+        {% render 'landing-button',
+          label: section.settings.button_label,
+          link: section.settings.button_link,
+          style: 'primary',
+          palette: 'gold',
+          class: 'px-8 py-3'
+        %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .community-masonry {
+    column-count: 3;
+    column-gap: 1.5rem;
+  }
+
+  .community-masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .community-masonry {
+      column-count: 2;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .community-masonry {
+      column-count: 1;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Community UGC masonry",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Community Gallery" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Tag us @WandAndWillow or use #WandAndWillowMagic to be featured." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Load More" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "ugc_tile",
+      "name": "UGC tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" },
+        { "type": "text", "id": "username", "label": "Username", "default": "@enchantedliving" },
+        { "type": "text", "id": "likes", "label": "Likes", "default": "156" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Community UGC masonry",
+      "blocks": [
+        { "type": "ugc_tile" },
+        { "type": "ugc_tile", "settings": { "username": "@mysticalmoments", "likes": "203" } },
+        { "type": "ugc_tile", "settings": { "username": "@bookishwitch", "likes": "421" } },
+        { "type": "ugc_tile", "settings": { "username": "@wanderingwizard", "likes": "189" } },
+        { "type": "ugc_tile", "settings": { "username": "@academiamagic", "likes": "312" } },
+        { "type": "ugc_tile", "settings": { "username": "@potterhead_daily", "likes": "267" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

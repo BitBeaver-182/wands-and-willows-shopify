@@ -1,0 +1,39 @@
+<section id="community-stats" class="py-12 md:py-16 bg-white border-b border-brand-sand">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {% for block in section.blocks %}
+        <div class="text-center" {{ block.shopify_attributes }}>
+          <div class="text-4xl font-heading text-brand-gold mb-2">{{ block.settings.value }}</div>
+          <div class="text-xs md:text-sm font-body text-brand-muted uppercase tracking-widest">{{ block.settings.label }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Community stats strip",
+  "blocks": [
+    {
+      "type": "stat_card",
+      "name": "Stat card",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "12.5K" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Community Members" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Community stats strip",
+      "blocks": [
+        { "type": "stat_card" },
+        { "type": "stat_card", "settings": { "value": "3.2K", "label": "Stories Shared" } },
+        { "type": "stat_card", "settings": { "value": "850", "label": "Events Hosted" } },
+        { "type": "stat_card", "settings": { "value": "45", "label": "Countries" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
