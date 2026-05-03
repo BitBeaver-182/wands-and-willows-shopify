@@ -3,7 +3,6 @@ if (!customElements.get('collection-catalog-filters')) {
     connectedCallback() {
       this.abortController = new AbortController();
       this.abortFetchController = null;
-      this.debouncedAjaxUpdate = this.debounce((url) => this.renderFromUrl(url), 350);
 
       this.bindEvents();
       this.syncAllRangeGroups();
@@ -39,12 +38,6 @@ if (!customElements.get('collection-catalog-filters')) {
       if (target.matches('[data-collection-sort]')) {
         event.preventDefault();
         this.handleSortChange(target);
-        return;
-      }
-
-      if (target.matches('input[type="checkbox"]') && target.closest('[data-collection-filter-form]')) {
-        event.preventDefault();
-        this.renderFromUrl(this.urlFromForm(target.form));
       }
     }
 
@@ -57,7 +50,6 @@ if (!customElements.get('collection-catalog-filters')) {
         const group = target.closest('[data-price-range-group]');
         if (!group) return;
         this.syncRangeGroup(group, target.dataset.priceRangeSlider);
-        this.debouncedAjaxUpdate(this.urlFromForm(target.form));
         return;
       }
 
@@ -65,7 +57,6 @@ if (!customElements.get('collection-catalog-filters')) {
         const group = target.closest('[data-price-range-group]') || target.form?.querySelector('[data-price-range-group]');
         if (!group) return;
         this.syncRangeGroup(group, target.dataset.priceRangeInput, true);
-        this.debouncedAjaxUpdate(this.urlFromForm(target.form));
       }
     }
 
@@ -232,11 +223,11 @@ if (!customElements.get('collection-catalog-filters')) {
       maxValue = Math.max(minBound, Math.min(maxValue, maxBound));
 
       if (changedControl === 'min' && minValue > maxValue) {
-        maxValue = minValue;
-      } else if (changedControl === 'max' && maxValue < minValue) {
         minValue = maxValue;
-      } else if (minValue > maxValue) {
+      } else if (changedControl === 'max' && maxValue < minValue) {
         maxValue = minValue;
+      } else if (minValue > maxValue) {
+        minValue = maxValue;
       }
 
       minSlider.value = String(minValue);
@@ -253,15 +244,9 @@ if (!customElements.get('collection-catalog-filters')) {
 
       track.style.left = `${minPercent}%`;
       track.style.width = `${Math.max(maxPercent - minPercent, 0)}%`;
-    }
 
-    debounce(callback, wait) {
-      let timeoutId;
-
-      return (...args) => {
-        window.clearTimeout(timeoutId);
-        timeoutId = window.setTimeout(() => callback(...args), wait);
-      };
+      minSlider.style.zIndex = minPercent > 90 ? '40' : '20';
+      maxSlider.style.zIndex = '30';
     }
 
     formatMoney(amount) {
