@@ -1,0 +1,49 @@
+<section id="reviews-section" class="py-16 bg-brand-parchment">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10 lg:mb-12">
+      <h2 class="font-heading text-3xl text-brand-forest">{{ section.settings.heading }}</h2>
+      {% if section.settings.review_button_label != blank and section.settings.review_button_link != blank %}
+        {% render 'landing-button',
+          label: section.settings.review_button_label,
+          link: section.settings.review_button_link,
+          style: 'secondary',
+          class: 'px-6 py-3 text-sm'
+        %}
+      {% endif %}
+    </div>
+
+    <div class="bg-white rounded-sm p-5 lg:p-8 border border-brand-sand">
+      {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', product: product %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "review_button_label",
+      "label": "Review button label",
+      "default": "Write a Review"
+    },
+    {
+      "type": "url",
+      "id": "review_button_link",
+      "label": "Review button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product reviews"
+    }
+  ]
+}
+{% endschema %}

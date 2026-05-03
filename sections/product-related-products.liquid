@@ -1,0 +1,90 @@
+{%- liquid
+  assign source_collection = section.settings.collection
+  assign shown_products = 0
+-%}
+
+{% if source_collection != blank and source_collection.products_count > 0 %}
+  <section id="related-products" class="py-16 bg-white border-t border-brand-sand">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+      <div class="flex items-center justify-between gap-6 mb-10 lg:mb-12">
+        <h2 class="font-heading text-3xl text-brand-forest">{{ section.settings.heading }}</h2>
+        {% if section.settings.show_collection_link %}
+          <a href="{{ source_collection.url }}" class="font-body text-sm uppercase tracking-widest text-brand-forest hover:text-brand-gold transition-colors">
+            {{ 'actions.view_all' | t }}
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for related_product in source_collection.products limit: section.settings.product_limit %}
+          {% unless related_product.id == product.id %}
+            {% render 'collection-product-card', product: related_product %}
+            {% assign shown_products = shown_products | plus: 1 %}
+          {% endunless %}
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_collection_button %}
+        <div class="text-center mt-12">
+          {% render 'landing-button',
+            label: section.settings.collection_button_label,
+            link: source_collection.url,
+            style: 'secondary',
+            class: 'px-8 py-3 text-sm uppercase tracking-widest bg-white hover:bg-brand-parchment'
+          %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product related products",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Curated Artifacts"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Product limit",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_link",
+      "label": "Show text link",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "collection_button_label",
+      "label": "Button label",
+      "default": "View All Artifacts"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product related products"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+{%- doc -%}
+  Judge.me integration hook.
+
+  The app can replace or augment this snippet on install. The fallback keeps theme
+  markup valid in local development and exposes the expected Judge.me containers.
+
+  @param {string} widget_type - Widget type to render
+  @param {object} product - Shopify product
+{%- enddoc -%}
+
+{%- liquid
+  assign widget_type = widget_type | default: 'judgeme_preview_badge'
+  assign product = product | default: blank
+  if product == blank
+    break
+  endif
+-%}
+
+{% case widget_type %}
+  {% when 'judgeme_review_widget' %}
+    <div class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.widget }}
+    </div>
+  {% else %}
+    <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.badge }}
+    </div>
+{% endcase %}

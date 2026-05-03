@@ -1,0 +1,351 @@
+<script src="{{ 'product-page.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign selected_variant = product.selected_or_first_available_variant
+  assign featured_media = selected_variant.featured_media | default: product.featured_media
+  assign featured_image = featured_media.preview_image | default: product.featured_image
+  assign product_form_id = 'product-form-' | append: section.id
+  assign compare_at_price = selected_variant.compare_at_price
+  assign has_compare_price = false
+  if compare_at_price > selected_variant.price
+    assign has_compare_price = true
+  endif
+-%}
+
+<section id="product-detail-main" class="py-10 lg:py-16 bg-white">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <nav class="flex items-center gap-2 text-sm font-body text-brand-muted mb-8" aria-label="{{ 'content.product_information' | t }}">
+      <a href="{{ routes.root_url }}" class="hover:text-brand-gold transition-colors">{{ shop.name }}</a>
+      <i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i>
+      {% if collection != blank %}
+        <a href="{{ collection.url }}" class="hover:text-brand-gold transition-colors">{{ collection.title }}</a>
+      {% else %}
+        <a href="{{ routes.all_products_collection_url }}" class="hover:text-brand-gold transition-colors">{{ 'content.search_results_resource_collections' | t }}</a>
+      {% endif %}
+      <i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i>
+      <span class="text-brand-forest font-medium">{{ product.title }}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+      <wand-product-gallery id="product-gallery" class="block space-y-6">
+        <div class="aspect-square bg-brand-parchment rounded-sm overflow-hidden border border-brand-sand/50 p-5 lg:p-8 flex items-center justify-center">
+          <div class="w-full h-full bg-white rounded-sm p-5 lg:p-8 flex items-center justify-center">
+            {% if featured_image != blank %}
+              {%- assign featured_image_alt = featured_image.alt | default: product.title | escape -%}
+              {{
+                featured_image
+                | image_url: width: 1400
+                | image_tag:
+                  class: 'w-full h-full object-contain mix-blend-multiply',
+                  loading: 'eager',
+                  fetchpriority: 'high',
+                  alt: featured_image_alt,
+                  data-product-gallery-main: '',
+                  srcset: null,
+                  sizes: null
+              }}
+            {% else %}
+              {{ 'product-apparel-1' | placeholder_svg_tag: 'w-full h-full object-contain text-brand-sand' }}
+            {% endif %}
+          </div>
+        </div>
+
+        {% if product.media.size > 1 %}
+          <div class="grid grid-cols-4 gap-3 lg:gap-4">
+            {% for media in product.media limit: 4 %}
+              {% if media.preview_image != blank %}
+                {%- liquid
+                  assign thumbnail_image = media.preview_image
+                  assign thumbnail_alt = thumbnail_image.alt | default: product.title | escape
+                  assign thumbnail_border = 'border-brand-sand/50'
+                  assign current_thumbnail = false
+                  if featured_media != blank and media.id == featured_media.id
+                    assign thumbnail_border = 'border-brand-gold'
+                    assign current_thumbnail = true
+                  elsif featured_media == blank and forloop.first
+                    assign thumbnail_border = 'border-brand-gold'
+                    assign current_thumbnail = true
+                  endif
+                -%}
+                <button
+                  class="aspect-square bg-brand-parchment rounded-sm overflow-hidden border-2 {{ thumbnail_border }} p-2 hover:border-brand-gold transition-colors flex items-center justify-center"
+                  type="button"
+                  data-product-gallery-thumbnail
+                  data-image-url="{{ thumbnail_image | image_url: width: 1400 }}"
+                  data-image-alt="{{ thumbnail_alt }}"
+                  aria-label="{{ 'content.product_image' | t }} {{ forloop.index }}"
+                  aria-current="{% if current_thumbnail %}true{% else %}false{% endif %}"
+                >
+                  <span class="w-full h-full bg-white rounded-sm p-2 flex items-center justify-center">
+                    {{
+                      thumbnail_image
+                      | image_url: width: 300
+                      | image_tag:
+                        class: 'w-full h-full object-contain mix-blend-multiply',
+                        loading: 'lazy',
+                        alt: thumbnail_alt
+                    }}
+                  </span>
+                </button>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </wand-product-gallery>
+
+      <wand-product-form
+        id="product-info"
+        class="block space-y-8"
+        data-currency-code="{{ localization.country.currency.iso_code | default: cart.currency.iso_code | default: shop.currency }}"
+      >
+        <script type="application/json">
+          {{ product.variants | json }}
+        </script>
+
+        <div>
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            {% for tag in product.tags %}
+              {% if tag == 'New' or tag == 'Limited' or tag == 'Limited Edition' or tag == 'Bestseller' %}
+                <span class="{% if tag contains 'Limited' %}bg-brand-gold/20 text-brand-gold{% else %}bg-brand-forest text-white{% endif %} text-xs font-bold px-3 py-1 uppercase tracking-wider">
+                  {{ tag }}
+                </span>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <h1 class="font-heading text-4xl lg:text-5xl text-brand-forest mb-4">{{ product.title }}</h1>
+
+          <div class="flex flex-wrap items-center gap-4 mb-6">
+            {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', product: product %}
+            <span class="text-brand-muted">|</span>
+            <span
+              class="font-body text-sm font-medium {% if selected_variant.available %}text-brand-forest{% else %}text-red-500{% endif %}"
+              data-product-inventory
+              data-in-stock-label="{{ 'content.inventory_in_stock' | t }}"
+              data-sold-out-label="{{ 'products.product.sold_out' | t }}"
+            >
+              {% if selected_variant.available %}
+                {{ 'content.inventory_in_stock' | t }}
+              {% else %}
+                {{ 'products.product.sold_out' | t }}
+              {% endif %}
+            </span>
+          </div>
+
+          <div class="flex flex-wrap items-baseline gap-4 mb-6">
+            <span class="font-heading text-4xl text-brand-forest" data-product-price>{{ selected_variant.price | money }}</span>
+            <span class="font-body text-xl text-brand-muted line-through{% unless has_compare_price %} hidden{% endunless %}" data-product-compare-price>
+              {% if has_compare_price %}{{ compare_at_price | money }}{% endif %}
+            </span>
+            <span
+              class="bg-red-100 text-red-800 text-sm font-bold px-2 py-1 rounded{% unless has_compare_price %} hidden{% endunless %}"
+              data-product-sale-badge
+              data-label="{{ 'content.product_badge_sale' | t }}"
+            >
+              {% if has_compare_price %}{{ 'content.product_badge_sale' | t }}{% endif %}
+            </span>
+          </div>
+
+          {% if product.description != blank %}
+            <div class="font-body text-brand-text leading-relaxed mb-8 rte">
+              {{ product.description | strip_html | truncatewords: 55 }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="border-t border-brand-sand pt-8 space-y-6">
+          {% form 'product', product, id: product_form_id %}
+            <input type="hidden" name="id" value="{{ selected_variant.id }}" data-product-variant-id>
+
+            {% unless product.has_only_default_variant %}
+              <div class="space-y-6 mb-6">
+                {% for option in product.options_with_values %}
+                  {%- liquid
+                    assign option_index = forloop.index0
+                    assign selected_value = selected_variant.options[option_index]
+                  -%}
+                  <div data-product-option-index="{{ option_index }}">
+                    <label class="font-body text-sm font-medium text-brand-forest mb-3 block">{{ option.name }}</label>
+                    {% if forloop.first %}
+                      <div class="flex flex-wrap gap-3">
+                        {% for value in option.values %}
+                          {%- assign input_id = section.id | append: '-option-' | append: option.position | append: '-' | append: forloop.index -%}
+                          <input
+                            class="sr-only peer"
+                            id="{{ input_id }}"
+                            type="radio"
+                            name="option-{{ option.position }}"
+                            value="{{ value | escape }}"
+                            data-product-option
+                            {% if value == selected_value %}checked{% endif %}
+                          >
+                          <label
+                            class="px-6 py-3 border border-brand-sand text-brand-text font-medium rounded-sm hover:border-brand-gold transition-colors cursor-pointer peer-checked:border-2 peer-checked:border-brand-gold peer-checked:bg-brand-gold/10 peer-checked:text-brand-forest"
+                            for="{{ input_id }}"
+                          >
+                            {{ value }}
+                          </label>
+                        {% endfor %}
+                      </div>
+                    {% else %}
+                      <select class="w-full border border-brand-sand rounded-sm px-4 py-3 font-body text-brand-text focus:outline-none focus:border-brand-gold bg-white" data-product-option>
+                        {% for value in option.values %}
+                          <option value="{{ value | escape }}" {% if value == selected_value %}selected{% endif %}>{{ value }}</option>
+                        {% endfor %}
+                      </select>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endunless %}
+
+            <div class="mb-6">
+              <label class="font-body text-sm font-medium text-brand-forest mb-3 block" for="{{ section.id }}-quantity">
+                {{ 'products.product.quantity' | t }}
+              </label>
+              <div class="flex flex-wrap items-center gap-4">
+                <div class="flex items-center border border-brand-sand rounded-sm">
+                  <button class="px-4 py-3 hover:bg-brand-sand/30 transition-colors" type="button" data-quantity-step="-1" aria-label="{{ 'accessibility.decrease_quantity' | t }}">
+                    <i class="fa-solid fa-minus text-sm" aria-hidden="true"></i>
+                  </button>
+                  <input
+                    id="{{ section.id }}-quantity"
+                    type="number"
+                    name="quantity"
+                    value="{{ selected_variant.quantity_rule.min | default: 1 }}"
+                    min="{{ selected_variant.quantity_rule.min | default: 1 }}"
+                    class="w-16 text-center border-x border-brand-sand py-3 focus:outline-none font-body"
+                    data-product-quantity
+                  >
+                  <button class="px-4 py-3 hover:bg-brand-sand/30 transition-colors" type="button" data-quantity-step="1" aria-label="{{ 'accessibility.increase_quantity' | t }}">
+                    <i class="fa-solid fa-plus text-sm" aria-hidden="true"></i>
+                  </button>
+                </div>
+                {% if selected_variant.inventory_management == 'shopify' and selected_variant.inventory_quantity > 0 and selected_variant.inventory_quantity <= section.settings.low_stock_threshold %}
+                  <span class="font-body text-sm text-brand-muted">
+                    {{ 'content.inventory_low_stock_show_count' | t: count: selected_variant.inventory_quantity }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="flex gap-4 pt-4">
+              <button
+                class="flex-1 bg-brand-forest text-white py-4 rounded-sm font-medium text-lg hover:bg-brand-dark transition-colors flex items-center justify-center gap-3 disabled:bg-brand-muted"
+                type="submit"
+                data-product-submit
+                {% unless selected_variant.available %}disabled{% endunless %}
+              >
+                <i class="fa-solid fa-cart-plus" aria-hidden="true"></i>
+                {{ 'products.product.add_to_cart' | t }}
+              </button>
+              {% render 'app-wishlist',
+                product: product,
+                class: 'w-14 h-14 border-2 border-brand-sand rounded-sm flex items-center justify-center text-brand-muted hover:text-red-500 hover:border-red-500 transition-colors flex-shrink-0'
+              %}
+            </div>
+
+            <button
+              class="w-full bg-brand-gold text-white py-4 rounded-sm font-medium text-lg hover:bg-brand-goldHover transition-colors mt-4 disabled:bg-brand-muted"
+              type="submit"
+              name="return_to"
+              value="/checkout"
+              data-product-submit
+              {% unless selected_variant.available %}disabled{% endunless %}
+            >
+              {{ 'content.checkout' | t }}
+            </button>
+          {% endform %}
+        </div>
+
+        {% if section.blocks.size > 0 %}
+          <div class="border-t border-brand-sand pt-8 space-y-4">
+            {% for block in section.blocks %}
+              <div class="flex items-start gap-4" {{ block.shopify_attributes }}>
+                <i class="{{ block.settings.icon }} text-brand-gold text-xl mt-1" aria-hidden="true"></i>
+                <div>
+                  <h4 class="font-body font-semibold text-brand-forest mb-1">{{ block.settings.heading }}</h4>
+                  <p class="font-body text-sm text-brand-muted">{{ block.settings.text }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </wand-product-form>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product detail shell",
+  "settings": [
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low stock threshold",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 8
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service_promise",
+      "name": "Service promise",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon class",
+          "default": "fa-solid fa-truck"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "On orders over $75. Delivered within 3-5 business days."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product detail shell",
+      "blocks": [
+        {
+          "type": "service_promise",
+          "settings": {
+            "icon": "fa-solid fa-truck",
+            "heading": "Free Shipping",
+            "text": "On orders over $75. Delivered by owl post within 3-5 business days."
+          }
+        },
+        {
+          "type": "service_promise",
+          "settings": {
+            "icon": "fa-solid fa-rotate-left",
+            "heading": "30-Day Returns",
+            "text": "Not satisfied? Return within 30 days for a full refund."
+          }
+        },
+        {
+          "type": "service_promise",
+          "settings": {
+            "icon": "fa-solid fa-shield-halved",
+            "heading": "Authenticity Guarantee",
+            "text": "Each artifact comes with a certificate of authenticity."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
