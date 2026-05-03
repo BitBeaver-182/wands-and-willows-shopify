@@ -11,6 +11,7 @@
   @param {string} [element] - `a` or `button`
   @param {string} [type] - Button type when rendering a button element
   @param {string} [tone] - `light` or `dark` surface treatment
+  @param {string} [palette] - `auto`, `gold`, or `forest`
 {%- enddoc -%}
 
 {%- liquid
@@ -19,6 +20,7 @@
   assign button_element = element | default: 'a'
   assign button_type = type | default: 'button'
   assign button_tone = tone | default: 'light'
+  assign button_palette = palette | default: 'auto'
   assign width_class = ''
 
   if full_width
@@ -36,7 +38,11 @@
         echo ' bg-transparent border-2 border-brand-forest text-brand-forest hover:bg-brand-forest hover:text-white'
       endif
     else
-      if button_tone == 'dark'
+      if button_palette == 'gold'
+        echo ' bg-brand-gold text-white hover:bg-brand-goldHover'
+      elsif button_palette == 'forest'
+        echo ' bg-brand-forest text-white hover:bg-brand-dark'
+      elsif button_tone == 'dark'
         echo ' bg-brand-gold text-white hover:bg-brand-goldHover'
       else
         echo ' bg-brand-forest text-white hover:bg-brand-dark'

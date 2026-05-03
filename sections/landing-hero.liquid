@@ -3,6 +3,16 @@
   assign eyebrow = section.settings.eyebrow
   assign heading = section.settings.heading
   assign body = section.settings.body
+  assign heading_html = heading
+  assign body_html = body
+
+  if heading_html != blank
+    assign heading_html = heading_html | replace: '<p>', '' | replace: '</p>', ''
+  endif
+
+  if body_html != blank
+    assign body_html = body_html | replace: '<p>', '' | replace: '</p>', ''
+  endif
 %}
 
 <section
@@ -25,14 +35,23 @@
   {% endif %}
 
   <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-brand-parchment">
-    {% render 'landing-section-heading',
-      eyebrow: eyebrow,
-      title: heading,
-      title_tag: 'div',
-      body: body,
-      show_divider: false,
-      class: 'text-brand-parchment [&_.font-heading]:text-5xl [&_.font-heading]:md:text-7xl [&_.font-heading]:font-bold [&_.font-heading]:leading-tight [&_.font-body]:text-lg [&_.font-body]:md:text-xl [&_.font-body]:text-brand-sand [&_.font-body]:mb-10 [&_.font-body]:font-light [&_.font-body]:leading-relaxed'
-    %}
+    {% if eyebrow != blank %}
+      <span class="block text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">
+        {{ eyebrow }}
+      </span>
+    {% endif %}
+
+    {% if heading_html != blank %}
+      <h1 class="font-heading text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        {{ heading_html }}
+      </h1>
+    {% endif %}
+
+    {% if body_html != blank %}
+      <p class="font-body text-lg md:text-xl mb-10 text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">
+        {{ body_html }}
+      </p>
+    {% endif %}
 
     {% if section.blocks.size > 0 %}
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -42,6 +61,7 @@
             link: block.settings.link,
             style: block.settings.style,
             tone: 'dark',
+            palette: block.settings.palette,
             full_width: true,
             open_in_new_tab: block.settings.open_in_new_tab,
             class: 'sm:w-auto',
@@ -90,6 +110,26 @@
             }
           ],
           "default": "primary"
+        },
+        {
+          "type": "select",
+          "id": "palette",
+          "label": "Color",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "gold",
+              "label": "Gold"
+            },
+            {
+              "value": "forest",
+              "label": "Forest"
+            }
+          ],
+          "default": "auto"
         },
         {
           "type": "checkbox",
@@ -155,14 +195,16 @@
           "type": "cta_button",
           "settings": {
             "label": "Shop Collections",
-            "style": "primary"
+            "style": "primary",
+            "palette": "gold"
           }
         },
         "secondary_cta": {
           "type": "cta_button",
           "settings": {
             "label": "Explore Wands",
-            "style": "secondary"
+            "style": "secondary",
+            "palette": "auto"
           }
         }
       },

@@ -18,6 +18,7 @@
             "label": "Shop Collections",
             "link": "shopify://collections/all",
             "style": "primary",
+            "palette": "gold",
             "open_in_new_tab": false,
             "icon": ""
           }
@@ -28,6 +29,7 @@
             "label": "Explore Wands",
             "link": "shopify://collections/all",
             "style": "secondary",
+            "palette": "auto",
             "open_in_new_tab": false,
             "icon": ""
           }
