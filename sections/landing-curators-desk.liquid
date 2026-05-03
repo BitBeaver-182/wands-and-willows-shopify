@@ -1,29 +1,17 @@
-{% liquid
-  assign article_1 = section.settings.article_1
-  assign article_2 = section.settings.article_2
-  assign article_3 = section.settings.article_3
-%}
-
 <section id="curators-desk" class="py-24 bg-brand-parchment border-y border-brand-sand">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <div class="text-center mb-16">
-      <h2 class="font-heading text-4xl text-brand-forest mb-4">The Curator's Desk</h2>
-      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
-      <p class="font-body text-brand-muted max-w-2xl mx-auto">Stories, insights, and magical findings from our head archivist.</p>
-    </div>
+    {% render 'landing-section-heading',
+      title: section.settings.title,
+      body: section.settings.body,
+      class: 'mb-16'
+    %}
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {% if article_1 != blank %}
-        {% render 'landing-curators-desk-article-card', article: article_1 %}
-      {% endif %}
-
-      {% if article_2 != blank %}
-        {% render 'landing-curators-desk-article-card', article: article_2 %}
-      {% endif %}
-
-      {% if article_3 != blank %}
-        {% render 'landing-curators-desk-article-card', article: article_3 %}
-      {% endif %}
+      {% for block in section.blocks %}
+        {% if block.settings.article != blank %}
+          {% render 'landing-curators-desk-article-card', article: block.settings.article %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -33,24 +21,50 @@
   "name": "Landing curator",
   "tag": "section",
   "class": "landing-curators-desk",
-  "settings": [
+  "max_blocks": 3,
+  "blocks": [
     {
-      "type": "article",
-      "id": "article_1",
-      "label": "Article 1"
-    },
-    {
-      "type": "article",
-      "id": "article_2",
-      "label": "Article 2"
-    },
-    {
-      "type": "article",
-      "id": "article_3",
-      "label": "Article 3"
+      "type": "article_card",
+      "name": "Article card",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Article"
+        }
+      ]
     }
   ],
-  "presets": [{ "name": "Landing curator" }]
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The Curator's Desk"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Stories, insights, and magical findings from our head archivist.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing curator",
+      "blocks": {
+        "article_1": {
+          "type": "article_card"
+        },
+        "article_2": {
+          "type": "article_card"
+        },
+        "article_3": {
+          "type": "article_card"
+        }
+      },
+      "block_order": ["article_1", "article_2", "article_3"]
+    }
+  ]
 }
 {% endschema %}
-

@@ -2,12 +2,8 @@
   assign image = section.settings.image
   assign image_alt = section.settings.image_alt
   assign eyebrow = section.settings.eyebrow
-  assign heading = section.settings.heading
+  assign title = section.settings.title
   assign body = section.settings.body
-  assign feature_1 = section.settings.feature_1
-  assign feature_2 = section.settings.feature_2
-  assign feature_3 = section.settings.feature_3
-  assign submit_label = section.settings.submit_label
 %}
 
 <section id="subscription" class="py-0 flex flex-col lg:flex-row min-h-[600px]">
@@ -22,43 +18,30 @@
         loading="lazy"
       >
     {% else %}
-      <img
-        class="absolute inset-0 w-full h-full object-cover"
-        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ad23f1cf92-3d8a0dd85349a36be390.png"
-        alt="premium unboxing experience, beautiful dark green box with gold foil stamping, magical items inside, tissue paper, aesthetic lighting"
-        width="1200"
-        height="1600"
-        loading="lazy"
-      >
+      {{ 'collection-2' | placeholder_svg_tag: 'absolute inset-0 w-full h-full object-cover bg-brand-sand text-brand-parchment' }}
     {% endif %}
   </div>
   <div class="lg:w-1/2 bg-brand-forest text-brand-parchment p-12 lg:p-24 flex flex-col justify-center">
     <span class="text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">{{ eyebrow }}</span>
-    <h2 class="font-heading text-4xl lg:text-5xl mb-6">{{ heading }}</h2>
+    <h2 class="font-heading text-4xl lg:text-5xl mb-6">{{ title }}</h2>
     <div class="font-body text-brand-sand text-lg mb-8 font-light leading-relaxed max-w-lg">
       {{ body }}
     </div>
     <ul class="space-y-4 mb-10 text-brand-sand font-body">
-      <li class="flex items-center gap-3">
-        <i class="fa-solid fa-check text-brand-gold" aria-hidden="true"></i>
-        <span>{{ feature_1 }}</span>
-      </li>
-      <li class="flex items-center gap-3">
-        <i class="fa-solid fa-check text-brand-gold" aria-hidden="true"></i>
-        <span>{{ feature_2 }}</span>
-      </li>
-      <li class="flex items-center gap-3">
-        <i class="fa-solid fa-check text-brand-gold" aria-hidden="true"></i>
-        <span>{{ feature_3 }}</span>
-      </li>
+      {% for block in section.blocks %}
+        <li class="flex items-center gap-3" {{ block.shopify_attributes }}>
+          <i class="fa-solid fa-check text-brand-gold" aria-hidden="true"></i>
+          <span>{{ block.settings.text }}</span>
+        </li>
+      {% endfor %}
     </ul>
     <div>
-      <a
-        href="{{ section.settings.button_link | default: '#' }}"
-        class="px-8 py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm inline-block whitespace-nowrap"
-      >
-        {{ submit_label }}
-      </a>
+      {% render 'landing-button',
+        label: section.settings.button_label,
+        link: section.settings.button_link,
+        style: section.settings.button_style,
+        class: 'whitespace-nowrap'
+      %}
     </div>
   </div>
 </section>
@@ -68,6 +51,21 @@
   "name": "Landing subscription",
   "tag": "section",
   "class": "landing-subscription",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "feature_item",
+      "name": "Feature item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "3-5 premium magical items per box"
+        }
+      ]
+    }
+  ],
   "settings": [
     {
       "type": "image_picker",
@@ -87,7 +85,7 @@
     },
     {
       "type": "text",
-      "id": "heading",
+      "id": "title",
       "label": "Heading",
       "default": "The Monthly Dose of Magic"
     },
@@ -99,25 +97,7 @@
     },
     {
       "type": "text",
-      "id": "feature_1",
-      "label": "Feature 1",
-      "default": "3-5 premium magical items per box"
-    },
-    {
-      "type": "text",
-      "id": "feature_2",
-      "label": "Feature 2",
-      "default": "Exclusive items not sold in store"
-    },
-    {
-      "type": "text",
-      "id": "feature_3",
-      "label": "Feature 3",
-      "default": "Personalized to your chosen House"
-    },
-    {
-      "type": "text",
-      "id": "submit_label",
+      "id": "button_label",
       "label": "Button label",
       "default": "Subscribe Now - $45/mo"
     },
@@ -125,9 +105,49 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "primary"
     }
   ],
-  "presets": [{ "name": "Landing subscription" }]
+  "presets": [
+    {
+      "name": "Landing subscription",
+      "blocks": {
+        "feature_1": {
+          "type": "feature_item",
+          "settings": {
+            "text": "3-5 premium magical items per box"
+          }
+        },
+        "feature_2": {
+          "type": "feature_item",
+          "settings": {
+            "text": "Exclusive items not sold in store"
+          }
+        },
+        "feature_3": {
+          "type": "feature_item",
+          "settings": {
+            "text": "Personalized to your chosen House"
+          }
+        }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3"]
+    }
+  ]
 }
 {% endschema %}
-

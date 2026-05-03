@@ -1,10 +1,12 @@
 <section id="newsletter-signup" class="py-24 bg-brand-parchment border-b border-brand-sand">
   <div class="max-w-4xl mx-auto px-6 text-center">
     <i class="fa-solid fa-envelope-open-text text-brand-gold text-4xl mb-6" aria-hidden="true"></i>
-    <h2 class="font-heading text-4xl text-brand-forest mb-4">Join The Inner Circle</h2>
-    <p class="font-body text-brand-muted mb-10 max-w-2xl mx-auto">
-      Subscribe to our newsletter for exclusive early access to new collections, magical insights from our archivist, and special invitations to community events.
-    </p>
+    {% render 'landing-section-heading',
+      title: section.settings.title,
+      body: section.settings.body,
+      show_divider: false,
+      class: 'mb-10'
+    %}
 
     {% form 'customer', class: 'flex flex-col sm:flex-row gap-4 max-w-xl mx-auto' %}
       <input type="hidden" name="contact[tags]" value="newsletter">
@@ -14,16 +16,20 @@
         type="email"
         name="contact[email]"
         autocomplete="email"
-        aria-label="Email address"
-        placeholder="Enter your email address"
+        aria-label="{{ 'blocks.email_signup.label' | t }}"
+        placeholder="{{ 'blocks.email_signup.placeholder' | t }}"
         class="flex-grow bg-white border border-brand-sand rounded-sm px-6 py-4 text-brand-text placeholder-brand-muted/70 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all"
       >
-      <button type="submit" class="px-8 py-4 bg-brand-forest hover:bg-brand-dark text-white font-medium tracking-wide transition-all rounded-sm whitespace-nowrap">
-        Subscribe
-      </button>
+      {% render 'landing-button',
+        label: section.settings.button_label,
+        style: section.settings.button_style,
+        element: 'button',
+        type: 'submit',
+        class: 'whitespace-nowrap bg-brand-forest hover:bg-brand-dark'
+      %}
     {% endform %}
 
-    <p class="font-body text-xs text-brand-muted mt-4">By subscribing, you agree to our Privacy Policy and Terms of Service.</p>
+    <p class="font-body text-xs text-brand-muted mt-4">{{ section.settings.disclaimer }}</p>
   </div>
 </section>
 
@@ -32,8 +38,48 @@
   "name": "Landing newsletter",
   "tag": "section",
   "class": "landing-newsletter",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Join The Inner Circle"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Subscribe to our newsletter for exclusive early access to new collections, magical insights from our archivist, and special invitations to community events.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "By subscribing, you agree to our Privacy Policy and Terms of Service."
+    }
+  ],
   "presets": [{ "name": "Landing newsletter" }]
 }
 {% endschema %}
-

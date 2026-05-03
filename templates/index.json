@@ -7,23 +7,157 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
-    "landing_hero": { "type": "landing-hero", "settings": {} },
-    "landing_shop_by_house": { "type": "landing-shop-by-house", "settings": {} },
-    "landing_featured_products": { "type": "landing-featured-products", "settings": {} },
-    "landing_curators_desk": {
-      "type": "landing-curators-desk",
+    "landing_hero": {
+      "type": "landing-hero",
+      "blocks": {
+        "primary_cta": {
+          "type": "cta_button",
+          "settings": {
+            "label": "Shop Collections",
+            "link": "shopify://collections/all",
+            "style": "primary",
+            "open_in_new_tab": false,
+            "icon": ""
+          }
+        },
+        "secondary_cta": {
+          "type": "cta_button",
+          "settings": {
+            "label": "Explore Wands",
+            "link": "shopify://collections/all",
+            "style": "secondary",
+            "open_in_new_tab": false,
+            "icon": ""
+          }
+        }
+      },
+      "block_order": ["primary_cta", "secondary_cta"],
+      "settings": {}
+    },
+    "landing_shop_by_house": {
+      "type": "landing-shop-by-house",
+      "blocks": {
+        "house_1": {
+          "type": "house_card",
+          "settings": {
+            "title": "House of Courage",
+            "description": "<p>Crimson &amp; Gold Collection</p>"
+          }
+        },
+        "house_2": {
+          "type": "house_card",
+          "settings": {
+            "title": "House of Loyalty",
+            "description": "<p>Amber &amp; Charcoal Collection</p>"
+          }
+        },
+        "house_3": {
+          "type": "house_card",
+          "settings": {
+            "title": "House of Wisdom",
+            "description": "<p>Sapphire &amp; Bronze Collection</p>"
+          }
+        },
+        "house_4": {
+          "type": "house_card",
+          "settings": {
+            "title": "House of Ambition",
+            "description": "<p>Emerald &amp; Silver Collection</p>"
+          }
+        }
+      },
+      "block_order": ["house_1", "house_2", "house_3", "house_4"],
+      "settings": {}
+    },
+    "landing_featured_products": {
+      "type": "landing-featured-products",
       "settings": {
-        "article_1": "news/the-history-of-wandlore-in-the-19th-century",
-        "article_2": "news/unearthing-the-lost-diadem-replicas",
-        "article_3": "news/creating-a-magical-sanctuary-at-home"
+        "button_link": "shopify://collections/all"
       }
     },
-    "landing_subscription": { "type": "landing-subscription", "settings": {} },
-    "landing_common_room": { "type": "landing-common-room", "settings": {} },
-    "landing_our_story": { "type": "landing-our-story", "settings": {} },
-    "landing_newsletter": { "type": "landing-newsletter", "settings": {} }
+    "landing_curators_desk": {
+      "type": "landing-curators-desk",
+      "blocks": {
+        "article_1": {
+          "type": "article_card",
+          "settings": {
+            "article": "news/the-history-of-wandlore-in-the-19th-century"
+          }
+        },
+        "article_2": {
+          "type": "article_card",
+          "settings": {
+            "article": "news/unearthing-the-lost-diadem-replicas"
+          }
+        },
+        "article_3": {
+          "type": "article_card",
+          "settings": {
+            "article": "news/creating-a-magical-sanctuary-at-home"
+          }
+        }
+      },
+      "block_order": ["article_1", "article_2", "article_3"],
+      "settings": {}
+    },
+    "landing_subscription": {
+      "type": "landing-subscription",
+      "blocks": {
+        "feature_1": {
+          "type": "feature_item",
+          "settings": {
+            "text": "3-5 premium magical items per box"
+          }
+        },
+        "feature_2": {
+          "type": "feature_item",
+          "settings": {
+            "text": "Exclusive items not sold in store"
+          }
+        },
+        "feature_3": {
+          "type": "feature_item",
+          "settings": {
+            "text": "Personalized to your chosen House"
+          }
+        }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3"],
+      "settings": {}
+    },
+    "landing_common_room": {
+      "type": "landing-common-room",
+      "blocks": {
+        "ugc_1": {
+          "type": "ugc_tile",
+          "settings": {}
+        },
+        "ugc_2": {
+          "type": "ugc_tile",
+          "settings": {}
+        },
+        "ugc_3": {
+          "type": "ugc_tile",
+          "settings": {}
+        },
+        "ugc_4": {
+          "type": "ugc_tile",
+          "settings": {}
+        }
+      },
+      "block_order": ["ugc_1", "ugc_2", "ugc_3", "ugc_4"],
+      "settings": {}
+    },
+    "landing_our_story": {
+      "type": "landing-our-story",
+      "settings": {}
+    },
+    "landing_newsletter": {
+      "type": "landing-newsletter",
+      "settings": {}
+    }
   },
   "order": [
     "landing_hero",

@@ -1,9 +1,6 @@
 <section id="shop-by-house" class="py-24 bg-brand-parchment">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <div class="text-center mb-16">
-      <h2 class="font-heading text-4xl text-brand-forest mb-4">Shop by House</h2>
-      <div class="w-16 h-0.5 bg-brand-gold mx-auto"></div>
-    </div>
+    {% render 'landing-section-heading', title: section.settings.title, class: 'mb-16' %}
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 grid-rows-2">
       {% for block in section.blocks limit: 4 %}
@@ -30,6 +27,8 @@
                 fetchpriority: 'low',
                 alt: block.settings.background_image_alt
             }}
+          {% else %}
+            <div class="w-full h-full bg-brand-forest/80" aria-hidden="true"></div>
           {% endif %}
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
           <div class="absolute bottom-0 left-0 p-8 w-full">
@@ -53,7 +52,14 @@
   "name": "Landing houses",
   "tag": "section",
   "class": "landing-shop-by-house",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop by House"
+    }
+  ],
   "max_blocks": 4,
   "blocks": [
     {
@@ -129,4 +135,3 @@
   ]
 }
 {% endschema %}
-

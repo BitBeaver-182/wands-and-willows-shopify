@@ -42,30 +42,19 @@
 </script>
 
 {% liquid
-  assign title = section.settings.title
-  assign subtitle = section.settings.subtitle
   assign selected_collection = section.settings.collection
   assign max_products = section.settings.max_products
-  assign show_view_all = section.settings.show_view_all
-  assign view_all_label = section.settings.view_all_label
-
-  if view_all_label == blank
-    assign view_all_label = 'View All Artifacts'
-  endif
 %}
 
 <section id="featured-products" class="py-24 bg-white" data-featured-products-section-id="{{ section.id }}">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
     <div class="flex justify-between items-end mb-12">
-      <div>
-        <h2 class="font-heading text-4xl text-brand-forest mb-2">{{ title }}</h2>
-        <p class="font-body text-brand-muted">{{ subtitle }}</p>
-      </div>
+      {% render 'landing-section-heading', title: section.settings.title, body: section.settings.body, alignment: 'left' %}
       <div class="hidden md:flex gap-2" data-embla-controls>
         <button
           class="w-10 h-10 rounded-full border border-brand-sand flex items-center justify-center text-brand-forest hover:bg-brand-forest hover:text-white transition-colors"
           type="button"
-          aria-label="Previous products"
+          aria-label="{{ 'accessibility.slideshow_previous' | t }}"
           data-embla-prev
         >
           <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
@@ -73,7 +62,7 @@
         <button
           class="w-10 h-10 rounded-full border border-brand-sand flex items-center justify-center text-brand-forest hover:bg-brand-forest hover:text-white transition-colors"
           type="button"
-          aria-label="Next products"
+          aria-label="{{ 'accessibility.slideshow_next' | t }}"
           data-embla-next
         >
           <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
@@ -89,18 +78,37 @@
               {% render 'landing-featured-product-card', product: product %}
             </div>
           {% endfor %}
+        {% else %}
+          {% for index in (1..4) %}
+            <div class="embla__slide">
+              <div class="group relative bg-brand-parchment rounded-sm p-4 border border-brand-sand/50">
+                <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-4 relative flex items-center justify-center">
+                  {{ 'product-apparel-1' | placeholder_svg_tag: 'w-full h-full object-cover mix-blend-multiply p-4 text-brand-sand' }}
+                </div>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-start gap-4">
+                    <h3 class="font-heading text-lg text-brand-forest font-medium leading-tight">{{ 'content.product_card_placeholder' | t }}</h3>
+                    <span class="font-body font-semibold text-brand-text">$48.00</span>
+                  </div>
+                  <button class="w-full mt-4 py-3 bg-brand-forest text-white font-medium text-sm rounded-sm flex items-center justify-center gap-2" type="button" disabled>
+                    <i class="fa-solid fa-cart-plus" aria-hidden="true"></i> {{ 'actions.add_to_cart' | t }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
         {% endif %}
       </div>
     </div>
 
     <div class="mt-12 text-center">
-      {% if show_view_all and selected_collection != blank %}
-        <a
-          class="px-8 py-3 border-2 border-brand-forest text-brand-forest font-medium hover:bg-brand-forest hover:text-white transition-colors rounded-sm inline-block"
-          href="{{ selected_collection.url }}"
-        >
-          {{ view_all_label }}
-        </a>
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        {% render 'landing-button',
+          label: section.settings.button_label,
+          link: section.settings.button_link,
+          style: section.settings.button_style,
+          class: 'text-brand-forest border-brand-forest hover:bg-brand-forest hover:text-white'
+        %}
       {% endif %}
     </div>
   </div>
@@ -119,10 +127,10 @@
       "default": "Curated Artifacts"
     },
     {
-      "type": "text",
-      "id": "subtitle",
-      "label": "Subtitle",
-      "default": "Hand-selected magical goods for your collection."
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Hand-selected magical goods for your collection.</p>"
     },
     {
       "type": "collection",
@@ -139,16 +147,31 @@
       "default": 4
     },
     {
-      "type": "checkbox",
-      "id": "show_view_all",
-      "label": "Show view all button",
-      "default": true
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View All Artifacts"
     },
     {
-      "type": "text",
-      "id": "view_all_label",
-      "label": "View all label",
-      "default": "View All Artifacts"
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "secondary"
     }
   ],
   "presets": [{ "name": "Landing featured" }]
