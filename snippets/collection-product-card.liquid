@@ -1,0 +1,125 @@
+{%- doc -%}
+  Collection page product card matching the Wand & Willow export.
+
+  @param {object} product - Shopify product
+{%- enddoc -%}
+
+{%- liquid
+  assign product = product | default: blank
+  if product == blank
+    break
+  endif
+
+  assign variant = product.selected_or_first_available_variant
+  assign featured_image = variant.featured_media.preview_image | default: product.featured_media.preview_image | default: product.featured_image
+  assign product_url = product.url
+  assign button_label = 'actions.choose' | t
+  assign button_href = product_url
+  assign badge_text = blank
+  assign badge_class = 'bg-brand-forest text-white'
+
+  if product.tags contains 'Low Stock'
+    assign badge_text = 'Low Stock'
+    assign badge_class = 'bg-red-800 text-white'
+  elsif product.tags contains 'Bestseller'
+    assign badge_text = 'Bestseller'
+    assign badge_class = 'bg-brand-gold text-white'
+  elsif product.tags contains 'Limited'
+    assign badge_text = 'Limited'
+    assign badge_class = 'bg-brand-forest text-white'
+  elsif product.tags contains 'Pre-Order'
+    assign badge_text = 'Pre-Order'
+    assign badge_class = 'bg-brand-dark text-white'
+  elsif product.tags contains 'New'
+    assign badge_text = 'New'
+    assign badge_class = 'bg-brand-forest text-white'
+  endif
+
+  assign can_direct_add = false
+  if product.available and product.has_only_default_variant
+    assign can_direct_add = true
+    assign button_label = 'actions.add_to_cart' | t
+  elsif product.available == false
+    assign button_label = 'products.product.sold_out' | t
+  endif
+-%}
+
+<div class="group relative bg-brand-parchment rounded-sm p-3 lg:p-4 hover:shadow-lg lg:hover:shadow-xl transition-all duration-300">
+  {% render 'wishlisthero-collection-product', product: product %}
+
+  <a href="{{ product_url }}" class="block" aria-label="{{ product.title | escape }}">
+    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-3 lg:mb-4 relative">
+      {% if featured_image != blank %}
+        {{
+          featured_image
+          | image_url: width: 900
+          | image_tag:
+            class: 'w-full h-full object-cover mix-blend-multiply p-2 lg:p-4',
+            loading: 'lazy',
+            fetchpriority: 'low',
+            alt: featured_image.alt | default: product.title
+        }}
+      {% else %}
+        {{ 'product-apparel-1' | placeholder_svg_tag: 'w-full h-full object-cover mix-blend-multiply p-2 lg:p-4 text-brand-sand' }}
+      {% endif %}
+
+      {% if badge_text != blank %}
+        <div class="absolute top-2 left-2 lg:top-4 lg:left-4 {{ badge_class }} text-white text-[10px] lg:text-xs font-bold px-2 py-1 uppercase tracking-wider">
+          {{ badge_text }}
+        </div>
+      {% endif %}
+    </div>
+  </a>
+
+  <div class="space-y-2">
+    <div class="flex items-start justify-between gap-3">
+      <h3 class="font-heading text-sm lg:text-lg text-brand-forest font-medium leading-tight line-clamp-2">
+        <a href="{{ product_url }}">{{ product.title }}</a>
+      </h3>
+      <span class="font-body font-semibold text-brand-text text-base lg:text-[1rem] whitespace-nowrap">
+        {{ product.price | money }}
+      </span>
+    </div>
+
+    <div class="flex items-center gap-1 text-brand-gold text-[10px] lg:text-xs">
+      <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+        {{ product.metafields.judgeme.badge }}
+      </div>
+    </div>
+
+    {% if can_direct_add %}
+      <form method="post" action="{{ routes.cart_add_url }}" class="m-0">
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <button
+          class="w-full mt-2 lg:mt-4 py-2.5 lg:py-3 bg-brand-forest text-white font-medium text-xs lg:text-sm hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2"
+          type="submit"
+          aria-label="{{ 'actions.add_to_cart' | t }} {{ product.title | escape }}"
+        >
+          <i class="fa-solid fa-cart-plus" aria-hidden="true"></i> {{ button_label }}
+        </button>
+      </form>
+    {% elsif product.available %}
+      <a
+        href="{{ button_href }}"
+        class="w-full mt-2 lg:mt-4 py-2.5 lg:py-3 bg-brand-forest text-white font-medium text-xs lg:text-sm hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2"
+      >
+        <i class="fa-solid fa-cart-plus" aria-hidden="true"></i> {{ button_label }}
+      </a>
+    {% else %}
+      <button
+        class="w-full mt-2 lg:mt-4 py-2.5 lg:py-3 bg-brand-muted text-white font-medium text-xs lg:text-sm rounded-sm flex items-center justify-center gap-2 cursor-not-allowed"
+        type="button"
+        disabled
+      >
+        {{ button_label }}
+      </button>
+    {% endif %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .jdgm-widget.jdgm-preview-badge {
+    display: inline-flex;
+    align-items: center;
+  }
+{% endstylesheet %}

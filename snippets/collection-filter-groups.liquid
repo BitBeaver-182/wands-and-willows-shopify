@@ -1,0 +1,71 @@
+{%- doc -%}
+  Collection filter controls for desktop sidebar and mobile drawer.
+
+  @param {object} collection_resource - Collection object with filters
+{%- enddoc -%}
+
+{% for filter in collection_resource.filters %}
+  <div class="{% unless forloop.last %}mb-8 pb-8 border-b border-brand-sand{% endunless %}">
+    <h4 class="font-heading text-lg text-brand-forest mb-4">{{ filter.label }}</h4>
+
+    {% case filter.type %}
+      {% when 'boolean', 'list' %}
+        <div class="space-y-3">
+          {% for filter_value in filter.values %}
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                name="{{ filter_value.param_name }}"
+                value="{{ filter_value.value }}"
+                class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold"
+                {% if filter_value.active %}
+                  checked
+                {% endif %}
+                {% if filter_value.count == 0 and filter_value.active == false %}
+                  disabled
+                {% endif %}
+              >
+              <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">
+                {{ filter_value.label }}
+                <span class="text-brand-muted">({{ filter_value.count }})</span>
+              </span>
+            </label>
+          {% endfor %}
+        </div>
+      {% when 'price_range' %}
+        <div class="space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <input
+              type="number"
+              name="{{ filter.min_value.param_name }}"
+              value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+              placeholder="Min"
+              min="0"
+              class="w-full border border-brand-sand rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-brand-gold bg-white"
+            >
+            <span class="text-brand-muted">-</span>
+            <input
+              type="number"
+              name="{{ filter.max_value.param_name }}"
+              value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+              placeholder="Max"
+              min="0"
+              class="w-full border border-brand-sand rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-brand-gold bg-white"
+            >
+          </div>
+          <p class="font-body text-xs text-brand-muted">
+            {{ 'content.price_filter_html' | t: price: filter.range_max | money }}
+          </p>
+        </div>
+    {% endcase %}
+  </div>
+{% endfor %}
+
+{% if collection_resource.filters.size > 0 %}
+  <button
+    class="w-full mt-8 py-3 bg-brand-forest text-white font-medium text-sm hover:bg-brand-dark transition-colors rounded-sm"
+    type="submit"
+  >
+    {{ 'actions.apply' | t }}
+  </button>
+{% endif %}
