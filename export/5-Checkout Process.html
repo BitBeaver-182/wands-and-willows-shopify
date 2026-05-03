@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                dark: '#0f1f15',
+                forest: '#1a3322',
+                gold: '#c4a661',
+                goldHover: '#d4b671',
+                parchment: '#f8f5ee',
+                sand: '#e8e2d2',
+                text: '#2d3748',
+                muted: '#718096'
+              }
+            },
+            fontFamily: {
+              heading: ['Playfair Display', 'serif'],
+              body: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8f5ee;
+        color: #2d3748;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Playfair Display', serif;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      input[type="radio"]:checked + label {
+        border-color: #c4a661;
+        background-color: #c4a66110;
+      }
+      .radio-custom {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #e8e2d2;
+        border-radius: 50%;
+        position: relative;
+      }
+      .radio-custom:checked {
+        border-color: #c4a661;
+      }
+      .radio-custom:checked::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        background: #c4a661;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+</head>
+<body class="w-full min-h-screen text-brand-text bg-brand-parchment overflow-x-hidden">
+
+<div id="promo-bar" class="bg-brand-dark text-brand-parchment text-center py-2 text-sm font-body tracking-wider">
+    <span>Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off.</span>
+</div>
+
+<header id="header" class="sticky top-0 z-50 bg-brand-parchment/95 backdrop-blur-md border-b border-brand-sand">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        <button class="lg:hidden text-brand-forest text-xl"><i class="fa-solid fa-bars"></i></button>
+        <a href="#" class="flex-shrink-0 flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+            <span class="font-heading text-2xl font-bold text-brand-forest tracking-tight">Wand & Willow</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-8">
+            <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Collections</a>
+            <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Subscriptions</a>
+            <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Community</a>
+            <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Our Story</a>
+        </nav>
+        <div class="flex items-center gap-6">
+            <button class="text-brand-forest hover:text-brand-gold transition-colors"><i class="fa-solid fa-magnifying-glass text-lg"></i></button>
+            <button class="text-brand-forest hover:text-brand-gold transition-colors hidden sm:block"><i class="fa-regular fa-user text-lg"></i></button>
+            <button class="text-brand-forest hover:text-brand-gold transition-colors relative">
+                <i class="fa-solid fa-bag-shopping text-lg"></i>
+                <span class="absolute -top-2 -right-2 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">3</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<section id="checkout-progress" class="bg-white border-b border-brand-sand py-6">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="flex items-center justify-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-brand-gold text-white flex items-center justify-center font-bold text-sm">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="font-body text-sm font-semibold text-brand-forest hidden sm:block">Cart</span>
+            </div>
+            <div class="w-16 h-0.5 bg-brand-gold"></div>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-brand-gold text-white flex items-center justify-center font-bold text-sm">2</div>
+                <span class="font-body text-sm font-semibold text-brand-forest hidden sm:block">Checkout</span>
+            </div>
+            <div class="w-16 h-0.5 bg-brand-sand"></div>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-brand-sand text-brand-muted flex items-center justify-center font-bold text-sm">3</div>
+                <span class="font-body text-sm text-brand-muted hidden sm:block">Complete</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="checkout-main" class="py-16 bg-brand-parchment">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <div id="checkout-form" class="lg:col-span-2 space-y-8">
+                
+                <div id="contact-section" class="bg-white border border-brand-sand rounded-sm p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="font-heading text-2xl text-brand-forest flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-brand-gold"></i>
+                            Contact Information
+                        </h2>
+                        <span class="font-body text-sm text-brand-muted">Already have an account? <a href="#" class="text-brand-gold hover:text-brand-goldHover font-semibold">Sign in</a></span>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Email Address *</label>
+                            <input type="email" placeholder="wizard@hogwarts.edu" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="newsletter" class="w-4 h-4 accent-brand-gold">
+                            <label for="newsletter" class="font-body text-sm text-brand-muted">Keep me updated on exclusive offers and new arrivals</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="shipping-section" class="bg-white border border-brand-sand rounded-sm p-8">
+                    <h2 class="font-heading text-2xl text-brand-forest mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-truck text-brand-gold"></i>
+                        Shipping Address
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="font-body text-sm font-medium text-brand-forest mb-2 block">First Name *</label>
+                                <input type="text" placeholder="Harry" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                            </div>
+                            <div>
+                                <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Last Name *</label>
+                                <input type="text" placeholder="Potter" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Address Line 1 *</label>
+                            <input type="text" placeholder="4 Privet Drive" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                        </div>
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Address Line 2</label>
+                            <input type="text" placeholder="Apartment, suite, etc. (optional)" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="font-body text-sm font-medium text-brand-forest mb-2 block">City *</label>
+                                <input type="text" placeholder="Little Whinging" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                            </div>
+                            <div>
+                                <label class="font-body text-sm font-medium text-brand-forest mb-2 block">State / Province *</label>
+                                <select class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                                    <option>Select...</option>
+                                    <option>Surrey</option>
+                                    <option>London</option>
+                                    <option>Scotland</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Postal Code *</label>
+                                <input type="text" placeholder="CR3 0AA" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Country *</label>
+                            <select class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                                <option>United Kingdom</option>
+                                <option>United States</option>
+                                <option>Canada</option>
+                                <option>Australia</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Phone Number *</label>
+                            <input type="tel" placeholder="+44 20 7946 0958" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                        </div>
+                        <div class="flex items-center gap-2 pt-2">
+                            <input type="checkbox" id="save-info" class="w-4 h-4 accent-brand-gold">
+                            <label for="save-info" class="font-body text-sm text-brand-muted">Save this information for next time</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="shipping-method-section" class="bg-white border border-brand-sand rounded-sm p-8">
+                    <h2 class="font-heading text-2xl text-brand-forest mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-box text-brand-gold"></i>
+                        Shipping Method
+                    </h2>
+                    <div class="space-y-3">
+                        <div class="relative">
+                            <input type="radio" name="shipping" id="standard" class="radio-custom absolute left-4 top-1/2 -translate-y-1/2" checked>
+                            <label for="standard" class="block border-2 border-brand-sand rounded-sm p-4 pl-14 cursor-pointer hover:border-brand-gold/50 transition-colors">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-body font-semibold text-brand-forest mb-1">Standard Owl Post</p>
+                                        <p class="font-body text-sm text-brand-muted">Delivery in 5-7 business days</p>
+                                    </div>
+                                    <span class="font-heading text-lg text-brand-forest font-semibold">Free</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <input type="radio" name="shipping" id="express" class="radio-custom absolute left-4 top-1/2 -translate-y-1/2">
+                            <label for="express" class="block border-2 border-brand-sand rounded-sm p-4 pl-14 cursor-pointer hover:border-brand-gold/50 transition-colors">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-body font-semibold text-brand-forest mb-1">Express Owl Post</p>
+                                        <p class="font-body text-sm text-brand-muted">Delivery in 2-3 business days</p>
+                                    </div>
+                                    <span class="font-heading text-lg text-brand-forest font-semibold">$12.00</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <input type="radio" name="shipping" id="overnight" class="radio-custom absolute left-4 top-1/2 -translate-y-1/2">
+                            <label for="overnight" class="block border-2 border-brand-sand rounded-sm p-4 pl-14 cursor-pointer hover:border-brand-gold/50 transition-colors">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-body font-semibold text-brand-forest mb-1 flex items-center gap-2">
+                                            Priority Phoenix Delivery
+                                            <span class="bg-brand-gold text-white text-[10px] px-2 py-0.5 rounded-full uppercase font-bold">Fastest</span>
+                                        </p>
+                                        <p class="font-body text-sm text-brand-muted">Overnight delivery guaranteed</p>
+                                    </div>
+                                    <span class="font-heading text-lg text-brand-forest font-semibold">$25.00</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="payment-section" class="bg-white border border-brand-sand rounded-sm p-8">
+                    <h2 class="font-heading text-2xl text-brand-forest mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-credit-card text-brand-gold"></i>
+                        Payment Information
+                    </h2>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3 pb-4 border-b border-brand-sand">
+                            <i class="fa-brands fa-cc-visa text-3xl text-brand-muted"></i>
+                            <i class="fa-brands fa-cc-mastercard text-3xl text-brand-muted"></i>
+                            <i class="fa-brands fa-cc-amex text-3xl text-brand-muted"></i>
+                            <i class="fa-brands fa-cc-discover text-3xl text-brand-muted"></i>
+                            <i class="fa-brands fa-cc-paypal text-3xl text-brand-muted"></i>
+                        </div>
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Card Number *</label>
+                            <div class="relative">
+                                <input type="text" placeholder="1234 5678 9012 3456" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm pr-12">
+                                <i class="fa-solid fa-lock absolute right-4 top-1/2 -translate-y-1/2 text-brand-muted"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Cardholder Name *</label>
+                            <input type="text" placeholder="Name as it appears on card" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="font-body text-sm font-medium text-brand-forest mb-2 block">Expiration Date *</label>
+                                <input type="text" placeholder="MM / YY" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                            </div>
+                            <div>
+                                <label class="font-body text-sm font-medium text-brand-forest mb-2 block">CVV *</label>
+                                <input type="text" placeholder="123" class="w-full border border-brand-sand rounded-sm px-4 py-3 focus:outline-none focus:border-brand-gold font-body text-sm">
+                            </div>
+                        </div>
+                        <div class="bg-green-50 border border-green-200 rounded-sm p-4 flex items-start gap-3">
+                            <i class="fa-solid fa-shield-halved text-green-600 text-xl mt-0.5"></i>
+                            <div>
+                                <p class="font-body text-sm font-semibold text-green-800 mb-1">Your payment is secure</p>
+                                <p class="font-body text-xs text-green-700">All transactions are encrypted and secure. We never store your card details.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="billing-section" class="bg-white border border-brand-sand rounded-sm p-8">
+                    <h2 class="font-heading text-2xl text-brand-forest mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-file-invoice text-brand-gold"></i>
+                        Billing Address
+                    </h2>
+                    <div class="space-y-3">
+                        <div class="relative">
+                            <input type="radio" name="billing" id="same-as-shipping" class="radio-custom absolute left-4 top-1/2 -translate-y-1/2" checked>
+                            <label for="same-as-shipping" class="block border-2 border-brand-sand rounded-sm p-4 pl-14 cursor-pointer hover:border-brand-gold/50 transition-colors">
+                                <p class="font-body font-semibold text-brand-forest">Same as shipping address</p>
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <input type="radio" name="billing" id="different-billing" class="radio-custom absolute left-4 top-1/2 -translate-y-1/2">
+                            <label for="different-billing" class="block border-2 border-brand-sand rounded-sm p-4 pl-14 cursor-pointer hover:border-brand-gold/50 transition-colors">
+                                <p class="font-body font-semibold text-brand-forest">Use a different billing address</p>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="bg-white border border-brand-sand rounded-sm p-8 sticky top-24">
+                    <h3 class="font-heading text-2xl text-brand-forest mb-6">Order Summary</h3>
+                    
+                    <div class="space-y-4 mb-6 pb-6 border-b border-brand-sand">
+                        <div class="flex gap-4">
+                            <div class="w-20 h-20 bg-brand-parchment rounded-sm flex-shrink-0 p-2 flex items-center justify-center">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="Elderwood Artisan Wand" class="w-full h-full object-contain mix-blend-multiply">
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-body text-sm font-semibold text-brand-forest mb-1">Elderwood Artisan Wand</h4>
+                                <p class="font-body text-xs text-brand-muted mb-2">Elderwood, 11 inches</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="font-body text-xs text-brand-muted">Qty: 1</span>
+                                    <span class="font-body text-sm font-semibold text-brand-forest">$85.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-20 h-20 bg-brand-parchment rounded-sm flex-shrink-0 p-2 flex items-center justify-center">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/aa4984facf-0c09be89a7c3f0c59529.png" alt="Amortentia Soy Candle" class="w-full h-full object-contain mix-blend-multiply">
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-body text-sm font-semibold text-brand-forest mb-1">Amortentia Soy Candle</h4>
+                                <p class="font-body text-xs text-brand-muted mb-2">Love Potion, 8 oz</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="font-body text-xs text-brand-muted">Qty: 2</span>
+                                    <span class="font-body text-sm font-semibold text-brand-forest">$64.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 mb-6 pb-6 border-b border-brand-sand">
+                        <div class="flex items-center justify-between font-body text-sm">
+                            <span class="text-brand-muted">Subtotal</span>
+                            <span class="text-brand-forest font-medium">$149.00</span>
+                        </div>
+                        <div class="flex items-center justify-between font-body text-sm">
+                            <span class="text-brand-muted">Shipping</span>
+                            <span class="text-green-600 font-medium">Free</span>
+                        </div>
+                        <div class="flex items-center justify-between font-body text-sm">
+                            <span class="text-brand-muted">Estimated Tax</span>
+                            <span class="text-brand-forest font-medium">$11.93</span>
+                        </div>
+                        <div class="bg-brand-gold/10 border border-brand-gold/30 rounded-sm p-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-tag text-brand-gold text-sm"></i>
+                                <span class="font-body text-xs text-brand-forest font-semibold">MAGIC25</span>
+                            </div>
+                            <span class="font-body text-sm text-green-600 font-semibold">-$37.25</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between mb-8">
+                        <span class="font-heading text-xl text-brand-forest">Total</span>
+                        <span class="font-heading text-3xl text-brand-forest">$123.68</span>
+                    </div>
+
+                    <button class="w-full bg-brand-gold text-white py-4 rounded-sm font-semibold text-base hover:bg-brand-goldHover transition-colors mb-4 flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-lock"></i>
+                        Complete Order
+                    </button>
+
+                    <p class="font-body text-xs text-center text-brand-muted mb-6">By placing your order, you agree to our <a href="#" class="text-brand-gold hover:underline">Terms & Conditions</a></p>
+
+                    <div class="space-y-3 pt-6 border-t border-brand-sand">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-shield-halved text-brand-gold text-lg mt-0.5"></i>
+                            <div>
+                                <h5 class="font-body font-semibold text-brand-forest text-sm mb-1">Secure Checkout</h5>
+                                <p class="font-body text-xs text-brand-muted">256-bit SSL encryption</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-rotate-left text-brand-gold text-lg mt-0.5"></i>
+                            <div>
+                                <h5 class="font-body font-semibold text-brand-forest text-sm mb-1">Easy Returns</h5>
+                                <p class="font-body text-xs text-brand-muted">30-day money-back guarantee</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-headset text-brand-gold text-lg mt-0.5"></i>
+                            <div>
+                                <h5 class="font-body font-semibold text-brand-forest text-sm mb-1">24/7 Support</h5>
+                                <p class="font-body text-xs text-brand-muted">We're here to help</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="trust-section" class="py-12 bg-white border-t border-brand-sand">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-lock text-brand-gold text-2xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-body font-semibold text-brand-forest mb-1">Secure Payment</h4>
+                    <p class="font-body text-sm text-brand-muted">SSL encrypted</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-truck text-brand-gold text-2xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-body font-semibold text-brand-forest mb-1">Free Shipping</h4>
+                    <p class="font-body text-sm text-brand-muted">On orders over $75</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-shield-halved text-brand-gold text-2xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-body font-semibold text-brand-forest mb-1">Buyer Protection</h4>
+                    <p class="font-body text-sm text-brand-muted">Full refund policy</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-headset text-brand-gold text-2xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-body font-semibold text-brand-forest mb-1">24/7 Support</h4>
+                    <p class="font-body text-sm text-brand-muted">Always here to help</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq-section" class="py-16 bg-brand-parchment border-t border-brand-sand">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="text-center mb-12">
+            <h2 class="font-heading text-3xl text-brand-forest mb-3">Checkout Questions?</h2>
+            <p class="font-body text-brand-muted">Here are some common questions about our checkout process</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <div class="bg-white border border-brand-sand rounded-sm p-6">
+                <h4 class="font-body font-semibold text-brand-forest mb-2 flex items-start gap-3">
+                    <i class="fa-solid fa-circle-question text-brand-gold mt-0.5"></i>
+                    What payment methods do you accept?
+                </h4>
+                <p class="font-body text-sm text-brand-muted pl-8">We accept all major credit cards (Visa, Mastercard, American Express, Discover) and PayPal.</p>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm p-6">
+                <h4 class="font-body font-semibold text-brand-forest mb-2 flex items-start gap-3">
+                    <i class="fa-solid fa-circle-question text-brand-gold mt-0.5"></i>
+                    Is my payment information secure?
+                </h4>
+                <p class="font-body text-sm text-brand-muted pl-8">Yes! All transactions are encrypted with 256-bit SSL security. We never store your payment details.</p>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm p-6">
+                <h4 class="font-body font-semibold text-brand-forest mb-2 flex items-start gap-3">
+                    <i class="fa-solid fa-circle-question text-brand-gold mt-0.5"></i>
+                    Can I change my order after checkout?
+                </h4>
+                <p class="font-body text-sm text-brand-muted pl-8">Contact us within 1 hour of placing your order and we'll do our best to accommodate changes.</p>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm p-6">
+                <h4 class="font-body font-semibold text-brand-forest mb-2 flex items-start gap-3">
+                    <i class="fa-solid fa-circle-question text-brand-gold mt-0.5"></i>
+                    What's your return policy?
+                </h4>
+                <p class="font-body text-sm text-brand-muted pl-8">We offer a 30-day money-back guarantee on all products. No questions asked!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="footer" class="bg-brand-dark text-brand-sand pt-20 pb-10 border-t border-brand-forest">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <div class="space-y-6">
+                <a href="#" class="flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                    <span class="font-heading text-2xl font-bold text-white tracking-tight">Wand & Willow</span>
+                </a>
+                <p class="font-body text-sm text-brand-muted leading-relaxed">Curators of fine magical goods, official merchandise, and handcrafted artifacts for the modern witch and wizard.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-pinterest"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-heading text-white text-lg mb-6">Shop</h4>
+                <ul class="space-y-4 font-body text-sm text-brand-muted">
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">All Products</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Wands</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Apothecary</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Apparel</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Jewelry</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-heading text-white text-lg mb-6">Support</h4>
+                <ul class="space-y-4 font-body text-sm text-brand-muted">
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Track Order</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-heading text-white text-lg mb-6">The Daily Prophet</h4>
+                <p class="font-body text-sm text-brand-muted mb-4">Subscribe for magical updates, new arrivals, and exclusive offers.</p>
+                <form class="space-y-3">
+                    <input type="email" placeholder="Your email address" class="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand-gold font-body text-sm">
+                    <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-white px-4 py-3 rounded-sm font-medium transition-colors font-body text-sm">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-body text-xs text-brand-muted">
+            <p>© 2024 Wand & Willow. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

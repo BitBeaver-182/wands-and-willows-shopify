@@ -1,0 +1,895 @@
+<!DOCTYPE html><html lang="en"><head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f1f15',
+                            forest: '#1a3322',
+                            gold: '#c4a661',
+                            goldHover: '#d4b671',
+                            parchment: '#f8f5ee',
+                            sand: '#e8e2d2',
+                            text: '#2d3748',
+                            muted: '#718096'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f5ee; color: #2d3748; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        ::-webkit-scrollbar { display: none;}
+    </style>
+</head>
+<body class="w-full min-h-screen text-brand-text bg-brand-parchment overflow-x-hidden">
+
+    <div id="promo-bar" class="bg-brand-dark text-brand-parchment text-center py-2 text-sm font-body tracking-wider">
+        <span>Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off.</span>
+    </div>
+
+    <header id="header" class="sticky top-0 z-50 bg-brand-parchment/95 backdrop-blur-md border-b border-brand-sand">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            
+            <button class="lg:hidden text-brand-forest text-xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <a href="#" class="flex-shrink-0 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                <span class="font-heading text-2xl font-bold text-brand-forest tracking-tight">Wand &amp; Willow</span>
+            </a>
+
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Collections</a>
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Subscriptions</a>
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Community</a>
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Our Story</a>
+            </nav>
+
+            <div class="flex items-center gap-6">
+                <button class="text-brand-forest hover:text-brand-gold transition-colors">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button class="text-brand-forest hover:text-brand-gold transition-colors hidden sm:block">
+                    <i class="fa-regular fa-user text-lg"></i>
+                </button>
+                <button class="text-brand-forest hover:text-brand-gold transition-colors relative">
+                    <i class="fa-solid fa-bag-shopping text-lg"></i>
+                    <span class="absolute -top-2 -right-2 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">3</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="breadcrumb" class="bg-white border-b border-brand-sand py-4">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="flex items-center gap-2 text-sm font-body text-brand-muted">
+                <a href="#" class="hover:text-brand-gold transition-colors">Home</a>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+                <a href="#" class="hover:text-brand-gold transition-colors">Wands</a>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+                <span class="text-brand-forest font-medium">Elderwood Artisan Wand</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-detail-main" class="py-16 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <div id="product-gallery" class="space-y-6">
+    <div class="aspect-square bg-brand-parchment rounded-sm overflow-hidden border border-brand-sand/50 p-8 flex items-center justify-center">
+        <div class="w-full h-full bg-white rounded-sm p-8 flex items-center justify-center">
+            <img class="w-full h-full object-contain mix-blend-multiply" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="Elderwood Artisan Wand main view">
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-4 gap-4">
+        <button class="aspect-square bg-brand-parchment rounded-sm overflow-hidden border-2 border-brand-gold p-2 hover:border-brand-goldHover transition-colors flex items-center justify-center">
+            <div class="w-full h-full bg-white rounded-sm p-2 flex items-center justify-center">
+                <img class="w-full h-full object-contain mix-blend-multiply" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="Elderwood Artisan Wand thumbnail 1">
+            </div>
+        </button>
+        <button class="aspect-square bg-brand-parchment rounded-sm overflow-hidden border border-brand-sand/50 p-2 hover:border-brand-gold transition-colors flex items-center justify-center">
+            <div class="w-full h-full bg-white rounded-sm p-2 flex items-center justify-center">
+                <img class="w-full h-full object-contain mix-blend-multiply" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="Elderwood Artisan Wand thumbnail 2">
+            </div>
+        </button>
+        <button class="aspect-square bg-brand-parchment rounded-sm overflow-hidden border border-brand-sand/50 p-2 hover:border-brand-gold transition-colors flex items-center justify-center">
+            <div class="w-full h-full bg-white rounded-sm p-2 flex items-center justify-center">
+                <img class="w-full h-full object-contain mix-blend-multiply" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="Elderwood Artisan Wand thumbnail 3">
+            </div>
+        </button>
+        <button class="aspect-square bg-brand-parchment rounded-sm overflow-hidden border border-brand-sand/50 p-2 hover:border-brand-gold transition-colors flex items-center justify-center">
+            <div class="w-full h-full bg-white rounded-sm p-2 flex items-center justify-center">
+                <img class="w-full h-full object-contain mix-blend-multiply" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="Elderwood Artisan Wand thumbnail 4">
+            </div>
+        </button>
+    </div>
+</div>
+
+                <div id="product-info" class="space-y-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-brand-forest text-white text-xs font-bold px-3 py-1 uppercase tracking-wider">New Arrival</span>
+                            <span class="bg-brand-gold/20 text-brand-gold text-xs font-bold px-3 py-1 uppercase tracking-wider">Limited Edition</span>
+                        </div>
+                        
+                        <h1 class="font-heading text-4xl text-brand-forest mb-4">Elderwood Artisan Wand</h1>
+                        
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="flex items-center gap-1 text-brand-gold text-sm">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <span class="font-body text-brand-muted text-sm">4.8 (142 reviews)</span>
+                            <span class="text-brand-muted">|</span>
+                            <span class="font-body text-brand-forest text-sm font-medium">In Stock</span>
+                        </div>
+
+                        <div class="flex items-baseline gap-4 mb-6">
+                            <span class="font-heading text-4xl text-brand-forest">$85.00</span>
+                            <span class="font-body text-xl text-brand-muted line-through">$110.00</span>
+                            <span class="bg-red-100 text-red-800 text-sm font-bold px-2 py-1 rounded">Save 23%</span>
+                        </div>
+
+                        <p class="font-body text-brand-text leading-relaxed mb-8">
+                            Handcrafted from authentic elderwood with intricate Celtic knot detailing, this artisan wand is a masterpiece of magical craftsmanship. Each wand is unique, featuring natural wood grain patterns and hand-carved details that make it truly one-of-a-kind. Perfect for collectors and practitioners alike.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-brand-sand pt-8 space-y-6">
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-3 block">Wood Type</label>
+                            <div class="flex gap-3">
+                                <button class="px-6 py-3 border-2 border-brand-gold bg-brand-gold/10 text-brand-forest font-medium rounded-sm hover:bg-brand-gold/20 transition-colors">
+                                    Elderwood
+                                </button>
+                                <button class="px-6 py-3 border border-brand-sand text-brand-text font-medium rounded-sm hover:border-brand-gold transition-colors">
+                                    Oak
+                                </button>
+                                <button class="px-6 py-3 border border-brand-sand text-brand-text font-medium rounded-sm hover:border-brand-gold transition-colors">
+                                    Willow
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-3 block">Length</label>
+                            <select class="w-full border border-brand-sand rounded-sm px-4 py-3 font-body text-brand-text focus:outline-none focus:border-brand-gold bg-white">
+                                <option>11 inches (Standard)</option>
+                                <option>10 inches (Compact)</option>
+                                <option>12 inches (Extended)</option>
+                                <option>13 inches (Master)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="font-body text-sm font-medium text-brand-forest mb-3 block">Quantity</label>
+                            <div class="flex items-center gap-4">
+                                <div class="flex items-center border border-brand-sand rounded-sm">
+                                    <button class="px-4 py-3 hover:bg-brand-sand/30 transition-colors">
+                                        <i class="fa-solid fa-minus text-sm"></i>
+                                    </button>
+                                    <input type="number" value="1" class="w-16 text-center border-x border-brand-sand py-3 focus:outline-none font-body">
+                                    <button class="px-4 py-3 hover:bg-brand-sand/30 transition-colors">
+                                        <i class="fa-solid fa-plus text-sm"></i>
+                                    </button>
+                                </div>
+                                <span class="font-body text-sm text-brand-muted">Only 8 left in stock</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 pt-4">
+                            <button class="flex-1 bg-brand-forest text-white py-4 rounded-sm font-medium text-lg hover:bg-brand-dark transition-colors flex items-center justify-center gap-3">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                Add to Cart
+                            </button>
+                            <button class="w-14 h-14 border-2 border-brand-sand rounded-sm flex items-center justify-center text-brand-muted hover:text-red-500 hover:border-red-500 transition-colors">
+                                <i class="fa-regular fa-heart text-xl"></i>
+                            </button>
+                        </div>
+
+                        <button class="w-full bg-brand-gold text-white py-4 rounded-sm font-medium text-lg hover:bg-brand-goldHover transition-colors">
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <div class="border-t border-brand-sand pt-8 space-y-4">
+                        <div class="flex items-start gap-4">
+                            <i class="fa-solid fa-truck text-brand-gold text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-body font-semibold text-brand-forest mb-1">Free Shipping</h4>
+                                <p class="font-body text-sm text-brand-muted">On orders over $75. Delivered by owl post within 3-5 business days.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i class="fa-solid fa-rotate-left text-brand-gold text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-body font-semibold text-brand-forest mb-1">30-Day Returns</h4>
+                                <p class="font-body text-sm text-brand-muted">Not satisfied? Return within 30 days for a full refund.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i class="fa-solid fa-shield-halved text-brand-gold text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-body font-semibold text-brand-forest mb-1">Authenticity Guarantee</h4>
+                                <p class="font-body text-sm text-brand-muted">Each wand comes with a certificate of authenticity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-tabs" class="py-20 bg-white">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="mb-8 flex gap-3 border-b border-brand-sand pb-1">
+            <button onclick="switchTab('description')" id="tab-description" class="tab-button px-8 py-4 border-b-2 border-brand-gold text-brand-forest font-body font-semibold transition-all flex items-center gap-3 group">
+                <i class="fa-solid fa-scroll text-brand-gold text-lg"></i>
+                <span>Description</span>
+            </button>
+            <button onclick="switchTab('details')" id="tab-details" class="tab-button px-8 py-4 border-b-2 border-transparent text-brand-muted font-body font-medium transition-all hover:text-brand-forest hover:border-brand-sand flex items-center gap-3 group">
+                <i class="fa-solid fa-info-circle text-brand-gold text-lg"></i>
+                <span>Details</span>
+            </button>
+        </div>
+
+        <div>
+            <div id="content-description" class="tab-content">
+                <div class="max-w-4xl">
+                    <h3 class="font-heading text-3xl text-brand-forest mb-6">About This Wand</h3>
+                    <p class="font-body text-brand-text leading-relaxed text-base mb-8">
+                        The Elderwood Artisan Wand represents the pinnacle of wandcraft tradition. Each piece is meticulously handcrafted by master artisans using sustainably sourced elderwood, known for its powerful magical properties and rich historical significance.
+                    </p>
+                    
+                    <div class="bg-brand-parchment border border-brand-sand rounded-lg p-8 mb-8">
+                        <h4 class="font-heading text-xl text-brand-forest mb-4 flex items-center gap-3">
+                            <i class="fa-solid fa-sparkles text-brand-gold text-lg"></i>
+                            Perfect For
+                        </h4>
+                        <p class="font-body text-brand-text leading-relaxed">
+                            Whether you're a seasoned collector or beginning your magical journey, this wand is perfect for display on your study desk while reading your favorite spell book, practicing your wandwork, or adding an authentic touch to your magical artifact collection. The natural elderwood grain catches the light beautifully when placed near a window or reading lamp.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white border border-brand-sand rounded-lg p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <i class="fa-solid fa-gem text-brand-gold text-2xl"></i>
+                                <h5 class="font-heading text-lg text-brand-forest">Key Features</h5>
+                            </div>
+                            <ul class="space-y-2 font-body text-brand-text text-sm">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-brand-gold mt-1 text-xs flex-shrink-0"></i>
+                                    <span>Handcrafted from authentic elderwood</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-brand-gold mt-1 text-xs flex-shrink-0"></i>
+                                    <span>Hand-carved Celtic knot detailing</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-brand-gold mt-1 text-xs flex-shrink-0"></i>
+                                    <span>Natural oil finish for protection</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-brand-gold mt-1 text-xs flex-shrink-0"></i>
+                                    <span>Includes velvet display case</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-brand-parchment border border-brand-sand rounded-lg p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <i class="fa-solid fa-certificate text-brand-gold text-2xl"></i>
+                                <h5 class="font-heading text-lg text-brand-forest">Authenticity</h5>
+                            </div>
+                            <p class="font-body text-brand-text text-sm leading-relaxed mb-4">
+                                Each wand comes with a certificate of authenticity and is part of a limited edition of only 100 pieces worldwide.
+                            </p>
+                            <div class="flex items-center gap-3 pt-4 border-t border-brand-sand">
+                                <i class="fa-solid fa-leaf text-brand-gold text-xl"></i>
+                                <span class="font-body text-xs text-brand-muted">Sustainably sourced materials</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-details" class="tab-content hidden">
+                <div class="max-w-4xl">
+                    <h3 class="font-heading text-3xl text-brand-forest mb-8">Product Details</h3>
+                    
+                    <div class="bg-white border border-brand-sand rounded-lg p-8 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                            <div class="flex items-center justify-between pb-4 border-b border-brand-sand">
+                                <span class="font-body font-semibold text-brand-forest">Material</span>
+                                <span class="font-body text-brand-text">Elderwood</span>
+                            </div>
+                            <div class="flex items-center justify-between pb-4 border-b border-brand-sand">
+                                <span class="font-body font-semibold text-brand-forest">Length</span>
+                                <span class="font-body text-brand-text">11 inches</span>
+                            </div>
+                            <div class="flex items-center justify-between pb-4 border-b border-brand-sand">
+                                <span class="font-body font-semibold text-brand-forest">Finish</span>
+                                <span class="font-body text-brand-text">Natural Oil</span>
+                            </div>
+                            <div class="flex items-center justify-between pb-4 border-b border-brand-sand">
+                                <span class="font-body font-semibold text-brand-forest">Weight</span>
+                                <span class="font-body text-brand-text">2.1 oz</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-body font-semibold text-brand-forest">Core</span>
+                                <span class="font-body text-brand-text">Phoenix Feather</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-body font-semibold text-brand-forest">SKU</span>
+                                <span class="font-body text-brand-text">WW-ELD-001</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-brand-parchment border border-brand-sand rounded-lg p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <i class="fa-solid fa-box text-brand-gold text-xl"></i>
+                                <h4 class="font-heading text-lg text-brand-forest">What's Included</h4>
+                            </div>
+                            <ul class="space-y-2 font-body text-brand-text text-sm">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-brand-gold mt-1 text-xs"></i>
+                                    <span>Elderwood Artisan Wand</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-brand-gold mt-1 text-xs"></i>
+                                    <span>Velvet Display Case</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-brand-gold mt-1 text-xs"></i>
+                                    <span>Certificate of Authenticity</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-brand-gold mt-1 text-xs"></i>
+                                    <span>Care Instructions</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white border border-brand-sand rounded-lg p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <i class="fa-solid fa-heart-pulse text-brand-gold text-xl"></i>
+                                <h4 class="font-heading text-lg text-brand-forest">Care Instructions</h4>
+                            </div>
+                            <ul class="space-y-2 font-body text-brand-text text-sm">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-droplet text-brand-gold mt-1 text-xs"></i>
+                                    <span>Wipe gently with soft, dry cloth</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-oil-can text-brand-gold mt-1 text-xs"></i>
+                                    <span>Apply wood oil every 3-6 months</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-temperature-half text-brand-gold mt-1 text-xs"></i>
+                                    <span>Store in cool, dry place</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-xmark text-red-500 mt-1 text-xs"></i>
+                                    <span>Avoid water and extreme heat</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.add('hidden');
+    });
+    
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('text-brand-forest', 'border-brand-gold', 'font-semibold');
+        button.classList.add('text-brand-muted', 'border-transparent', 'font-medium');
+    });
+    
+    document.getElementById('content-' + tabName).classList.remove('hidden');
+    
+    const activeTab = document.getElementById('tab-' + tabName);
+    activeTab.classList.remove('text-brand-muted', 'border-transparent', 'font-medium');
+    activeTab.classList.add('text-brand-forest', 'border-brand-gold', 'font-semibold');
+}
+</script>
+
+    <section id="reviews-section" class="py-16 bg-brand-parchment">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="flex items-center justify-between mb-12">
+                <h2 class="font-heading text-3xl text-brand-forest">Customer Reviews</h2>
+                <button class="px-6 py-3 border-2 border-brand-gold text-brand-forest font-medium rounded-sm hover:bg-brand-gold hover:text-white transition-colors">
+                    Write a Review
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+                <div class="bg-white rounded-sm p-8 border border-brand-sand text-center">
+                    <div class="text-5xl font-heading text-brand-forest mb-2">4.8</div>
+                    <div class="flex items-center justify-center gap-1 text-brand-gold text-xl mb-3">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <p class="font-body text-brand-muted">Based on 142 reviews</p>
+                </div>
+
+                <div class="lg:col-span-2 bg-white rounded-sm p-8 border border-brand-sand space-y-3">
+                    <div class="flex items-center gap-4">
+                        <span class="font-body text-sm font-medium text-brand-forest w-16">5 stars</span>
+                        <div class="flex-1 h-3 bg-brand-sand rounded-full overflow-hidden">
+                            <div class="h-full bg-brand-gold" style="width: 78%"></div>
+                        </div>
+                        <span class="font-body text-sm text-brand-muted w-12 text-right">78%</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="font-body text-sm font-medium text-brand-forest w-16">4 stars</span>
+                        <div class="flex-1 h-3 bg-brand-sand rounded-full overflow-hidden">
+                            <div class="h-full bg-brand-gold" style="width: 15%"></div>
+                        </div>
+                        <span class="font-body text-sm text-brand-muted w-12 text-right">15%</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="font-body text-sm font-medium text-brand-forest w-16">3 stars</span>
+                        <div class="flex-1 h-3 bg-brand-sand rounded-full overflow-hidden">
+                            <div class="h-full bg-brand-gold" style="width: 5%"></div>
+                        </div>
+                        <span class="font-body text-sm text-brand-muted w-12 text-right">5%</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="font-body text-sm font-medium text-brand-forest w-16">2 stars</span>
+                        <div class="flex-1 h-3 bg-brand-sand rounded-full overflow-hidden">
+                            <div class="h-full bg-brand-gold" style="width: 2%"></div>
+                        </div>
+                        <span class="font-body text-sm text-brand-muted w-12 text-right">2%</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="font-body text-sm font-medium text-brand-forest w-16">1 star</span>
+                        <div class="flex-1 h-3 bg-brand-sand rounded-full overflow-hidden">
+                            <div class="h-full bg-brand-gold" style="width: 0%"></div>
+                        </div>
+                        <span class="font-body text-sm text-brand-muted w-12 text-right">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white rounded-sm p-8 border border-brand-sand">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-4">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="reviewer" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-body font-semibold text-brand-forest">Hermione G.</h4>
+                                <div class="flex items-center gap-1 text-brand-gold text-sm">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="font-body text-sm text-brand-muted">2 days ago</span>
+                    </div>
+                    <h5 class="font-body font-semibold text-brand-forest mb-3">Absolutely Magical!</h5>
+                    <p class="font-body text-brand-text leading-relaxed mb-4">
+                        This wand exceeded all my expectations. The craftsmanship is extraordinary, and you can feel the care that went into every detail. The elderwood has a beautiful natural grain, and the Celtic knots are perfectly carved. It came beautifully packaged with a certificate of authenticity. Worth every penny!
+                    </p>
+                    <div class="flex items-center gap-4 text-sm">
+                        <button class="font-body text-brand-muted hover:text-brand-gold transition-colors flex items-center gap-2">
+                            <i class="fa-regular fa-thumbs-up"></i> Helpful (24)
+                        </button>
+                        <button class="font-body text-brand-muted hover:text-brand-gold transition-colors">
+                            Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-sm p-8 border border-brand-sand">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-4">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="reviewer" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-body font-semibold text-brand-forest">Harry P.</h4>
+                                <div class="flex items-center gap-1 text-brand-gold text-sm">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="font-body text-sm text-brand-muted">1 week ago</span>
+                    </div>
+                    <h5 class="font-body font-semibold text-brand-forest mb-3">The wand chose me!</h5>
+                    <p class="font-body text-brand-text leading-relaxed mb-4">
+                        From the moment I held this wand, I knew it was meant for me. The balance is perfect, and the elderwood feels warm and alive in my hand. The packaging was exceptional - it arrived in a beautiful velvet-lined case. Highly recommend for serious collectors!
+                    </p>
+                    <div class="flex items-center gap-4 text-sm">
+                        <button class="font-body text-brand-muted hover:text-brand-gold transition-colors flex items-center gap-2">
+                            <i class="fa-regular fa-thumbs-up"></i> Helpful (18)
+                        </button>
+                        <button class="font-body text-brand-muted hover:text-brand-gold transition-colors">
+                            Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-sm p-8 border border-brand-sand">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-4">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="reviewer" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-body font-semibold text-brand-forest">Ron W.</h4>
+                                <div class="flex items-center gap-1 text-brand-gold text-sm">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="font-body text-sm text-brand-muted">2 weeks ago</span>
+                    </div>
+                    <h5 class="font-body font-semibold text-brand-forest mb-3">Great quality, bit pricey</h5>
+                    <p class="font-body text-brand-text leading-relaxed mb-4">
+                        The wand is beautiful and well-made, no complaints about the quality. The wood feels authentic and the detailing is impressive. My only issue is the price - it's a bit steep, but I suppose you're paying for the craftsmanship and limited edition status.
+                    </p>
+                    <div class="flex items-center gap-4 text-sm">
+                        <button class="font-body text-brand-muted hover:text-brand-gold transition-colors flex items-center gap-2">
+                            <i class="fa-regular fa-thumbs-up"></i> Helpful (12)
+                        </button>
+                        <button class="font-body text-brand-muted hover:text-brand-gold transition-colors">
+                            Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="px-8 py-3 border-2 border-brand-sand text-brand-forest font-medium rounded-sm hover:border-brand-gold transition-colors">
+                    Load More Reviews
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-products" class="py-16 bg-white border-t border-brand-sand">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="flex items-center justify-between mb-12">
+                <h2 class="font-heading text-3xl text-brand-forest">Curated Artifacts</h2>
+                <div class="flex gap-2">
+                    <button class="w-8 h-8 rounded border border-brand-sand flex items-center justify-center text-brand-muted hover:text-brand-forest hover:border-brand-forest transition-colors">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button class="w-8 h-8 rounded border border-brand-sand flex items-center justify-center text-brand-muted hover:text-brand-forest hover:border-brand-forest transition-colors">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="group relative bg-brand-parchment p-3 flex flex-col transition-all duration-300 hover:shadow-lg">
+                    <div class="bg-white aspect-square w-full mb-4 relative flex items-center justify-center p-6">
+                        <span class="absolute top-3 left-3 bg-brand-forest text-white text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider">Sale</span>
+                        <button class="absolute top-3 right-3 text-brand-muted hover:text-red-500 transition-colors">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="Elderwood Artisan Wand">
+                    </div>
+                    <div class="px-1 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-1 gap-2">
+                            <h3 class="font-heading text-base text-brand-forest font-medium leading-tight line-clamp-2">Elderwood Artisan Wand</h3>
+                            <span class="font-body font-bold text-brand-forest text-sm whitespace-nowrap">$85.00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px] mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="text-brand-muted ml-1 font-body">(142)</span>
+                        </div>
+                        <button class="w-full mt-auto py-2.5 bg-brand-forest text-white font-medium text-xs uppercase tracking-widest hover:bg-brand-dark transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-shopping text-[10px]"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative bg-brand-parchment p-3 flex flex-col transition-all duration-300 hover:shadow-lg">
+                    <div class="bg-white aspect-square w-full mb-4 relative flex items-center justify-center p-6">
+                        <button class="absolute top-3 right-3 text-brand-muted hover:text-red-500 transition-colors">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/aa4984facf-0c09be89a7c3f0c59529.png" alt="Amortentia Soy Candle">
+                    </div>
+                    <div class="px-1 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-1 gap-2">
+                            <h3 class="font-heading text-base text-brand-forest font-medium leading-tight line-clamp-2">Amortentia Soy Candle</h3>
+                            <span class="font-body font-bold text-brand-forest text-sm whitespace-nowrap">$32.00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px] mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-brand-muted ml-1 font-body">(204)</span>
+                        </div>
+                        <button class="w-full mt-auto py-2.5 bg-brand-forest text-white font-medium text-xs uppercase tracking-widest hover:bg-brand-dark transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-shopping text-[10px]"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative bg-brand-parchment p-3 flex flex-col transition-all duration-300 hover:shadow-lg">
+                    <div class="bg-white aspect-square w-full mb-4 relative flex items-center justify-center p-6">
+                        <span class="absolute top-3 left-3 bg-red-800 text-white text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider">Limited</span>
+                        <button class="absolute top-3 right-3 text-brand-muted hover:text-red-500 transition-colors">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5b4e979cc7-61b3cdcffd2494b04633.png" alt="Time-Turner Pendant">
+                    </div>
+                    <div class="px-1 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-1 gap-2">
+                            <h3 class="font-heading text-base text-brand-forest font-medium leading-tight line-clamp-2">Time-Turner Pendant</h3>
+                            <span class="font-body font-bold text-brand-forest text-sm whitespace-nowrap">$89.00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px] mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <span class="text-brand-muted ml-1 font-body">(86)</span>
+                        </div>
+                        <button class="w-full mt-auto py-2.5 bg-brand-forest text-white font-medium text-xs uppercase tracking-widest hover:bg-brand-dark transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-shopping text-[10px]"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="group relative bg-brand-parchment p-3 flex flex-col transition-all duration-300 hover:shadow-lg">
+                    <div class="bg-white aspect-square w-full mb-4 relative flex items-center justify-center p-6">
+                        <button class="absolute top-3 right-3 text-brand-muted hover:text-red-500 transition-colors">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/109c5d63a0-1bf006a727145c51721a.png" alt="Serpent Leather Journal">
+                    </div>
+                    <div class="px-1 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-1 gap-2">
+                            <h3 class="font-heading text-base text-brand-forest font-medium leading-tight line-clamp-2">Serpent Leather Journal</h3>
+                            <span class="font-body font-bold text-brand-forest text-sm whitespace-nowrap">$48.00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px] mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-brand-muted ml-1 font-body">(312)</span>
+                        </div>
+                        <button class="w-full mt-auto py-2.5 bg-brand-forest text-white font-medium text-xs uppercase tracking-widest hover:bg-brand-dark transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-shopping text-[10px]"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="px-8 py-3 border border-brand-sand text-brand-forest font-medium text-sm uppercase tracking-widest bg-white hover:bg-brand-parchment transition-colors">
+                    View All Artifacts
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="recently-viewed" class="py-16 bg-white border-t border-brand-sand">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <h2 class="font-heading text-3xl text-brand-forest mb-12">Recently Viewed</h2>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="group relative bg-brand-parchment p-2 flex flex-col transition-all duration-300 hover:shadow-md cursor-pointer">
+                    <div class="bg-white aspect-square w-full mb-3 relative flex items-center justify-center p-4">
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="Willow Wand">
+                    </div>
+                    <div class="px-1 text-center">
+                        <h4 class="font-heading text-sm text-brand-forest font-medium mb-1 truncate">Willow Wand</h4>
+                        <p class="font-body text-xs font-bold text-brand-forest">$68.00</p>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment p-2 flex flex-col transition-all duration-300 hover:shadow-md cursor-pointer">
+                    <div class="bg-white aspect-square w-full mb-3 relative flex items-center justify-center p-4">
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/aa4984facf-0c09be89a7c3f0c59529.png" alt="Moonlight Candle">
+                    </div>
+                    <div class="px-1 text-center">
+                        <h4 class="font-heading text-sm text-brand-forest font-medium mb-1 truncate">Moonlight Candle</h4>
+                        <p class="font-body text-xs font-bold text-brand-forest">$32.00</p>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment p-2 flex flex-col transition-all duration-300 hover:shadow-md cursor-pointer">
+                    <div class="bg-white aspect-square w-full mb-3 relative flex items-center justify-center p-4">
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5b4e979cc7-61b3cdcffd2494b04633.png" alt="Deathly Hallows Ring">
+                    </div>
+                    <div class="px-1 text-center">
+                        <h4 class="font-heading text-sm text-brand-forest font-medium mb-1 truncate">Deathly Hallows Ring</h4>
+                        <p class="font-body text-xs font-bold text-brand-forest">$54.00</p>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment p-2 flex flex-col transition-all duration-300 hover:shadow-md cursor-pointer">
+                    <div class="bg-white aspect-square w-full mb-3 relative flex items-center justify-center p-4">
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/109c5d63a0-1bf006a727145c51721a.png" alt="Spell Book Journal">
+                    </div>
+                    <div class="px-1 text-center">
+                        <h4 class="font-heading text-sm text-brand-forest font-medium mb-1 truncate">Spell Book Journal</h4>
+                        <p class="font-body text-xs font-bold text-brand-forest">$45.00</p>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment p-2 flex flex-col transition-all duration-300 hover:shadow-md cursor-pointer">
+                    <div class="bg-white aspect-square w-full mb-3 relative flex items-center justify-center p-4">
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="Hawthorn Wand">
+                    </div>
+                    <div class="px-1 text-center">
+                        <h4 class="font-heading text-sm text-brand-forest font-medium mb-1 truncate">Hawthorn Wand</h4>
+                        <p class="font-body text-xs font-bold text-brand-forest">$72.00</p>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment p-2 flex flex-col transition-all duration-300 hover:shadow-md cursor-pointer">
+                    <div class="bg-white aspect-square w-full mb-3 relative flex items-center justify-center p-4">
+                        <img class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/aa4984facf-0c09be89a7c3f0c59529.png" alt="Potion Candle Set">
+                    </div>
+                    <div class="px-1 text-center">
+                        <h4 class="font-heading text-sm text-brand-forest font-medium mb-1 truncate">Potion Candle Set</h4>
+                        <p class="font-body text-xs font-bold text-brand-forest">$58.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="newsletter-subscribe" class="py-24 bg-brand-forest relative overflow-hidden">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="mb-6 flex flex-col items-center">
+                    <i class="fa-solid fa-envelope-open-text text-brand-gold text-3xl mb-4"></i>
+                    <h2 class="font-heading text-4xl text-white mb-4">Stay Connected to the Magic</h2>
+                    <p class="font-body text-brand-parchment text-sm">
+                        Subscribe for exclusive early access to new collections and special offers.
+                    </p>
+                </div>
+
+                <form class="max-w-xl mx-auto mt-8">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" placeholder="Enter your email" class="flex-1 bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder-white/60 focus:outline-none focus:border-brand-gold font-body text-sm transition-all" required="">
+                        <button type="submit" class="px-8 py-3 bg-brand-gold hover:bg-brand-goldHover text-white font-semibold text-sm rounded-sm transition-colors whitespace-nowrap">
+                            Subscribe
+                        </button>
+                    </div>
+                    <p class="font-body text-xs text-brand-parchment/60 mt-4">
+                        By subscribing, you agree to receive marketing emails. Unsubscribe anytime.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer" class="bg-brand-dark text-brand-sand pt-20 pb-10 border-t border-brand-forest">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <div class="space-y-6">
+                    <a href="#" class="flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                        <span class="font-heading text-2xl font-bold text-white tracking-tight">Wand &amp; Willow</span>
+                    </a>
+                    <p class="font-body text-sm text-brand-muted leading-relaxed">
+                        Curators of fine magical goods, official merchandise, and handcrafted artifacts for the modern witch and wizard.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">Shop</h4>
+                    <ul class="space-y-4 font-body text-sm text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">All Products</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Wands</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apothecary</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apparel</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Jewelry</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">Support</h4>
+                    <ul class="space-y-4 font-body text-sm text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Shipping &amp; Returns</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">The Daily Prophet</h4>
+                    <p class="font-body text-sm text-brand-muted mb-4">Subscribe for magical updates, new arrivals, and exclusive offers.</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Your email address" class="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand-gold font-body text-sm">
+                        <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-white px-4 py-3 rounded-sm font-medium transition-colors font-body text-sm">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-body text-xs text-brand-muted">
+                <p>© 2024 Wand &amp; Willow. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body></html>

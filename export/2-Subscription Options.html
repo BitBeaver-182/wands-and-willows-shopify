@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f1f15',
+                            forest: '#1a3322',
+                            gold: '#c4a661',
+                            goldHover: '#d4b671',
+                            parchment: '#f8f5ee',
+                            sand: '#e8e2d2',
+                            text: '#2d3748',
+                            muted: '#718096'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f5ee; color: #2d3748; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-panel { background: rgba(26, 51, 34, 0.85); backdrop-filter: blur(10px); }
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(26, 51, 34, 0.1); }
+        ::-webkit-scrollbar { display: none;}
+    </style>
+</head>
+<body class="w-full min-h-screen text-brand-text bg-brand-parchment overflow-x-hidden">
+
+    <div id="promo-bar" class="bg-brand-dark text-brand-parchment text-center py-2 text-sm font-body tracking-wider">
+        <span>Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off.</span>
+    </div>
+
+    <header id="header" class="sticky top-0 z-50 bg-brand-parchment/95 backdrop-blur-md border-b border-brand-sand">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <button class="lg:hidden text-brand-forest text-xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="#" class="flex-shrink-0 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                <span class="font-heading text-2xl font-bold text-brand-forest tracking-tight">Wand & Willow</span>
+            </a>
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Collections</a>
+                <a href="#" class="text-brand-gold font-medium transition-colors text-sm uppercase tracking-widest">Subscriptions</a>
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Community</a>
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Our Story</a>
+            </nav>
+            <div class="flex items-center gap-6">
+                <button class="text-brand-forest hover:text-brand-gold transition-colors">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button class="text-brand-forest hover:text-brand-gold transition-colors hidden sm:block">
+                    <i class="fa-regular fa-user text-lg"></i>
+                </button>
+                <button class="text-brand-forest hover:text-brand-gold transition-colors relative">
+                    <i class="fa-solid fa-bag-shopping text-lg"></i>
+                    <span class="absolute -top-2 -right-2 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">3</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="subscription-hero" class="relative w-full h-[600px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ad23f1cf92-3d8a0dd85349a36be390.png" alt="premium subscription box, dark green with gold foil, magical items, elegant unboxing, aesthetic flat lay" />
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-forest/60 to-brand-dark/80"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-brand-parchment">
+            <span class="block text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">Monthly Owl Post</span>
+            <h1 class="font-heading text-5xl md:text-6xl font-bold mb-6 leading-tight">The Monthly Dose<br>of Magic</h1>
+            <p class="font-body text-xl mb-10 text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">
+                A carefully curated parcel of exclusive merchandise, handcrafted apothecary items, and magical artifacts delivered to your door every month.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button class="w-full sm:w-auto px-8 py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm">
+                    Choose Your Plan
+                </button>
+                <button class="w-full sm:w-auto px-8 py-4 bg-transparent border border-brand-sand hover:bg-brand-sand/10 text-brand-parchment font-medium tracking-wide transition-all rounded-sm">
+                    See Past Boxes
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-24 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">How It Works</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+                <p class="font-body text-brand-muted max-w-2xl mx-auto">Your journey to monthly magical deliveries in three simple steps.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-full bg-brand-forest/10 flex items-center justify-center mx-auto mb-6 relative">
+                        <i class="fa-solid fa-house-chimney text-brand-gold text-3xl"></i>
+                        <span class="absolute -top-2 -right-2 w-8 h-8 bg-brand-gold text-white rounded-full flex items-center justify-center font-heading font-bold">1</span>
+                    </div>
+                    <h3 class="font-heading text-2xl text-brand-forest mb-4">Choose Your House</h3>
+                    <p class="font-body text-brand-muted leading-relaxed">Select your preferred Hogwarts House or choose our Curator's Choice for a surprise each month.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-full bg-brand-forest/10 flex items-center justify-center mx-auto mb-6 relative">
+                        <i class="fa-solid fa-box-open text-brand-gold text-3xl"></i>
+                        <span class="absolute -top-2 -right-2 w-8 h-8 bg-brand-gold text-white rounded-full flex items-center justify-center font-heading font-bold">2</span>
+                    </div>
+                    <h3 class="font-heading text-2xl text-brand-forest mb-4">We Curate</h3>
+                    <p class="font-body text-brand-muted leading-relaxed">Our archivists handpick 3-5 exclusive items valued at $80+ tailored to your chosen theme.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-full bg-brand-forest/10 flex items-center justify-center mx-auto mb-6 relative">
+                        <i class="fa-solid fa-gifts text-brand-gold text-3xl"></i>
+                        <span class="absolute -top-2 -right-2 w-8 h-8 bg-brand-gold text-white rounded-full flex items-center justify-center font-heading font-bold">3</span>
+                    </div>
+                    <h3 class="font-heading text-2xl text-brand-forest mb-4">Receive Magic</h3>
+                    <p class="font-body text-brand-muted leading-relaxed">Your box arrives by the 15th of each month, beautifully packaged and ready to enchant.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing-plans" class="py-24 bg-brand-parchment">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">Choose Your Plan</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+                <p class="font-body text-brand-muted max-w-2xl mx-auto">Flexible subscriptions to fit your magical lifestyle. Cancel or pause anytime.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white rounded-sm p-8 border border-brand-sand/50 hover:shadow-xl transition-all duration-300">
+                    <div class="text-center mb-8">
+                        <h3 class="font-heading text-2xl text-brand-forest mb-2">Monthly</h3>
+                        <p class="font-body text-brand-muted text-sm mb-6">No commitment required</p>
+                        <div class="mb-6">
+                            <span class="font-heading text-5xl text-brand-forest">$45</span>
+                            <span class="font-body text-brand-muted">/month</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>3-5 curated items</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>$80+ value per box</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>Free shipping</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>Cancel anytime</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-4 bg-brand-forest hover:bg-brand-dark text-white font-medium tracking-wide transition-all rounded-sm">
+                        Subscribe Monthly
+                    </button>
+                </div>
+
+                <div class="bg-brand-forest rounded-sm p-8 border-2 border-brand-gold relative transform scale-105 shadow-2xl">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-gold text-white px-6 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+                        Most Popular
+                    </div>
+                    <div class="text-center mb-8">
+                        <h3 class="font-heading text-2xl text-brand-parchment mb-2">6-Month</h3>
+                        <p class="font-body text-brand-sand text-sm mb-6">Save 15%</p>
+                        <div class="mb-2">
+                            <span class="font-heading text-5xl text-brand-parchment">$38</span>
+                            <span class="font-body text-brand-sand">/month</span>
+                        </div>
+                        <p class="font-body text-brand-gold text-sm">Billed $228 every 6 months</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 font-body text-brand-parchment">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>3-5 curated items</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-parchment">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>$80+ value per box</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-parchment">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>Free shipping</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-parchment">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>Exclusive bonus item</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-parchment">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>Early access to sales</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm">
+                        Subscribe 6 Months
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-sm p-8 border border-brand-sand/50 hover:shadow-xl transition-all duration-300">
+                    <div class="text-center mb-8">
+                        <h3 class="font-heading text-2xl text-brand-forest mb-2">Annual</h3>
+                        <p class="font-body text-brand-muted text-sm mb-6">Save 25%</p>
+                        <div class="mb-2">
+                            <span class="font-heading text-5xl text-brand-forest">$34</span>
+                            <span class="font-body text-brand-muted">/month</span>
+                        </div>
+                        <p class="font-body text-brand-gold text-sm">Billed $408 annually</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>3-5 curated items</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>$80+ value per box</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>Free shipping</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>2 exclusive bonus items</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>VIP early access</span>
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-brand-text">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span>Birthday surprise box</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-4 bg-brand-forest hover:bg-brand-dark text-white font-medium tracking-wide transition-all rounded-sm">
+                        Subscribe Annually
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="whats-inside" class="py-24 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">What's Inside Each Box</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+                <p class="font-body text-brand-muted max-w-2xl mx-auto">Every box is thoughtfully curated with a blend of these magical categories.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-6 bg-brand-parchment rounded-sm">
+                    <div class="w-16 h-16 rounded-full bg-brand-forest/10 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl text-brand-forest mb-3">Magical Artifacts</h3>
+                    <p class="font-body text-brand-muted text-sm leading-relaxed">Handcrafted wands, replicas, and enchanted objects inspired by beloved magical worlds.</p>
+                </div>
+                <div class="text-center p-6 bg-brand-parchment rounded-sm">
+                    <div class="w-16 h-16 rounded-full bg-brand-forest/10 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-flask text-brand-gold text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl text-brand-forest mb-3">Apothecary Goods</h3>
+                    <p class="font-body text-brand-muted text-sm leading-relaxed">Artisanal candles, potions, herbal remedies, and scented treasures for your sanctuary.</p>
+                </div>
+                <div class="text-center p-6 bg-brand-parchment rounded-sm">
+                    <div class="w-16 h-16 rounded-full bg-brand-forest/10 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-shirt text-brand-gold text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl text-brand-forest mb-3">Apparel & Accessories</h3>
+                    <p class="font-body text-brand-muted text-sm leading-relaxed">Exclusive clothing, jewelry, pins, and wearable magic you won't find anywhere else.</p>
+                </div>
+                <div class="text-center p-6 bg-brand-parchment rounded-sm">
+                    <div class="w-16 h-16 rounded-full bg-brand-forest/10 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-book text-brand-gold text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl text-brand-forest mb-3">Collectibles</h3>
+                    <p class="font-body text-brand-muted text-sm leading-relaxed">Limited edition prints, stationery, bookmarks, and keepsakes for the devoted collector.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="past-boxes" class="py-24 bg-brand-parchment">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">Past Magical Boxes</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+                <p class="font-body text-brand-muted max-w-2xl mx-auto">Peek inside some of our previous monthly boxes to see the magic we deliver.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="h-72 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/f8c0c2b741-2817399d9bea7d712de4.png" alt="December box contents, red and gold theme, holiday magical items" />
+                    </div>
+                    <div class="p-6">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-2 block">December 2024</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-3">The Yule Ball Collection</h3>
+                        <ul class="space-y-2 mb-4 font-body text-sm text-brand-muted">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Crystal snowflake wand</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Mulled wine scented candle</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Gold-embossed journal</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>House scarf pin</span>
+                            </li>
+                        </ul>
+                        <p class="font-body text-brand-forest font-semibold">Value: $92</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="h-72 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/44478a4c92-32f648236626a8be01ea.png" alt="November box contents, blue and bronze theme, wisdom themed items" />
+                    </div>
+                    <div class="p-6">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-2 block">November 2024</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-3">The Scholar's Study</h3>
+                        <ul class="space-y-2 mb-4 font-body text-sm text-brand-muted">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Raven feather quill pen</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Library candle trio</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Bronze bookmark set</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Wisdom house tote</span>
+                            </li>
+                        </ul>
+                        <p class="font-body text-brand-forest font-semibold">Value: $88</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="h-72 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/4b438908f3-2c2ac96ba0761d14f1f3.png" alt="October box contents, green and silver theme, dark arts themed items" />
+                    </div>
+                    <div class="p-6">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-2 block">October 2024</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-3">The Dark Arts Collection</h3>
+                        <ul class="space-y-2 mb-4 font-body text-sm text-brand-muted">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Serpent wand replica</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Potion bottle necklace</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Midnight musk candle</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>House crest patch</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-star text-brand-gold text-xs mt-1"></i>
+                                <span>Leather journal</span>
+                            </li>
+                        </ul>
+                        <p class="font-body text-brand-forest font-semibold">Value: $95</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-24 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">What Subscribers Say</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-brand-parchment p-8 rounded-sm">
+                    <div class="flex items-center gap-1 text-brand-gold mb-4">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="font-body text-brand-text mb-6 leading-relaxed italic">"Every month feels like my birthday! The curation is impeccable, and I've never been disappointed. The quality of the items far exceeds the price."</p>
+                    <div class="flex items-center gap-3">
+                        <img class="w-12 h-12 rounded-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="subscriber" />
+                        <div>
+                            <p class="font-heading text-brand-forest font-semibold">Sarah Mitchell</p>
+                            <p class="font-body text-brand-muted text-sm">Annual Subscriber</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-brand-parchment p-8 rounded-sm">
+                    <div class="flex items-center gap-1 text-brand-gold mb-4">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="font-body text-brand-text mb-6 leading-relaxed italic">"As a collector, I appreciate the exclusive items I can't find elsewhere. The packaging alone is worth it—it's like receiving a treasure chest every month."</p>
+                    <div class="flex items-center gap-3">
+                        <img class="w-12 h-12 rounded-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="subscriber" />
+                        <div>
+                            <p class="font-heading text-brand-forest font-semibold">Marcus Chen</p>
+                            <p class="font-body text-brand-muted text-sm">6-Month Subscriber</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-brand-parchment p-8 rounded-sm">
+                    <div class="flex items-center gap-1 text-brand-gold mb-4">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="font-body text-brand-text mb-6 leading-relaxed italic">"The best subscription I've ever purchased. Each item is thoughtfully chosen and beautifully made. It brings genuine magic to my life every single month."</p>
+                    <div class="flex items-center gap-3">
+                        <img class="w-12 h-12 rounded-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="subscriber" />
+                        <div>
+                            <p class="font-heading text-brand-forest font-semibold">Emma Thornton</p>
+                            <p class="font-body text-brand-muted text-sm">Monthly Subscriber</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-brand-parchment">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">Frequently Asked Questions</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+            </div>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-sm border border-brand-sand/50">
+                    <h3 class="font-heading text-xl text-brand-forest mb-3 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-question text-brand-gold"></i>
+                        When will my first box arrive?
+                    </h3>
+                    <p class="font-body text-brand-muted leading-relaxed pl-8">If you subscribe before the 10th of the month, you'll receive your first box by the 15th of that same month. Subscriptions after the 10th will receive their first box the following month.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-sm border border-brand-sand/50">
+                    <h3 class="font-heading text-xl text-brand-forest mb-3 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-question text-brand-gold"></i>
+                        Can I cancel or pause my subscription?
+                    </h3>
+                    <p class="font-body text-brand-muted leading-relaxed pl-8">Absolutely! You can cancel or pause your subscription at any time from your account dashboard. There are no cancellation fees or penalties.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-sm border border-brand-sand/50">
+                    <h3 class="font-heading text-xl text-brand-forest mb-3 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-question text-brand-gold"></i>
+                        Do you ship internationally?
+                    </h3>
+                    <p class="font-body text-brand-muted leading-relaxed pl-8">Yes! We ship to most countries worldwide. International shipping rates vary by location and are calculated at checkout. Delivery times are typically 7-14 business days.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-sm border border-brand-sand/50">
+                    <h3 class="font-heading text-xl text-brand-forest mb-3 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-question text-brand-gold"></i>
+                        Can I gift a subscription?
+                    </h3>
+                    <p class="font-body text-brand-muted leading-relaxed pl-8">Yes! Gift subscriptions are available for 3, 6, or 12 months. You'll receive a beautiful gift card to present to the recipient, and they can choose their preferred House theme.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-sm border border-brand-sand/50">
+                    <h3 class="font-heading text-xl text-brand-forest mb-3 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-question text-brand-gold"></i>
+                        What if I don't like an item in my box?
+                    </h3>
+                    <p class="font-body text-brand-muted leading-relaxed pl-8">While we can't accept returns on subscription boxes, we stand by our quality. If you receive a damaged item or have concerns, please contact our customer service team within 7 days for a resolution.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-sm border border-brand-sand/50">
+                    <h3 class="font-heading text-xl text-brand-forest mb-3 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-question text-brand-gold"></i>
+                        Can I switch my House preference?
+                    </h3>
+                    <p class="font-body text-brand-muted leading-relaxed pl-8">Yes! You can update your House preference in your account settings before the 5th of each month, and your next box will reflect the change.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="final-cta" class="py-24 bg-brand-forest text-brand-parchment relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/adb16c1def-5a2d3167ef347a7c6040.png" alt="magical texture" />
+        </div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <i class="fa-solid fa-sparkles text-brand-gold text-4xl mb-6"></i>
+            <h2 class="font-heading text-4xl lg:text-5xl mb-6">Ready to Receive Your Monthly Magic?</h2>
+            <p class="font-body text-brand-sand text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Join thousands of magical enthusiasts who look forward to their Monthly Dose of Magic. Subscribe today and start your enchanted journey.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button class="w-full sm:w-auto px-10 py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm text-lg">
+                    Subscribe Now
+                </button>
+                <button class="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-brand-sand hover:bg-brand-sand/10 text-brand-parchment font-medium tracking-wide transition-all rounded-sm text-lg">
+                    Gift a Subscription
+                </button>
+            </div>
+            <p class="font-body text-brand-sand/70 text-sm mt-6">Cancel or pause anytime • No hidden fees • Free shipping on all plans</p>
+        </div>
+    </section>
+
+    <footer id="footer" class="bg-brand-dark text-brand-sand pt-20 pb-10 border-t border-brand-forest">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="space-y-6">
+                    <a href="#" class="flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                        <span class="font-heading text-2xl font-bold text-white tracking-tight">Wand & Willow</span>
+                    </a>
+                    <p class="font-body text-sm text-brand-muted leading-relaxed">
+                        Curators of fine magical goods, official merchandise, and handcrafted artifacts for the modern witch and wizard.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">Shop</h4>
+                    <ul class="space-y-4 font-body text-sm text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">All Products</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Wands</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apothecary</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apparel</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Jewelry</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">Support</h4>
+                    <ul class="space-y-4 font-body text-sm text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">The Daily Prophet</h4>
+                    <p class="font-body text-sm text-brand-muted mb-4">Subscribe for magical updates, new arrivals, and exclusive offers.</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Your email address" class="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand-gold font-body text-sm">
+                        <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-white px-4 py-3 rounded-sm font-medium transition-colors font-body text-sm">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-body text-xs text-brand-muted">
+                <p>&copy; 2024 Wand & Willow. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

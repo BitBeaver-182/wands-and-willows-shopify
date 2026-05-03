@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>window.FontAwesomeConfig = {autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f1f15',
+                            forest: '#1a3322',
+                            gold: '#c4a661',
+                            goldHover: '#d4b671',
+                            parchment: '#f8f5ee',
+                            sand: '#e8e2d2',
+                            text: '#2d3748',
+                            muted: '#718096'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f5ee;
+            color: #2d3748;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        #filter-drawer {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #filter-drawer.open {
+            transform: translateX(0);
+        }
+        .filter-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .filter-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen text-brand-text bg-brand-parchment overflow-x-hidden">
+    
+    <div id="promo-bar" class="bg-brand-dark text-brand-parchment text-center py-2 px-4 text-xs font-body">
+        <span>Free shipping over $75. Code: MAGIC25</span>
+    </div>
+
+    <header id="header" class="sticky top-0 z-50 bg-brand-parchment/95 backdrop-blur-md border-b border-brand-sand">
+        <div class="w-full px-4 h-16 flex items-center justify-between">
+            <button id="menu-toggle" class="text-brand-forest text-xl w-11 h-11 flex items-center justify-center -ml-2">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="#" class="flex-shrink-0 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-xl"></i>
+                <span class="font-heading text-xl font-bold text-brand-forest tracking-tight">Wand & Willow</span>
+            </a>
+            <div class="flex items-center gap-2">
+                <button class="text-brand-forest hover:text-brand-gold transition-colors w-11 h-11 flex items-center justify-center">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button class="text-brand-forest hover:text-brand-gold transition-colors relative w-11 h-11 flex items-center justify-center">
+                    <i class="fa-solid fa-bag-shopping text-lg"></i>
+                    <span class="absolute top-2 right-2 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">3</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="page-hero" class="relative w-full h-[240px] flex items-center justify-center overflow-hidden bg-brand-forest">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/adb16c1def-5a2d3167ef347a7c6040.png" alt="magical texture background" class="w-full h-full object-cover">
+        </div>
+        <div class="relative z-10 w-full px-4">
+            <div class="flex items-center gap-2 text-brand-sand text-xs mb-3">
+                <a href="#" class="hover:text-brand-gold transition-colors">Home</a>
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                <span class="text-brand-gold">All Products</span>
+            </div>
+            <h1 class="font-heading text-3xl text-brand-parchment mb-3 leading-tight">Magical Artifacts & Merchandise</h1>
+            <p class="font-body text-brand-sand text-sm leading-relaxed">Handcrafted wands, merchandise, and magical artifacts.</p>
+        </div>
+    </section>
+
+    <section id="product-listing" class="py-6 bg-white">
+        <div class="w-full px-4">
+            
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <p class="font-body text-brand-text text-sm"><span class="font-semibold">248</span> products</p>
+                    <button id="filter-toggle" class="flex items-center gap-2 px-4 py-2 bg-brand-parchment border border-brand-sand rounded-sm text-sm font-medium text-brand-forest">
+                        <i class="fa-solid fa-sliders text-brand-gold"></i>
+                        Filters
+                    </button>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <span class="font-body text-xs text-brand-muted whitespace-nowrap">Sort by:</span>
+                    <select class="flex-1 border border-brand-sand rounded-sm px-3 py-2 text-sm font-body text-brand-text focus:outline-none focus:border-brand-gold bg-brand-parchment">
+                        <option>Featured</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest</option>
+                        <option>Best Selling</option>
+                        <option>Highest Rated</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                
+                <div class="group relative bg-brand-parchment rounded-sm p-3 hover:shadow-lg transition-all duration-300">
+                    <button class="absolute top-5 right-5 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart text-sm"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-3 relative">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="premium handcrafted wooden wand" class="w-full h-full object-cover mix-blend-multiply p-2">
+                        <div class="absolute top-2 left-2 bg-brand-forest text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider">New</div>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-heading text-sm text-brand-forest font-medium leading-tight line-clamp-2">Elderwood Artisan Wand</h3>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="text-brand-muted ml-1">(42)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body font-semibold text-brand-text text-base">$85.00</span>
+                        </div>
+                        <button class="w-full mt-2 py-2.5 bg-brand-forest text-white font-medium text-xs hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment rounded-sm p-3 hover:shadow-lg transition-all duration-300">
+                    <button class="absolute top-5 right-5 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart text-sm"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-3 relative">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/aa4984facf-0c09be89a7c3f0c59529.png" alt="premium apothecary candle" class="w-full h-full object-cover mix-blend-multiply p-2">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-heading text-sm text-brand-forest font-medium leading-tight line-clamp-2">Amortentia Soy Candle</h3>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-brand-muted ml-1">(128)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body font-semibold text-brand-text text-base">$32.00</span>
+                        </div>
+                        <button class="w-full mt-2 py-2.5 bg-brand-forest text-white font-medium text-xs hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment rounded-sm p-3 hover:shadow-lg transition-all duration-300">
+                    <button class="absolute top-5 right-5 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart text-sm"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-3 relative">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5b4e979cc7-61b3cdcffd2494b04633.png" alt="time turner necklace replica" class="w-full h-full object-cover mix-blend-multiply p-2">
+                        <div class="absolute top-2 left-2 bg-red-800 text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider">Low Stock</div>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-heading text-sm text-brand-forest font-medium leading-tight line-clamp-2">Time-Turner Pendant</h3>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <span class="text-brand-muted ml-1">(89)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body font-semibold text-brand-text text-base">$65.00</span>
+                        </div>
+                        <button class="w-full mt-2 py-2.5 bg-brand-forest text-white font-medium text-xs hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment rounded-sm p-3 hover:shadow-lg transition-all duration-300">
+                    <button class="absolute top-5 right-5 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart text-sm"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-3 relative">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/109c5d63a0-1bf006a727145c51721a.png" alt="premium leather bound notebook" class="w-full h-full object-cover mix-blend-multiply p-2">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-heading text-sm text-brand-forest font-medium leading-tight line-clamp-2">Serpent Leather Journal</h3>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-brand-muted ml-1">(215)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body font-semibold text-brand-text text-base">$48.00</span>
+                        </div>
+                        <button class="w-full mt-2 py-2.5 bg-brand-forest text-white font-medium text-xs hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment rounded-sm p-3 hover:shadow-lg transition-all duration-300">
+                    <button class="absolute top-5 right-5 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart text-sm"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-3 relative">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="phoenix feather wand handcrafted" class="w-full h-full object-cover mix-blend-multiply p-2">
+                        <div class="absolute top-2 left-2 bg-brand-gold text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider">Bestseller</div>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-heading text-sm text-brand-forest font-medium leading-tight line-clamp-2">Phoenix Feather Wand</h3>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-brand-muted ml-1">(312)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body font-semibold text-brand-text text-base">$95.00</span>
+                        </div>
+                        <button class="w-full mt-2 py-2.5 bg-brand-forest text-white font-medium text-xs hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment rounded-sm p-3 hover:shadow-lg transition-all duration-300">
+                    <button class="absolute top-5 right-5 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart text-sm"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-3 relative">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/aa4984facf-0c09be89a7c3f0c59529.png" alt="butterbeer scented candle in vintage jar" class="w-full h-full object-cover mix-blend-multiply p-2">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-heading text-sm text-brand-forest font-medium leading-tight line-clamp-2">Butterbeer Candle</h3>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="text-brand-muted ml-1">(156)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body font-semibold text-brand-text text-base">$28.00</span>
+                        </div>
+                        <button class="w-full mt-2 py-2.5 bg-brand-forest text-white font-medium text-xs hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment rounded-sm p-3 hover:shadow-lg transition-all duration-300">
+                    <button class="absolute top-5 right-5 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart text-sm"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-3 relative">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5b4e979cc7-61b3cdcffd2494b04633.png" alt="golden snitch necklace jewelry" class="w-full h-full object-cover mix-blend-multiply p-2">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-heading text-sm text-brand-forest font-medium leading-tight line-clamp-2">Golden Snitch Necklace</h3>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-brand-muted ml-1">(203)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body font-semibold text-brand-text text-base">$58.00</span>
+                        </div>
+                        <button class="w-full mt-2 py-2.5 bg-brand-forest text-white font-medium text-xs hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group relative bg-brand-parchment rounded-sm p-3 hover:shadow-lg transition-all duration-300">
+                    <button class="absolute top-5 right-5 z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-muted hover:text-red-500 shadow-sm transition-colors">
+                        <i class="fa-regular fa-heart text-sm"></i>
+                    </button>
+                    <div class="aspect-[4/5] bg-white rounded-sm overflow-hidden mb-3 relative">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/109c5d63a0-1bf006a727145c51721a.png" alt="marauders map replica parchment" class="w-full h-full object-cover mix-blend-multiply p-2">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-heading text-sm text-brand-forest font-medium leading-tight line-clamp-2">Marauder's Map Replica</h3>
+                        <div class="flex items-center gap-1 text-brand-gold text-[10px]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="text-brand-muted ml-1">(178)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body font-semibold text-brand-text text-base">$72.00</span>
+                        </div>
+                        <button class="w-full mt-2 py-2.5 bg-brand-forest text-white font-medium text-xs hover:bg-brand-dark transition-colors rounded-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-10 flex items-center justify-center gap-1.5">
+                <button class="w-9 h-9 rounded-sm border border-brand-sand flex items-center justify-center text-brand-muted hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <button class="w-9 h-9 rounded-sm bg-brand-forest text-white flex items-center justify-center font-semibold text-sm">1</button>
+                <button class="w-9 h-9 rounded-sm border border-brand-sand flex items-center justify-center text-brand-text hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment text-sm">2</button>
+                <button class="w-9 h-9 rounded-sm border border-brand-sand flex items-center justify-center text-brand-text hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment text-sm">3</button>
+                <span class="text-brand-muted px-1 text-sm">...</span>
+                <button class="w-9 h-9 rounded-sm border border-brand-sand flex items-center justify-center text-brand-text hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment text-sm">12</button>
+                <button class="w-9 h-9 rounded-sm border border-brand-sand flex items-center justify-center text-brand-muted hover:bg-brand-forest hover:text-white hover:border-brand-forest transition-colors bg-brand-parchment">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="filter-overlay fixed inset-0 bg-black/50 z-40" id="filter-overlay"></div>
+
+    <aside id="filter-drawer" class="fixed top-0 left-0 h-full w-[85%] max-w-sm bg-brand-parchment z-50 overflow-y-auto">
+        <div class="sticky top-0 bg-brand-parchment border-b border-brand-sand p-4 flex items-center justify-between">
+            <h3 class="font-heading text-xl text-brand-forest">Filters</h3>
+            <button id="close-filters" class="w-10 h-10 flex items-center justify-center text-brand-forest">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="p-4 space-y-6">
+            
+            <div class="pb-6 border-b border-brand-sand">
+                <button class="w-full flex items-center justify-between py-3" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <h4 class="font-heading text-base text-brand-forest">Category</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-muted text-sm"></i>
+                </button>
+                <div class="space-y-3 mt-3">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">All Products <span class="text-brand-muted">(248)</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Wands <span class="text-brand-muted">(42)</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Apothecary <span class="text-brand-muted">(68)</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Jewelry <span class="text-brand-muted">(54)</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Apparel <span class="text-brand-muted">(39)</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Books & Stationery <span class="text-brand-muted">(45)</span></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="pb-6 border-b border-brand-sand">
+                <button class="w-full flex items-center justify-between py-3" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <h4 class="font-heading text-base text-brand-forest">Collection</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-muted text-sm"></i>
+                </button>
+                <div class="space-y-3 mt-3">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Courage</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Loyalty</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Wisdom</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Ambition</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="pb-6 border-b border-brand-sand">
+                <button class="w-full flex items-center justify-between py-3" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <h4 class="font-heading text-base text-brand-forest">Price Range</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-muted text-sm"></i>
+                </button>
+                <div class="space-y-4 mt-3">
+                    <input type="range" min="0" max="500" value="250" class="w-full accent-brand-gold">
+                    <div class="flex items-center justify-between gap-2">
+                        <input type="number" placeholder="Min" class="w-full border border-brand-sand rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-brand-gold bg-white">
+                        <span class="text-brand-muted">-</span>
+                        <input type="number" placeholder="Max" class="w-full border border-brand-sand rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-brand-gold bg-white">
+                    </div>
+                </div>
+            </div>
+
+            <div class="pb-6 border-b border-brand-sand">
+                <button class="w-full flex items-center justify-between py-3" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <h4 class="font-heading text-base text-brand-forest">Availability</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-muted text-sm"></i>
+                </button>
+                <div class="space-y-3 mt-3">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">In Stock</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">Pre-Order</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="pb-6">
+                <button class="w-full flex items-center justify-between py-3" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <h4 class="font-heading text-base text-brand-forest">Rating</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-muted text-sm"></i>
+                </button>
+                <div class="space-y-3 mt-3">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest flex items-center gap-1">
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            & Up
+                        </span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest flex items-center gap-1">
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            & Up
+                        </span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold">
+                        <span class="font-body text-sm text-brand-text group-hover:text-brand-forest flex items-center gap-1">
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            <i class="fa-solid fa-star text-brand-gold text-xs"></i>
+                            & Up
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sticky bottom-0 bg-brand-parchment border-t border-brand-sand p-4 flex gap-3">
+            <button class="flex-1 py-3 border border-brand-sand rounded-sm font-medium text-sm text-brand-forest hover:bg-brand-sand transition-colors">Clear All</button>
+            <button class="flex-1 py-3 bg-brand-forest text-white rounded-sm font-medium text-sm hover:bg-brand-dark transition-colors">Apply</button>
+        </div>
+    </aside>
+
+    <section id="newsletter-cta" class="py-12 bg-brand-forest text-brand-parchment">
+        <div class="w-full px-4 text-center">
+            <i class="fa-solid fa-envelope-open-text text-brand-gold text-2xl mb-4"></i>
+            <h2 class="font-heading text-2xl mb-3">Stay Connected to the Magic</h2>
+            <p class="font-body text-brand-sand text-sm mb-6 leading-relaxed">Subscribe for exclusive early access to new collections and special offers.</p>
+            <form class="flex flex-col gap-3">
+                <input type="email" placeholder="Enter your email" class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-brand-parchment placeholder-brand-sand/50 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body text-sm transition-all">
+                <button type="submit" class="w-full px-6 py-3 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer id="footer" class="bg-brand-dark text-brand-sand pt-12 pb-6">
+        <div class="w-full px-4">
+            
+            <div class="mb-10">
+                <a href="#" class="flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-xl"></i>
+                    <span class="font-heading text-xl font-bold text-white tracking-tight">Wand & Willow</span>
+                </a>
+                <p class="font-body text-xs text-brand-muted leading-relaxed mb-6">Curators of fine magical goods, official merchandise, and handcrafted artifacts for the modern witch and wizard.</p>
+                <div class="flex gap-3">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-pinterest"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8 mb-10">
+                <div>
+                    <h4 class="font-heading text-white text-base mb-4">Shop</h4>
+                    <ul class="space-y-3 font-body text-xs text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">All Products</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Wands</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apothecary</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apparel</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Jewelry</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-heading text-white text-base mb-4">Support</h4>
+                    <ul class="space-y-3 font-body text-xs text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-white/10 text-center">
+                <p class="font-body text-[10px] text-brand-muted mb-3">© 2024 Wand & Willow. All rights reserved.</p>
+                <div class="flex justify-center gap-4 font-body text-[10px] text-brand-muted">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const filterToggle = document.getElementById('filter-toggle');
+        const filterDrawer = document.getElementById('filter-drawer');
+        const filterOverlay = document.getElementById('filter-overlay');
+        const closeFilters = document.getElementById('close-filters');
+
+        function openFilters() {
+            filterDrawer.classList.add('open');
+            filterOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFiltersFunc() {
+            filterDrawer.classList.remove('open');
+            filterOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        filterToggle.addEventListener('click', openFilters);
+        closeFilters.addEventListener('click', closeFiltersFunc);
+        filterOverlay.addEventListener('click', closeFiltersFunc);
+    </script>
+
+</body>
+</html>

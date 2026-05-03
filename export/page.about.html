@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f1f15',
+                            forest: '#1a3322',
+                            gold: '#c4a661',
+                            goldHover: '#d4b671',
+                            parchment: '#f8f5ee',
+                            sand: '#e8e2d2',
+                            text: '#2d3748',
+                            muted: '#718096'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f5ee; color: #2d3748; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="w-full min-h-screen text-brand-text bg-brand-parchment overflow-x-hidden">
+
+    <div id="promo-bar" class="bg-brand-dark text-brand-parchment text-center py-2 text-sm font-body tracking-wider">
+        <span>Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off.</span>
+    </div>
+
+    <header id="header" class="sticky top-0 z-50 bg-brand-parchment/95 backdrop-blur-md border-b border-brand-sand">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            
+            <button class="lg:hidden text-brand-forest text-xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <a href="#" class="flex-shrink-0 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                <span class="font-heading text-2xl font-bold text-brand-forest tracking-tight">Wand & Willow</span>
+            </a>
+
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Collections</a>
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Subscriptions</a>
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Community</a>
+                <a href="#" class="text-brand-gold font-medium text-sm uppercase tracking-widest">Our Story</a>
+            </nav>
+
+            <div class="flex items-center gap-6">
+                <button class="text-brand-forest hover:text-brand-gold transition-colors">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button class="text-brand-forest hover:text-brand-gold transition-colors hidden sm:block">
+                    <i class="fa-regular fa-user text-lg"></i>
+                </button>
+                <button class="text-brand-forest hover:text-brand-gold transition-colors relative">
+                    <i class="fa-solid fa-bag-shopping text-lg"></i>
+                    <span class="absolute -top-2 -right-2 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">3</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="story-hero" class="relative w-full h-[700px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/adb16c1def-5a2d3167ef347a7c6040.png" alt="vintage magical study with books, candles, wands, dark academia aesthetic, warm lighting, atmospheric" />
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-dark/50 to-brand-forest/70"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-brand-parchment">
+            <span class="block text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">Est. 2019</span>
+            <h1 class="font-heading text-6xl md:text-7xl font-bold mb-6 leading-tight">Our Story</h1>
+            <p class="font-body text-xl text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">
+                A journey from a single handcrafted wand to a thriving community of magic-makers and dreamers.
+            </p>
+        </div>
+    </section>
+
+    <section id="founder-story" class="py-24 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <div class="aspect-[4/5] w-full max-w-lg mx-auto rounded-sm overflow-hidden shadow-2xl">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Eleanor Vance, founder of Wand & Willow, in her magical workshop" />
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <span class="text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase block">The Beginning</span>
+                    <h2 class="font-heading text-4xl lg:text-5xl text-brand-forest mb-6 leading-tight">Where Magic Met Craftsmanship</h2>
+                    <p class="font-body text-brand-text text-lg mb-6 leading-relaxed">
+                        It started in a small apartment in Edinburgh, where I spent countless evenings trying to recreate the perfect wand from my favorite stories. What began as a personal obsession soon became something much larger—a mission to bring authentic, meaningful magical artifacts into the hands of fellow enthusiasts.
+                    </p>
+                    <p class="font-body text-brand-text text-lg mb-6 leading-relaxed">
+                        I was frustrated by mass-produced replicas that lacked soul. I wanted pieces that felt real, that carried weight and history, that made you believe in magic again. So I taught myself traditional woodworking, studied historical craftsmanship, and poured my heart into every detail.
+                    </p>
+                    <p class="font-body text-brand-text text-lg leading-relaxed">
+                        That first wand took me three weeks to complete. When I finally held it in my hands, I knew I had found my calling.
+                    </p>
+                    <div class="mt-10 pt-10 border-t border-brand-sand">
+                        <p class="font-heading text-2xl text-brand-forest mb-2 italic">"Magic isn't just found in books; it's woven into the very fabric of our daily lives."</p>
+                        <p class="font-body text-brand-muted">— Eleanor Vance, Founder</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline" class="py-24 bg-brand-parchment">
+        <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">Our Journey</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto"></div>
+            </div>
+
+            <div class="space-y-16">
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="md:w-1/4">
+                        <div class="text-brand-gold font-heading text-5xl font-bold">2019</div>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4">The First Wand</h3>
+                        <p class="font-body text-brand-text leading-relaxed">
+                            Eleanor crafts her first wand in her Edinburgh apartment. Friends and family are amazed by the quality and detail. Word spreads through local fan communities, and the first orders begin to arrive.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="md:w-1/4">
+                        <div class="text-brand-gold font-heading text-5xl font-bold">2020</div>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4">Wand & Willow is Born</h3>
+                        <p class="font-body text-brand-text leading-relaxed">
+                            The brand officially launches with a small collection of handcrafted wands and apothecary candles. An Etsy shop gains traction, and Eleanor hires her first assistant to help with production. The community begins to form.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="md:w-1/4">
+                        <div class="text-brand-gold font-heading text-5xl font-bold">2021</div>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4">Expanding the Collection</h3>
+                        <p class="font-body text-brand-text leading-relaxed">
+                            Jewelry, stationery, and home goods are added to the catalog. Wand & Willow secures official licensing partnerships with major studios. The team grows to five artisans, each specializing in different crafts.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="md:w-1/4">
+                        <div class="text-brand-gold font-heading text-5xl font-bold">2022</div>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4">The Monthly Dose of Magic</h3>
+                        <p class="font-body text-brand-text leading-relaxed">
+                            The subscription box launches, offering curated monthly parcels of exclusive items. It becomes an instant hit, with over 2,000 subscribers in the first month. A dedicated workshop space is established in Glasgow.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="md:w-1/4">
+                        <div class="text-brand-gold font-heading text-5xl font-bold">2023</div>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4">Building the Common Room</h3>
+                        <p class="font-body text-brand-text leading-relaxed">
+                            The online community flourishes with forums, virtual events, and meetups. Wand & Willow hosts its first in-person gathering in London, bringing together hundreds of fans. The team expands to 15 members.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="md:w-1/4">
+                        <div class="text-brand-gold font-heading text-5xl font-bold">2024</div>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4">A New Chapter</h3>
+                        <p class="font-body text-brand-text leading-relaxed">
+                            Wand & Willow expands internationally, shipping to over 40 countries. New product lines inspired by Wicked and other magical worlds are introduced. The brand continues to grow while staying true to its artisanal roots.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="values" class="py-24 bg-brand-forest text-brand-parchment">
+        <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl mb-4">What We Believe</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+                <p class="font-body text-brand-sand max-w-2xl mx-auto text-lg">
+                    The principles that guide every decision we make and every product we create.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-hand-holding-heart text-brand-gold text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl mb-4">Craftsmanship</h3>
+                    <p class="font-body text-brand-sand leading-relaxed">
+                        Every piece is crafted with care and attention to detail. We honor traditional techniques while embracing modern innovation.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-users text-brand-gold text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl mb-4">Community</h3>
+                    <p class="font-body text-brand-sand leading-relaxed">
+                        We're more than a brand—we're a gathering place for kindred spirits who believe in the power of magic and storytelling.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-leaf text-brand-gold text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl mb-4">Sustainability</h3>
+                    <p class="font-body text-brand-sand leading-relaxed">
+                        We source materials ethically, minimize waste, and use eco-friendly packaging. Magic should protect, not harm, our world.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="workshop" class="py-24 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">Inside the Workshop</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+                <p class="font-body text-brand-muted max-w-2xl mx-auto">
+                    A glimpse into where the magic happens—our Glasgow workshop where artisans bring dreams to life.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="aspect-[4/3] overflow-hidden rounded-sm shadow-lg">
+                    <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/fd23b53748-52dc6f8ed6830fce6874.png" alt="artisan crafting wands at wooden workbench, tools, wood shavings, warm workshop lighting" />
+                </div>
+                <div class="aspect-[4/3] overflow-hidden rounded-sm shadow-lg">
+                    <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/af0e3f0348-daab6d0bab4d9bbe518e.png" alt="shelves of magical materials, bottles, fabrics, supplies in organized workshop" />
+                </div>
+                <div class="aspect-[4/3] overflow-hidden rounded-sm shadow-lg">
+                    <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/b924168c24-8e6728b54876727d2976.png" alt="team members collaborating at design table with sketches and prototypes" />
+                </div>
+                <div class="aspect-[4/3] overflow-hidden rounded-sm shadow-lg">
+                    <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ad23f1cf92-3d8a0dd85349a36be390.png" alt="finished products being carefully packaged in branded boxes with tissue paper" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="py-24 bg-brand-parchment">
+        <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl text-brand-forest mb-4">Meet the Makers</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+                <p class="font-body text-brand-muted max-w-2xl mx-auto">
+                    The talented artisans and creatives behind Wand & Willow.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="aspect-square w-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-brand-gold/30">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Eleanor Vance" />
+                    </div>
+                    <h3 class="font-heading text-xl text-brand-forest mb-1">Eleanor Vance</h3>
+                    <p class="font-body text-sm text-brand-gold mb-2">Founder & Head Archivist</p>
+                    <p class="font-body text-sm text-brand-muted">Master wandmaker and visionary</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="aspect-square w-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-brand-gold/30">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Thomas Blackwood" />
+                    </div>
+                    <h3 class="font-heading text-xl text-brand-forest mb-1">Thomas Blackwood</h3>
+                    <p class="font-body text-sm text-brand-gold mb-2">Lead Artisan</p>
+                    <p class="font-body text-sm text-brand-muted">Specialist in dark woods & metals</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="aspect-square w-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-brand-gold/30">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg" alt="Isla MacGregor" />
+                    </div>
+                    <h3 class="font-heading text-xl text-brand-forest mb-1">Isla MacGregor</h3>
+                    <p class="font-body text-sm text-brand-gold mb-2">Apothecary Master</p>
+                    <p class="font-body text-sm text-brand-muted">Creator of our signature scents</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="aspect-square w-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-brand-gold/30">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="Marcus Chen" />
+                    </div>
+                    <h3 class="font-heading text-xl text-brand-forest mb-1">Marcus Chen</h3>
+                    <p class="font-body text-sm text-brand-gold mb-2">Jewelry Designer</p>
+                    <p class="font-body text-sm text-brand-muted">Precious metals & gemstones expert</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="community-impact" class="py-24 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase block">Our Impact</span>
+                    <h2 class="font-heading text-4xl text-brand-forest mb-6 leading-tight">Building a Global Community</h2>
+                    <p class="font-body text-brand-text text-lg mb-6 leading-relaxed">
+                        What started as a one-woman operation has grown into a thriving community of over 50,000 members across 40 countries. We've hosted magical meetups, raised funds for literacy programs, and created a space where fans can connect over their shared love of enchantment.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 mt-10">
+                        <div class="text-center p-6 bg-brand-parchment rounded-sm">
+                            <div class="font-heading text-4xl text-brand-gold mb-2">50K+</div>
+                            <p class="font-body text-sm text-brand-muted">Community Members</p>
+                        </div>
+                        <div class="text-center p-6 bg-brand-parchment rounded-sm">
+                            <div class="font-heading text-4xl text-brand-gold mb-2">40+</div>
+                            <p class="font-body text-sm text-brand-muted">Countries Served</p>
+                        </div>
+                        <div class="text-center p-6 bg-brand-parchment rounded-sm">
+                            <div class="font-heading text-4xl text-brand-gold mb-2">25K+</div>
+                            <p class="font-body text-sm text-brand-muted">Wands Crafted</p>
+                        </div>
+                        <div class="text-center p-6 bg-brand-parchment rounded-sm">
+                            <div class="font-heading text-4xl text-brand-gold mb-2">$100K+</div>
+                            <p class="font-body text-sm text-brand-muted">Donated to Literacy</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
+                    <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d64fe16129-266fcd93025e01ddfe94.png" alt="community gathering, people holding wands, magical meetup event, warm atmosphere" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta-story" class="py-24 bg-brand-forest text-brand-parchment">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <i class="fa-solid fa-sparkles text-brand-gold text-4xl mb-6"></i>
+            <h2 class="font-heading text-4xl lg:text-5xl mb-6">Be Part of Our Story</h2>
+            <p class="font-body text-brand-sand text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Join our community of magic-makers, dreamers, and believers. Together, we're proving that enchantment exists in the everyday.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button class="w-full sm:w-auto px-8 py-4 bg-brand-gold hover:bg-brand-goldHover text-white font-medium tracking-wide transition-all rounded-sm">
+                    Shop Our Collections
+                </button>
+                <button class="w-full sm:w-auto px-8 py-4 bg-transparent border border-brand-sand hover:bg-brand-sand/10 text-brand-parchment font-medium tracking-wide transition-all rounded-sm">
+                    Join the Community
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer" class="bg-brand-dark text-brand-sand pt-20 pb-10 border-t border-brand-forest">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="space-y-6">
+                    <a href="#" class="flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                        <span class="font-heading text-2xl font-bold text-white tracking-tight">Wand & Willow</span>
+                    </a>
+                    <p class="font-body text-sm text-brand-muted leading-relaxed">
+                        Curators of fine magical goods, official merchandise, and handcrafted artifacts for the modern witch and wizard.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">Shop</h4>
+                    <ul class="space-y-4 font-body text-sm text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">All Products</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Wands</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apothecary</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apparel</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Jewelry</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">Support</h4>
+                    <ul class="space-y-4 font-body text-sm text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">The Daily Prophet</h4>
+                    <p class="font-body text-sm text-brand-muted mb-4">Subscribe for magical updates, new arrivals, and exclusive offers.</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Your email address" class="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand-gold font-body text-sm">
+                        <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-white px-4 py-3 rounded-sm font-medium transition-colors font-body text-sm">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-body text-xs text-brand-muted">
+                <p>&copy; 2024 Wand & Willow. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

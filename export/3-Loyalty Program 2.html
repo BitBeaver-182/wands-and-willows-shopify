@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Program</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                dark: '#0f1f15',
+                forest: '#1a3322',
+                gold: '#c4a661',
+                goldHover: '#d4b671',
+                parchment: '#f8f5ee',
+                sand: '#e8e2d2',
+                text: '#2d3748',
+                muted: '#718096'
+              }
+            },
+            fontFamily: {
+              heading: ['Playfair Display', 'serif'],
+              body: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8f5ee;
+        color: #2d3748;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Playfair Display', serif;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      @keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
+      }
+      .shimmer {
+        background: linear-gradient(90deg, transparent, rgba(196, 166, 97, 0.1), transparent);
+        background-size: 1000px 100%;
+        animation: shimmer 3s infinite;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      .delay-1 { animation-delay: 0.1s; opacity: 0; }
+      .delay-2 { animation-delay: 0.2s; opacity: 0; }
+      .delay-3 { animation-delay: 0.3s; opacity: 0; }
+      .delay-4 { animation-delay: 0.4s; opacity: 0; }
+      .delay-5 { animation-delay: 0.5s; opacity: 0; }
+    </style>
+</head>
+<body class="w-full text-brand-text bg-brand-parchment overflow-x-hidden">
+
+<div id="promo-bar" class="bg-brand-dark text-brand-parchment text-center py-2 text-sm font-body tracking-wider">
+    <span>Join the Enchanted Circle today and get 100 bonus points instantly!</span>
+</div>
+
+<header id="header" class="sticky top-0 z-50 bg-brand-parchment/95 backdrop-blur-md border-b border-brand-sand">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        <button class="lg:hidden text-brand-forest text-xl"><i class="fa-solid fa-bars"></i></button>
+        <a href="#" class="flex-shrink-0 flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+            <span class="font-heading text-2xl font-bold text-brand-forest tracking-tight">Wand & Willow</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-8">
+            <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Collections</a>
+            <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Subscriptions</a>
+            <a href="#" class="text-brand-gold font-semibold hover:text-brand-goldHover transition-colors text-sm uppercase tracking-widest">Rewards</a>
+            <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Our Story</a>
+        </nav>
+        <div class="flex items-center gap-6">
+            <button class="text-brand-forest hover:text-brand-gold transition-colors"><i class="fa-solid fa-magnifying-glass text-lg"></i></button>
+            <button class="text-brand-forest hover:text-brand-gold transition-colors hidden sm:block"><i class="fa-regular fa-user text-lg"></i></button>
+            <button class="text-brand-forest hover:text-brand-gold transition-colors relative">
+                <i class="fa-solid fa-bag-shopping text-lg"></i>
+                <span class="absolute -top-2 -right-2 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<section id="hero-loyalty" class="relative h-[600px] flex items-center justify-center overflow-hidden" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600')">
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-dark/90 via-brand-forest/85 to-brand-dark/90"></div>
+    <div class="absolute inset-0 shimmer"></div>
+    <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
+        <div class="inline-block bg-brand-gold/20 backdrop-blur-sm border border-brand-gold/40 rounded-full px-6 py-2 mb-6 fade-in-up delay-1">
+            <span class="font-body text-sm font-semibold text-brand-gold uppercase tracking-wider">Exclusive Member Benefits</span>
+        </div>
+        <h1 class="font-heading text-6xl lg:text-7xl text-white mb-6 fade-in-up delay-2">The Enchanted Circle</h1>
+        <p class="font-body text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto mb-8 fade-in-up delay-3">Earn magical rewards, unlock exclusive perks, and join a community of fellow enthusiasts</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up delay-4">
+            <button class="bg-brand-gold hover:bg-brand-goldHover text-white px-10 py-4 rounded-sm font-semibold text-lg transition-colors">
+                Join Now - It's Free
+            </button>
+            <button class="bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:bg-white/20 text-white px-10 py-4 rounded-sm font-semibold text-lg transition-colors">
+                Sign In
+            </button>
+        </div>
+    </div>
+</section>
+
+<section id="how-it-works" class="py-20 bg-white border-b border-brand-sand">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="text-center mb-16">
+            <h2 class="font-heading text-4xl lg:text-5xl text-brand-forest mb-4">How It Works</h2>
+            <p class="font-body text-lg text-brand-muted max-w-2xl mx-auto">Three simple steps to start earning rewards</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div id="step-1" class="text-center">
+                <div class="w-24 h-24 bg-gradient-to-br from-brand-gold to-brand-goldHover rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <span class="font-heading text-4xl text-white font-bold">1</span>
+                </div>
+                <h3 class="font-heading text-2xl text-brand-forest mb-4">Join for Free</h3>
+                <p class="font-body text-brand-muted leading-relaxed">Create your account and instantly receive 100 welcome bonus points to get started on your magical journey.</p>
+            </div>
+            <div id="step-2" class="text-center">
+                <div class="w-24 h-24 bg-gradient-to-br from-brand-gold to-brand-goldHover rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <span class="font-heading text-4xl text-white font-bold">2</span>
+                </div>
+                <h3 class="font-heading text-2xl text-brand-forest mb-4">Earn Points</h3>
+                <p class="font-body text-brand-muted leading-relaxed">Collect points with every purchase, review, referral, and social interaction. The more you engage, the more you earn.</p>
+            </div>
+            <div id="step-3" class="text-center">
+                <div class="w-24 h-24 bg-gradient-to-br from-brand-gold to-brand-goldHover rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <span class="font-heading text-4xl text-white font-bold">3</span>
+                </div>
+                <h3 class="font-heading text-2xl text-brand-forest mb-4">Redeem Rewards</h3>
+                <p class="font-body text-brand-muted leading-relaxed">Turn your points into exclusive discounts, free shipping, VIP access, and other magical perks.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="membership-tiers" class="py-20 bg-brand-parchment">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="text-center mb-16">
+            <h2 class="font-heading text-4xl lg:text-5xl text-brand-forest mb-4">Membership Tiers</h2>
+            <p class="font-body text-lg text-brand-muted max-w-2xl mx-auto">Unlock increasingly magical benefits as you ascend through the tiers</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div id="bronze-tier" class="bg-white border-2 border-brand-sand rounded-sm p-8 hover:shadow-xl transition-shadow">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-amber-700 to-amber-900 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-medal text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading text-2xl text-brand-forest">Bronze</h3>
+                        <p class="font-body text-sm text-brand-muted">0-99 points</p>
+                    </div>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Earn 1 point per $1 spent</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Birthday reward</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Exclusive member-only sales</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Free shipping on orders $75+</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="silver-tier" class="bg-white border-2 border-brand-gold rounded-sm p-8 hover:shadow-xl transition-shadow relative overflow-hidden transform scale-105">
+                <div class="absolute top-0 right-0 bg-brand-gold text-white px-4 py-1 text-xs font-bold uppercase tracking-wider">
+                    Popular
+                </div>
+                <div class="flex items-center gap-3 mb-6 mt-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-500 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-crown text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading text-2xl text-brand-forest">Silver</h3>
+                        <p class="font-body text-sm text-brand-muted">100-349 points</p>
+                    </div>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">All Bronze benefits</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Earn 1.5 points per $1 spent</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Early access to new collections</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Free shipping on all orders</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Quarterly surprise gifts</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="gold-tier" class="bg-white border-2 border-brand-sand rounded-sm p-8 hover:shadow-xl transition-shadow">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-gem text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading text-2xl text-brand-forest">Gold</h3>
+                        <p class="font-body text-sm text-brand-muted">350+ points</p>
+                    </div>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">All Silver benefits</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Earn 2 points per $1 spent</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">VIP access to limited editions</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Personal shopping assistance</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Exclusive Gold-only events</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-check text-brand-gold text-lg mt-0.5"></i>
+                        <span class="font-body text-brand-text">Priority customer support</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="earn-points" class="py-20 bg-white border-t border-brand-sand">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="text-center mb-16">
+            <h2 class="font-heading text-4xl lg:text-5xl text-brand-forest mb-4">Ways to Earn Points</h2>
+            <p class="font-body text-lg text-brand-muted max-w-2xl mx-auto">Every action brings you closer to magical rewards</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="earn-purchase" class="bg-brand-parchment border border-brand-sand rounded-sm p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-shopping-bag text-brand-gold text-2xl"></i>
+                </div>
+                <h4 class="font-heading text-xl text-brand-forest mb-2">Make a Purchase</h4>
+                <p class="font-body text-3xl text-brand-gold font-bold mb-2">1-2 pts</p>
+                <p class="font-body text-sm text-brand-muted">per $1 spent (based on tier)</p>
+            </div>
+            <div id="earn-review" class="bg-brand-parchment border border-brand-sand rounded-sm p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-star text-brand-gold text-2xl"></i>
+                </div>
+                <h4 class="font-heading text-xl text-brand-forest mb-2">Write a Review</h4>
+                <p class="font-body text-3xl text-brand-gold font-bold mb-2">25 pts</p>
+                <p class="font-body text-sm text-brand-muted">per product review</p>
+            </div>
+            <div id="earn-referral" class="bg-brand-parchment border border-brand-sand rounded-sm p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-user-plus text-brand-gold text-2xl"></i>
+                </div>
+                <h4 class="font-heading text-xl text-brand-forest mb-2">Refer a Friend</h4>
+                <p class="font-body text-3xl text-brand-gold font-bold mb-2">100 pts</p>
+                <p class="font-body text-sm text-brand-muted">when they make first purchase</p>
+            </div>
+            <div id="earn-social" class="bg-brand-parchment border border-brand-sand rounded-sm p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-share-nodes text-brand-gold text-2xl"></i>
+                </div>
+                <h4 class="font-heading text-xl text-brand-forest mb-2">Share on Social</h4>
+                <p class="font-body text-3xl text-brand-gold font-bold mb-2">15 pts</p>
+                <p class="font-body text-sm text-brand-muted">per social share</p>
+            </div>
+            <div id="earn-birthday" class="bg-brand-parchment border border-brand-sand rounded-sm p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-cake-candles text-brand-gold text-2xl"></i>
+                </div>
+                <h4 class="font-heading text-xl text-brand-forest mb-2">Birthday Bonus</h4>
+                <p class="font-body text-3xl text-brand-gold font-bold mb-2">50 pts</p>
+                <p class="font-body text-sm text-brand-muted">on your special day</p>
+            </div>
+            <div id="earn-signup" class="bg-brand-parchment border border-brand-sand rounded-sm p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-envelope text-brand-gold text-2xl"></i>
+                </div>
+                <h4 class="font-heading text-xl text-brand-forest mb-2">Email Sign Up</h4>
+                <p class="font-body text-3xl text-brand-gold font-bold mb-2">10 pts</p>
+                <p class="font-body text-sm text-brand-muted">join our newsletter</p>
+            </div>
+            <div id="earn-instagram" class="bg-brand-parchment border border-brand-sand rounded-sm p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-brands fa-instagram text-brand-gold text-2xl"></i>
+                </div>
+                <h4 class="font-heading text-xl text-brand-forest mb-2">Follow on Instagram</h4>
+                <p class="font-body text-3xl text-brand-gold font-bold mb-2">20 pts</p>
+                <p class="font-body text-sm text-brand-muted">@WandAndWillow</p>
+            </div>
+            <div id="earn-account" class="bg-brand-parchment border border-brand-sand rounded-sm p-6 text-center hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-user-circle text-brand-gold text-2xl"></i>
+                </div>
+                <h4 class="font-heading text-xl text-brand-forest mb-2">Create Account</h4>
+                <p class="font-body text-3xl text-brand-gold font-bold mb-2">100 pts</p>
+                <p class="font-body text-sm text-brand-muted">welcome bonus</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="redeem-rewards" class="py-20 bg-brand-parchment">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="text-center mb-16">
+            <h2 class="font-heading text-4xl lg:text-5xl text-brand-forest mb-4">Redeem Your Rewards</h2>
+            <p class="font-body text-lg text-brand-muted max-w-2xl mx-auto">Turn your points into magical savings and exclusive perks</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="reward-5" class="bg-white border-2 border-brand-sand rounded-sm p-6 hover:border-brand-gold hover:shadow-lg transition-all">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <h4 class="font-heading text-2xl text-brand-forest mb-2">$5 Off</h4>
+                        <p class="font-body text-sm text-brand-muted">Your next purchase</p>
+                    </div>
+                    <div class="bg-brand-gold/10 px-3 py-1 rounded-full">
+                        <span class="font-body text-sm font-bold text-brand-gold">50 pts</span>
+                    </div>
+                </div>
+                <div class="border-t border-brand-sand pt-4">
+                    <p class="font-body text-xs text-brand-muted">Minimum purchase: $25</p>
+                </div>
+            </div>
+            <div id="reward-10" class="bg-white border-2 border-brand-sand rounded-sm p-6 hover:border-brand-gold hover:shadow-lg transition-all">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <h4 class="font-heading text-2xl text-brand-forest mb-2">$10 Off</h4>
+                        <p class="font-body text-sm text-brand-muted">Your next purchase</p>
+                    </div>
+                    <div class="bg-brand-gold/10 px-3 py-1 rounded-full">
+                        <span class="font-body text-sm font-bold text-brand-gold">100 pts</span>
+                    </div>
+                </div>
+                <div class="border-t border-brand-sand pt-4">
+                    <p class="font-body text-xs text-brand-muted">Minimum purchase: $50</p>
+                </div>
+            </div>
+            <div id="reward-20" class="bg-white border-2 border-brand-sand rounded-sm p-6 hover:border-brand-gold hover:shadow-lg transition-all">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <h4 class="font-heading text-2xl text-brand-forest mb-2">$20 Off</h4>
+                        <p class="font-body text-sm text-brand-muted">Your next purchase</p>
+                    </div>
+                    <div class="bg-brand-gold/10 px-3 py-1 rounded-full">
+                        <span class="font-body text-sm font-bold text-brand-gold">200 pts</span>
+                    </div>
+                </div>
+                <div class="border-t border-brand-sand pt-4">
+                    <p class="font-body text-xs text-brand-muted">Minimum purchase: $100</p>
+                </div>
+            </div>
+            <div id="reward-shipping" class="bg-white border-2 border-brand-sand rounded-sm p-6 hover:border-brand-gold hover:shadow-lg transition-all">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <h4 class="font-heading text-2xl text-brand-forest mb-2">Free Shipping</h4>
+                        <p class="font-body text-sm text-brand-muted">Any order, any size</p>
+                    </div>
+                    <div class="bg-brand-gold/10 px-3 py-1 rounded-full">
+                        <span class="font-body text-sm font-bold text-brand-gold">75 pts</span>
+                    </div>
+                </div>
+                <div class="border-t border-brand-sand pt-4">
+                    <p class="font-body text-xs text-brand-muted">Standard shipping only</p>
+                </div>
+            </div>
+            <div id="reward-express" class="bg-white border-2 border-brand-sand rounded-sm p-6 hover:border-brand-gold hover:shadow-lg transition-all">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <h4 class="font-heading text-2xl text-brand-forest mb-2">Express Shipping</h4>
+                        <p class="font-body text-sm text-brand-muted">2-day delivery free</p>
+                    </div>
+                    <div class="bg-brand-gold/10 px-3 py-1 rounded-full">
+                        <span class="font-body text-sm font-bold text-brand-gold">150 pts</span>
+                    </div>
+                </div>
+                <div class="border-t border-brand-sand pt-4">
+                    <p class="font-body text-xs text-brand-muted">Domestic orders only</p>
+                </div>
+            </div>
+            <div id="reward-exclusive" class="bg-gradient-to-br from-brand-gold/10 to-brand-gold/5 border-2 border-brand-gold rounded-sm p-6 hover:shadow-lg transition-all">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <h4 class="font-heading text-2xl text-brand-forest mb-2">VIP Event Access</h4>
+                        <p class="font-body text-sm text-brand-muted">Exclusive member event</p>
+                    </div>
+                    <div class="bg-brand-gold px-3 py-1 rounded-full">
+                        <span class="font-body text-sm font-bold text-white">Gold Only</span>
+                    </div>
+                </div>
+                <div class="border-t border-brand-gold/20 pt-4">
+                    <p class="font-body text-xs text-brand-muted">Requires Gold tier membership</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="referral-program" class="py-20 bg-gradient-to-r from-brand-forest to-brand-dark text-white">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-block bg-brand-gold/20 rounded-full px-4 py-1 mb-4">
+                    <span class="font-body text-xs font-semibold text-brand-gold uppercase tracking-wider">Share the Magic</span>
+                </div>
+                <h2 class="font-heading text-4xl lg:text-5xl mb-4">Refer Friends, Earn Rewards</h2>
+                <p class="font-body text-lg text-white/80 mb-8">Give your friends 15% off their first order and earn 100 points when they make their first purchase. It's a win-win!</p>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-gift text-brand-gold text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-body font-semibold text-lg mb-1">Friends Get 15% Off</h4>
+                            <p class="font-body text-sm text-white/70">First-time customers receive an exclusive welcome discount</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-coins text-brand-gold text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-body font-semibold text-lg mb-1">You Earn 100 Points</h4>
+                            <p class="font-body text-sm text-white/70">Automatically credited after their first purchase</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-infinity text-brand-gold text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-body font-semibold text-lg mb-1">Unlimited Referrals</h4>
+                            <p class="font-body text-sm text-white/70">No limit on how many friends you can refer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-sm p-8">
+                <h3 class="font-heading text-2xl mb-6 text-center">Share Your Unique Link</h3>
+                <div class="bg-white/5 border border-white/10 rounded-sm p-6 mb-6 text-center">
+                    <p class="font-body text-sm text-white/70 mb-3">Example referral link:</p>
+                    <p class="font-mono text-brand-gold text-lg">wandwillow.com/ref/yourname</p>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <button class="bg-white/10 hover:bg-white/20 border border-white/20 text-white py-4 rounded-sm font-semibold transition-colors flex flex-col items-center gap-2">
+                        <i class="fa-brands fa-facebook text-2xl"></i>
+                        <span class="text-xs">Facebook</span>
+                    </button>
+                    <button class="bg-white/10 hover:bg-white/20 border border-white/20 text-white py-4 rounded-sm font-semibold transition-colors flex flex-col items-center gap-2">
+                        <i class="fa-brands fa-twitter text-2xl"></i>
+                        <span class="text-xs">Twitter</span>
+                    </button>
+                    <button class="bg-white/10 hover:bg-white/20 border border-white/20 text-white py-4 rounded-sm font-semibold transition-colors flex flex-col items-center gap-2">
+                        <i class="fa-solid fa-envelope text-2xl"></i>
+                        <span class="text-xs">Email</span>
+                    </button>
+                </div>
+                <button class="w-full mt-6 bg-brand-gold hover:bg-brand-goldHover text-white px-6 py-4 rounded-sm font-semibold transition-colors">
+                    Get Your Referral Link
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="benefits-overview" class="py-20 bg-white">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="text-center mb-16">
+            <h2 class="font-heading text-4xl lg:text-5xl text-brand-forest mb-4">Member Benefits at a Glance</h2>
+            <p class="font-body text-lg text-brand-muted max-w-2xl mx-auto">Compare what you get at each tier level</p>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-brand-sand">
+                        <th class="px-6 py-4 text-left font-heading text-lg text-brand-forest">Benefit</th>
+                        <th class="px-6 py-4 text-center font-heading text-lg text-brand-forest">Bronze</th>
+                        <th class="px-6 py-4 text-center font-heading text-lg text-brand-forest">Silver</th>
+                        <th class="px-6 py-4 text-center font-heading text-lg text-brand-forest">Gold</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-brand-sand">
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">Points per $1 spent</td>
+                        <td class="px-6 py-4 text-center font-body text-brand-text">1 pt</td>
+                        <td class="px-6 py-4 text-center font-body text-brand-text">1.5 pts</td>
+                        <td class="px-6 py-4 text-center font-body font-semibold text-brand-gold">2 pts</td>
+                    </tr>
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">Birthday reward</td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                    </tr>
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">Member-only sales</td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                    </tr>
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">Free shipping threshold</td>
+                        <td class="px-6 py-4 text-center font-body text-brand-text">$75+</td>
+                        <td class="px-6 py-4 text-center font-body text-brand-text">All orders</td>
+                        <td class="px-6 py-4 text-center font-body text-brand-text">All orders</td>
+                    </tr>
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">Early access to new collections</td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                    </tr>
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">Quarterly surprise gifts</td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                    </tr>
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">VIP limited edition access</td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                    </tr>
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">Personal shopping assistance</td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                    </tr>
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">Exclusive member events</td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                    </tr>
+                    <tr class="hover:bg-brand-parchment transition-colors">
+                        <td class="px-6 py-4 font-body text-brand-text">Priority customer support</td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-xmark text-brand-muted text-xl"></i></td>
+                        <td class="px-6 py-4 text-center"><i class="fa-solid fa-check text-brand-gold text-xl"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section id="faq-loyalty" class="py-20 bg-brand-parchment">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="text-center mb-16">
+            <h2 class="font-heading text-4xl lg:text-5xl text-brand-forest mb-4">Frequently Asked Questions</h2>
+            <p class="font-body text-lg text-brand-muted max-w-2xl mx-auto">Everything you need to know about the Enchanted Circle</p>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-4">
+            <div class="bg-white border border-brand-sand rounded-sm overflow-hidden">
+                <button class="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-brand-parchment transition-colors">
+                    <h4 class="font-body font-semibold text-brand-forest text-lg">How do I join the Enchanted Circle?</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-gold"></i>
+                </button>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm overflow-hidden">
+                <button class="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-brand-parchment transition-colors">
+                    <h4 class="font-body font-semibold text-brand-forest text-lg">Do my points expire?</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-gold"></i>
+                </button>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm overflow-hidden">
+                <button class="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-brand-parchment transition-colors">
+                    <h4 class="font-body font-semibold text-brand-forest text-lg">How do I check my points balance?</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-gold"></i>
+                </button>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm overflow-hidden">
+                <button class="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-brand-parchment transition-colors">
+                    <h4 class="font-body font-semibold text-brand-forest text-lg">Can I combine rewards with other discounts?</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-gold"></i>
+                </button>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm overflow-hidden">
+                <button class="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-brand-parchment transition-colors">
+                    <h4 class="font-body font-semibold text-brand-forest text-lg">What happens if I return an item?</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-gold"></i>
+                </button>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm overflow-hidden">
+                <button class="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-brand-parchment transition-colors">
+                    <h4 class="font-body font-semibold text-brand-forest text-lg">How do I upgrade to the next tier?</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-gold"></i>
+                </button>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm overflow-hidden">
+                <button class="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-brand-parchment transition-colors">
+                    <h4 class="font-body font-semibold text-brand-forest text-lg">Can I gift points to someone else?</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-gold"></i>
+                </button>
+            </div>
+            <div class="bg-white border border-brand-sand rounded-sm overflow-hidden">
+                <button class="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-brand-parchment transition-colors">
+                    <h4 class="font-body font-semibold text-brand-forest text-lg">How long does it take for points to appear in my account?</h4>
+                    <i class="fa-solid fa-chevron-down text-brand-gold"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="cta-join" class="py-20 bg-white border-t border-brand-sand">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="bg-gradient-to-r from-brand-forest to-brand-dark rounded-sm p-12 lg:p-16 text-center text-white">
+            <i class="fa-solid fa-sparkles text-brand-gold text-5xl mb-6"></i>
+            <h2 class="font-heading text-4xl lg:text-5xl mb-4">Ready to Join the Circle?</h2>
+            <p class="font-body text-xl text-white/90 max-w-2xl mx-auto mb-8">Start earning points today and unlock exclusive magical rewards</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-brand-gold hover:bg-brand-goldHover text-white px-10 py-4 rounded-sm font-semibold text-lg transition-colors">
+                    Create Account & Get 100 Points
+                </button>
+                <button class="bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:bg-white/20 text-white px-10 py-4 rounded-sm font-semibold text-lg transition-colors">
+                    Sign In
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="footer" class="bg-brand-dark text-brand-sand pt-20 pb-10 border-t border-brand-forest">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <div class="space-y-6">
+                <a href="#" class="flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                    <span class="font-heading text-2xl font-bold text-white tracking-tight">Wand & Willow</span>
+                </a>
+                <p class="font-body text-sm text-brand-muted leading-relaxed">Curators of fine magical goods, official merchandise, and handcrafted artifacts for the modern witch and wizard.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                        <i class="fa-brands fa-pinterest"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-heading text-white text-lg mb-6">Shop</h4>
+                <ul class="space-y-4 font-body text-sm text-brand-muted">
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">All Products</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Wands</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Apothecary</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Apparel</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Jewelry</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-heading text-white text-lg mb-6">Support</h4>
+                <ul class="space-y-4 font-body text-sm text-brand-muted">
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Track Order</a></li>
+                    <li><a href="#" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-heading text-white text-lg mb-6">The Daily Prophet</h4>
+                <p class="font-body text-sm text-brand-muted mb-4">Subscribe for magical updates, new arrivals, and exclusive offers.</p>
+                <form class="space-y-3">
+                    <input type="email" placeholder="Your email address" class="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand-gold font-body text-sm">
+                    <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-white px-4 py-3 rounded-sm font-medium transition-colors font-body text-sm">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-body text-xs text-brand-muted">
+            <p>© 2024 Wand & Willow. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

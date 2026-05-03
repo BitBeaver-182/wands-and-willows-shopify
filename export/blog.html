@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Curator's Desk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f1f15',
+                            forest: '#1a3322',
+                            gold: '#c4a661',
+                            goldHover: '#d4b671',
+                            parchment: '#f8f5ee',
+                            sand: '#e8e2d2',
+                            text: '#2d3748',
+                            muted: '#718096'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f5ee; color: #2d3748; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(26, 51, 34, 0.1); }
+    </style>
+</head>
+<body class="w-full min-h-screen text-brand-text bg-brand-parchment overflow-x-hidden">
+
+    <!-- Promo Bar -->
+    <div id="promo-bar" class="bg-brand-dark text-brand-parchment text-center py-2 text-sm font-body tracking-wider">
+        <span>Free shipping on orders over $75 by owl post. Use code MAGIC25 for 25% off.</span>
+    </div>
+
+    <!-- Navigation -->
+    <header id="header" class="sticky top-0 z-50 bg-brand-parchment/95 backdrop-blur-md border-b border-brand-sand">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            
+            <button class="lg:hidden text-brand-forest text-xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <a href="#" class="flex-shrink-0 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                <span class="font-heading text-2xl font-bold text-brand-forest tracking-tight">Wand & Willow</span>
+            </a>
+
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Collections</a>
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Subscriptions</a>
+                <a href="#" class="text-brand-forest font-medium hover:text-brand-gold transition-colors text-sm uppercase tracking-widest">Community</a>
+                <a href="#" class="text-brand-gold font-medium text-sm uppercase tracking-widest">The Curator's Desk</a>
+            </nav>
+
+            <div class="flex items-center gap-6">
+                <button class="text-brand-forest hover:text-brand-gold transition-colors">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button class="text-brand-forest hover:text-brand-gold transition-colors hidden sm:block">
+                    <i class="fa-regular fa-user text-lg"></i>
+                </button>
+                <button class="text-brand-forest hover:text-brand-gold transition-colors relative">
+                    <i class="fa-solid fa-bag-shopping text-lg"></i>
+                    <span class="absolute -top-2 -right-2 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">3</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="blog-hero" class="relative w-full h-[500px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/fd23b53748-52dc6f8ed6830fce6874.png" alt="vintage books stacked on a wooden desk, warm candlelight, reading glasses, dark academia aesthetic, cinematic lighting">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-dark/50 to-brand-forest/80"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-brand-parchment">
+            <span class="block text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">Stories, Insights & Magical Findings</span>
+            <h1 class="font-heading text-5xl md:text-6xl font-bold mb-6 leading-tight">The Curator's Desk</h1>
+            <p class="font-body text-lg md:text-xl text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">
+                A monthly journal of magical discoveries, thoughtful curation, and the enchantment woven into everyday life.
+            </p>
+        </div>
+    </section>
+
+    <!-- Topic Filter -->
+    <section id="topic-filter" class="py-12 bg-white border-b border-brand-sand sticky top-20 z-40">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <button data-filter="all" class="filter-btn px-6 py-3 bg-brand-forest text-white font-medium text-sm uppercase tracking-widest rounded-sm transition-all">
+                    All Articles
+                </button>
+                <button data-filter="current-read" class="filter-btn px-6 py-3 bg-transparent border-2 border-brand-sand text-brand-forest font-medium text-sm uppercase tracking-widest hover:border-brand-gold hover:text-brand-gold rounded-sm transition-all">
+                    Current Read
+                </button>
+                <button data-filter="artifact-spotlight" class="filter-btn px-6 py-3 bg-transparent border-2 border-brand-sand text-brand-forest font-medium text-sm uppercase tracking-widest hover:border-brand-gold hover:text-brand-gold rounded-sm transition-all">
+                    Artifact Spotlight
+                </button>
+                <button data-filter="magic-of-life" class="filter-btn px-6 py-3 bg-transparent border-2 border-brand-sand text-brand-forest font-medium text-sm uppercase tracking-widest hover:border-brand-gold hover:text-brand-gold rounded-sm transition-all">
+                    Magic of Life
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section id="featured-article" class="py-20 bg-brand-parchment">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <div class="lg:w-1/2">
+                    <div class="relative h-[600px] overflow-hidden rounded-sm">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/af0e3f0348-daab6d0bab4d9bbe518e.png" alt="close up of intricate magical artifact, glowing faintly, dark moody lighting, premium photography">
+                        <div class="absolute top-6 left-6 bg-brand-gold text-white text-xs font-bold px-4 py-2 uppercase tracking-wider">Featured</div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Artifact Spotlight</span>
+                    <h2 class="font-heading text-4xl lg:text-5xl text-brand-forest mb-6 leading-tight">Unearthing the Lost Diadem Replicas</h2>
+                    <div class="flex items-center gap-6 mb-6 text-sm text-brand-muted">
+                        <div class="flex items-center gap-2">
+                            <img class="w-10 h-10 rounded-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Eleanor Vance">
+                            <span class="font-medium text-brand-text">Eleanor Vance</span>
+                        </div>
+                        <span>December 15, 2024</span>
+                        <span>8 min read</span>
+                    </div>
+                    <p class="font-body text-brand-text text-lg mb-8 leading-relaxed">
+                        Our journey to recreate one of the most sought-after magical artifacts using authentic materials and historical references. From ancient texts to modern craftsmanship, discover the painstaking process behind bringing legendary objects to life.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-forest text-white font-medium tracking-wide hover:bg-brand-dark transition-all rounded-sm">
+                        Read Full Article
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Read Articles -->
+    <section id="current-read-section" class="py-20 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="mb-12">
+                <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-book-open text-brand-gold text-2xl"></i>
+                    <h2 class="font-heading text-3xl text-brand-forest">Current Read</h2>
+                </div>
+                <p class="font-body text-brand-muted">Literary explorations and magical bibliographies</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <article class="bg-brand-parchment rounded-sm overflow-hidden card-hover">
+                    <div class="h-72 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/fd23b53748-52dc6f8ed6830fce6874.png" alt="vintage books stacked on a wooden desk">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Current Read</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4 leading-tight">The History of Wandlore in the 19th Century</h3>
+                        <div class="flex items-center gap-4 mb-4 text-xs text-brand-muted">
+                            <span>December 10, 2024</span>
+                            <span>•</span>
+                            <span>6 min read</span>
+                        </div>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">Explore the fascinating evolution of wand crafting techniques during the industrial revolution and how traditional makers adapted to changing times.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Continue Reading <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="bg-brand-parchment rounded-sm overflow-hidden card-hover">
+                    <div class="h-72 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/b924168c24-8e6728b54876727d2976.png" alt="cozy magical reading nook">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Current Read</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4 leading-tight">Forgotten Spellbooks: A Collector's Guide</h3>
+                        <div class="flex items-center gap-4 mb-4 text-xs text-brand-muted">
+                            <span>December 5, 2024</span>
+                            <span>•</span>
+                            <span>10 min read</span>
+                        </div>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">An in-depth look at rare grimoires and spellbooks from the medieval period, their origins, and what makes them valuable to modern collectors.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Continue Reading <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="bg-brand-parchment rounded-sm overflow-hidden card-hover">
+                    <div class="h-72 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ad23f1cf92-3d8a0dd85349a36be390.png" alt="ancient magical texts">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Current Read</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4 leading-tight">Herbology Through the Ages</h3>
+                        <div class="flex items-center gap-4 mb-4 text-xs text-brand-muted">
+                            <span>November 28, 2024</span>
+                            <span>•</span>
+                            <span>7 min read</span>
+                        </div>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">From mandrakes to gillyweed, discover the rich botanical history behind magical plants and their uses in potion-making and healing.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Continue Reading <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artifact Spotlight Articles -->
+    <section id="artifact-spotlight-section" class="py-20 bg-brand-parchment">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="mb-12">
+                <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-gem text-brand-gold text-2xl"></i>
+                    <h2 class="font-heading text-3xl text-brand-forest">Artifact Spotlight</h2>
+                </div>
+                <p class="font-body text-brand-muted">Examining legendary objects and their stories</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <article class="bg-white rounded-sm overflow-hidden flex flex-col lg:flex-row card-hover">
+                    <div class="lg:w-2/5 h-64 lg:h-auto overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/af0e3f0348-daab6d0bab4d9bbe518e.png" alt="magical artifact glowing">
+                    </div>
+                    <div class="lg:w-3/5 p-8 flex flex-col justify-center">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Artifact Spotlight</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4 leading-tight">The Elder Wand: Myth vs. Reality</h3>
+                        <div class="flex items-center gap-4 mb-4 text-xs text-brand-muted">
+                            <span>December 12, 2024</span>
+                            <span>•</span>
+                            <span>9 min read</span>
+                        </div>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">Separating legend from historical fact in the tale of the Deathly Hallows' most powerful artifact.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Explore Artifact <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-sm overflow-hidden flex flex-col lg:flex-row card-hover">
+                    <div class="lg:w-2/5 h-64 lg:h-auto overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5b4e979cc7-61b3cdcffd2494b04633.png" alt="time turner necklace">
+                    </div>
+                    <div class="lg:w-3/5 p-8 flex flex-col justify-center">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Artifact Spotlight</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4 leading-tight">Time-Turners: The Science of Temporal Magic</h3>
+                        <div class="flex items-center gap-4 mb-4 text-xs text-brand-muted">
+                            <span>December 8, 2024</span>
+                            <span>•</span>
+                            <span>11 min read</span>
+                        </div>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">Understanding the complex enchantments and Ministry regulations surrounding time manipulation devices.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Explore Artifact <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-sm overflow-hidden flex flex-col lg:flex-row card-hover">
+                    <div class="lg:w-2/5 h-64 lg:h-auto overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/109c5d63a0-1bf006a727145c51721a.png" alt="leather bound journal">
+                    </div>
+                    <div class="lg:w-3/5 p-8 flex flex-col justify-center">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Artifact Spotlight</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4 leading-tight">Tom Riddle's Diary: Dark Magic Contained</h3>
+                        <div class="flex items-center gap-4 mb-4 text-xs text-brand-muted">
+                            <span>December 1, 2024</span>
+                            <span>•</span>
+                            <span>8 min read</span>
+                        </div>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">An examination of horcruxes and the dark enchantments that make certain objects vessels of immortality.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Explore Artifact <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-sm overflow-hidden flex flex-col lg:flex-row card-hover">
+                    <div class="lg:w-2/5 h-64 lg:h-auto overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ab91ea2eb1-430b784b596cce0e23fe.png" alt="handcrafted wand">
+                    </div>
+                    <div class="lg:w-3/5 p-8 flex flex-col justify-center">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Artifact Spotlight</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4 leading-tight">The Marauder's Map: Enchanted Cartography</h3>
+                        <div class="flex items-center gap-4 mb-4 text-xs text-brand-muted">
+                            <span>November 25, 2024</span>
+                            <span>•</span>
+                            <span>7 min read</span>
+                        </div>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">The revolutionary magic behind live-updating maps and the pranksters who created them.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Explore Artifact <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Magic of Life Articles -->
+    <section id="magic-of-life-section" class="py-20 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="mb-12">
+                <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-sparkles text-brand-gold text-2xl"></i>
+                    <h2 class="font-heading text-3xl text-brand-forest">Magic of Life</h2>
+                </div>
+                <p class="font-body text-brand-muted">Bringing enchantment into everyday moments</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <article class="bg-brand-parchment rounded-sm overflow-hidden card-hover">
+                    <div class="h-80 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/b924168c24-8e6728b54876727d2976.png" alt="cozy magical room interior">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Magic of Life</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4 leading-tight">Creating a Magical Sanctuary at Home</h3>
+                        <div class="flex items-center gap-4 mb-4 text-xs text-brand-muted">
+                            <span>December 14, 2024</span>
+                            <span>•</span>
+                            <span>5 min read</span>
+                        </div>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">Simple ways to incorporate enchantment into your everyday living space using lighting, scents, and curated objects.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Discover More <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="bg-brand-parchment rounded-sm overflow-hidden card-hover">
+                    <div class="h-80 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/aa4984facf-0c09be89a7c3f0c59529.png" alt="apothecary candles">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Magic of Life</span>
+                        <h3 class="font-heading text-2xl text-brand-forest mb-4 leading-tight">The Art of Seasonal Rituals</h3>
+                        <div class="flex items-center gap-4 mb-4 text-xs text-brand-muted">
+                            <span>December 7, 2024</span>
+                            <span>•</span>
+                            <span>6 min read</span>
+                        </div>
+                        <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">Celebrating the turning of seasons with meaningful practices, from Yule traditions to summer solstice gatherings.</p>
+                        <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                            Discover More <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <article class="bg-brand-parchment rounded-sm p-6 card-hover">
+                    <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Magic of Life</span>
+                    <h3 class="font-heading text-xl text-brand-forest mb-3 leading-tight">Morning Rituals for the Modern Witch</h3>
+                    <div class="flex items-center gap-4 mb-3 text-xs text-brand-muted">
+                        <span>December 3, 2024</span>
+                        <span>•</span>
+                        <span>4 min read</span>
+                    </div>
+                    <p class="font-body text-brand-text/80 text-sm mb-4 leading-relaxed">Start your day with intention through simple magical practices.</p>
+                    <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                        Read More <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="bg-brand-parchment rounded-sm p-6 card-hover">
+                    <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Magic of Life</span>
+                    <h3 class="font-heading text-xl text-brand-forest mb-3 leading-tight">Tea Blending & Divination</h3>
+                    <div class="flex items-center gap-4 mb-3 text-xs text-brand-muted">
+                        <span>November 29, 2024</span>
+                        <span>•</span>
+                        <span>5 min read</span>
+                    </div>
+                    <p class="font-body text-brand-text/80 text-sm mb-4 leading-relaxed">The ancient art of reading tea leaves and creating custom herbal blends.</p>
+                    <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                        Read More <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="bg-brand-parchment rounded-sm p-6 card-hover">
+                    <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-3 block">Magic of Life</span>
+                    <h3 class="font-heading text-xl text-brand-forest mb-3 leading-tight">Curating Your Personal Library</h3>
+                    <div class="flex items-center gap-4 mb-3 text-xs text-brand-muted">
+                        <span>November 22, 2024</span>
+                        <span>•</span>
+                        <span>6 min read</span>
+                    </div>
+                    <p class="font-body text-brand-text/80 text-sm mb-4 leading-relaxed">Building a collection of books that nourish the mind and spirit.</p>
+                    <a href="#" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                        Read More <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Archive Section -->
+    <section id="archive" class="py-20 bg-brand-forest text-brand-parchment">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-12">
+                <h2 class="font-heading text-3xl mb-4">Explore the Archives</h2>
+                <p class="font-body text-brand-sand">Browse past editions by month and topic</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <a href="#" class="bg-white/5 hover:bg-white/10 rounded-sm p-6 text-center transition-all border border-white/10">
+                    <div class="font-heading text-2xl mb-2">Dec</div>
+                    <div class="font-body text-sm text-brand-sand">2024</div>
+                </a>
+                <a href="#" class="bg-white/5 hover:bg-white/10 rounded-sm p-6 text-center transition-all border border-white/10">
+                    <div class="font-heading text-2xl mb-2">Nov</div>
+                    <div class="font-body text-sm text-brand-sand">2024</div>
+                </a>
+                <a href="#" class="bg-white/5 hover:bg-white/10 rounded-sm p-6 text-center transition-all border border-white/10">
+                    <div class="font-heading text-2xl mb-2">Oct</div>
+                    <div class="font-body text-sm text-brand-sand">2024</div>
+                </a>
+                <a href="#" class="bg-white/5 hover:bg-white/10 rounded-sm p-6 text-center transition-all border border-white/10">
+                    <div class="font-heading text-2xl mb-2">Sep</div>
+                    <div class="font-body text-sm text-brand-sand">2024</div>
+                </a>
+                <a href="#" class="bg-white/5 hover:bg-white/10 rounded-sm p-6 text-center transition-all border border-white/10">
+                    <div class="font-heading text-2xl mb-2">Aug</div>
+                    <div class="font-body text-sm text-brand-sand">2024</div>
+                </a>
+                <a href="#" class="bg-white/5 hover:bg-white/10 rounded-sm p-6 text-center transition-all border border-white/10">
+                    <div class="font-heading text-2xl mb-2">Jul</div>
+                    <div class="font-body text-sm text-brand-sand">2024</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter CTA -->
+    <section id="newsletter-cta" class="py-24 bg-brand-parchment">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <i class="fa-solid fa-feather text-brand-gold text-4xl mb-6"></i>
+            <h2 class="font-heading text-4xl text-brand-forest mb-4">Never Miss an Entry</h2>
+            <p class="font-body text-brand-muted mb-10 max-w-2xl mx-auto">
+                Subscribe to receive new articles from The Curator's Desk delivered directly to your inbox every week.
+            </p>
+            
+            <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                <input type="email" placeholder="Enter your email address" class="flex-grow bg-white border border-brand-sand rounded-sm px-6 py-4 text-brand-text placeholder-brand-muted/70 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all">
+                <button type="submit" class="px-8 py-4 bg-brand-forest hover:bg-brand-dark text-white font-medium tracking-wide transition-all rounded-sm whitespace-nowrap">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-brand-dark text-brand-sand pt-20 pb-10 border-t border-brand-forest">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="space-y-6">
+                    <a href="#" class="flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl"></i>
+                        <span class="font-heading text-2xl font-bold text-white tracking-tight">Wand & Willow</span>
+                    </a>
+                    <p class="font-body text-sm text-brand-muted leading-relaxed">
+                        Curators of fine magical goods, official merchandise, and handcrafted artifacts for the modern witch and wizard.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold transition-colors">
+                            <i class="fa-brands fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">Shop</h4>
+                    <ul class="space-y-4 font-body text-sm text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">All Products</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Wands</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apothecary</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apparel</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Jewelry</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">Support</h4>
+                    <ul class="space-y-4 font-body text-sm text-brand-muted">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-heading text-white text-lg mb-6">The Daily Prophet</h4>
+                    <p class="font-body text-sm text-brand-muted mb-4">Subscribe for magical updates, new arrivals, and exclusive offers.</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Your email address" class="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand-gold font-body text-sm">
+                        <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-white px-4 py-3 rounded-sm font-medium transition-colors font-body text-sm">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-body text-xs text-brand-muted">
+                <p>© 2024 Wand & Willow. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const sections = {
+        'featured': document.getElementById('featured-article'),
+        'current-read': document.getElementById('current-read-section'),
+        'artifact-spotlight': document.getElementById('artifact-spotlight-section'),
+        'magic-of-life': document.getElementById('magic-of-life-section')
+    };
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // Update button states
+            filterButtons.forEach(btn => {
+                btn.classList.remove('bg-brand-forest', 'text-white');
+                btn.classList.add('bg-transparent', 'border-2', 'border-brand-sand', 'text-brand-forest');
+            });
+            
+            this.classList.add('bg-brand-forest', 'text-white');
+            this.classList.remove('bg-transparent', 'border-2', 'border-brand-sand');
+            
+            // Show/hide sections
+            if (filter === 'all') {
+                Object.values(sections).forEach(section => {
+                    section.style.display = 'block';
+                });
+            } else {
+                sections['featured'].style.display = 'none';
+                sections['current-read'].style.display = filter === 'current-read' ? 'block' : 'none';
+                sections['artifact-spotlight'].style.display = filter === 'artifact-spotlight' ? 'block' : 'none';
+                sections['magic-of-life'].style.display = filter === 'magic-of-life' ? 'block' : 'none';
+            }
+            
+            // Smooth scroll to first visible section
+            const firstVisible = Object.entries(sections).find(([key, section]) => 
+                section.style.display !== 'none'
+            );
+            
+            if (firstVisible) {
+                firstVisible[1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
