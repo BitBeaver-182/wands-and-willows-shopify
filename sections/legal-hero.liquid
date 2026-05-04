@@ -1,0 +1,76 @@
+<section id="legal-hero-{{ section.id }}" class="relative w-full h-[400px] flex items-center justify-center overflow-hidden bg-brand-forest">
+  <div class="absolute inset-0 z-0">
+    {% if section.settings.image != blank %}
+      {{
+        section.settings.image
+        | image_url: width: 2200
+        | image_tag: loading: 'eager', class: 'w-full h-full object-cover'
+      }}
+    {% elsif section.settings.show_pattern %}
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,var(--color-brand-gold)_1px,transparent_0)] bg-[length:30px_30px]"></div>
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-dark/50 to-brand-forest/90"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-brand-parchment">
+    {% if section.settings.icon != blank %}
+      <i class="{{ section.settings.icon }} text-brand-gold text-5xl mb-6" aria-hidden="true"></i>
+    {% endif %}
+    {% if section.settings.eyebrow != blank %}
+      <span class="block text-brand-gold font-body tracking-[0.2em] text-sm mb-4 uppercase">{{ section.settings.eyebrow }}</span>
+    {% endif %}
+    <h1 class="font-heading text-5xl md:text-6xl font-bold mb-4 leading-tight">{{ section.settings.title | default: page.title }}</h1>
+    {% if section.settings.updated != blank %}
+      <p class="font-body text-lg text-brand-sand max-w-2xl mx-auto font-light">{{ section.settings.updated }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Legal hero",
+  "tag": "section",
+  "class": "legal-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pattern",
+      "label": "Show pattern background",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icon class",
+      "default": "fa-solid fa-shield-halved"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "text",
+      "id": "updated",
+      "label": "Last updated",
+      "default": "Last Updated: December 2024"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Legal hero"
+    }
+  ]
+}
+{% endschema %}

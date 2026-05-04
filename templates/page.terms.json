@@ -1,0 +1,141 @@
+{
+  "sections": {
+    "hero": {
+      "type": "legal-hero",
+      "settings": {
+        "show_pattern": false,
+        "icon": "",
+        "eyebrow": "Legal Documentation",
+        "title": "Terms & Conditions",
+        "updated": "Last Updated: January 15, 2024"
+      }
+    },
+    "content": {
+      "type": "legal-rich-text-page",
+      "settings": {
+        "background": "white",
+        "number_style": "plain"
+      },
+      "blocks": {
+        "intro": {
+          "type": "intro",
+          "settings": {
+            "text": "Welcome to Wand & Willow. By accessing or using our website and services, you agree to be bound by these Terms and Conditions. Please read them carefully before making any purchase or engaging with our platform.",
+            "highlight": true
+          }
+        },
+        "acceptance": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "1",
+            "title": "Acceptance of Terms",
+            "body": "By accessing and using the Wand & Willow website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree, please do not use this service.\n\nWe reserve the right to change or modify these terms at any time and in our sole discretion."
+          }
+        },
+        "ip": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "2",
+            "title": "Intellectual Property Rights",
+            "body": "Unless otherwise indicated, the site, content, trademarks, service marks, and logos are owned or controlled by us or licensed to us.\n\nAll Harry Potter, Wicked, and other franchise-related merchandise are officially licensed products. Associated trademarks and copyrights belong to their respective owners."
+          }
+        },
+        "users": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "3",
+            "title": "User Representations",
+            "body": "By using the site, you represent and warrant that all information you submit is true, accurate, current, and complete; that you have legal capacity; and that your use of the site will not violate applicable law or regulation."
+          }
+        },
+        "payment": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "4",
+            "title": "Purchases and Payment",
+            "body": "We accept major payment methods shown at checkout. You agree to provide current, complete, and accurate purchase and account information for all purchases made through the site.\n\nWe reserve the right to refuse any order placed through the site and may limit or cancel quantities purchased per person, household, or order."
+          }
+        },
+        "subscriptions": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "5",
+            "title": "Subscription Services",
+            "body": "Your subscription will continue and automatically renew unless cancelled. You consent to our charging your payment method on a recurring basis until you cancel.\n\nYou may cancel your subscription at any time by logging into your account or contacting support."
+          }
+        },
+        "returns": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "6",
+            "title": "Returns and Refunds",
+            "body": "We have a 30-day return policy. To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags and original packaging.\n\nNon-returnable items may include handmade or custom wands unless defective, opened candles and apothecary items, personalized items, sale items, and gift cards."
+          }
+        },
+        "shipping": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "7",
+            "title": "Shipping and Delivery",
+            "body": "Orders are processed within 2-3 business days. Standard shipping takes 5-7 business days within the United States. International shipping is available to select countries, and customs fees, duties, and taxes are the responsibility of the customer."
+          }
+        },
+        "prohibited": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "8",
+            "title": "Prohibited Activities",
+            "body": "You may not access or use the site for any purpose other than that for which we make the site available. You agree not to systematically retrieve data, make unauthorized use of the site, interfere with security features, submit false reports, or use the site unlawfully."
+          }
+        },
+        "content": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "9",
+            "title": "User Generated Contributions",
+            "body": "If you create, submit, post, or share content through the site, you grant us the right to host, use, copy, reproduce, disclose, publish, display, and distribute those contributions as needed to operate and promote the service."
+          }
+        },
+        "liability": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "10",
+            "title": "Limitation of Liability",
+            "body": "In no event will we or our directors, employees, or agents be liable for indirect, consequential, exemplary, incidental, special, or punitive damages arising from your use of the site, even if advised of the possibility of such damages."
+          }
+        },
+        "law": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "11",
+            "title": "Governing Law",
+            "body": "These Terms and Conditions and your use of the site are governed by and construed in accordance with applicable laws, without regard to conflict of law principles."
+          }
+        },
+        "contact": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "12",
+            "title": "Contact Information",
+            "body": "Wand & Willow LLC\n123 Magical Lane, Suite 456\nSan Francisco, CA 94102\nUnited States\n\nEmail: legal@wandwillow.com\nPhone: (415) 555-1234"
+          }
+        },
+        "updated": {
+          "type": "callout",
+          "settings": {
+            "tone": "dark",
+            "icon": "",
+            "title": "Terms Updates",
+            "body": "These Terms and Conditions were last updated on January 15, 2024. We reserve the right to modify these terms at any time. Please review this page periodically for changes."
+          }
+        },
+        "related": {
+          "type": "related_links",
+          "settings": {}
+        }
+      },
+      "block_order": ["intro", "acceptance", "ip", "users", "payment", "subscriptions", "returns", "shipping", "prohibited", "content", "liability", "law", "contact", "updated", "related"]
+    }
+  },
+  "order": ["hero", "content"]
+}

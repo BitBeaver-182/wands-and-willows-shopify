@@ -1,0 +1,115 @@
+{
+  "sections": {
+    "hero": {
+      "type": "legal-hero",
+      "settings": {
+        "show_pattern": true,
+        "icon": "fa-solid fa-shield-halved",
+        "eyebrow": "",
+        "title": "Privacy Policy",
+        "updated": "Last Updated: December 2024"
+      }
+    },
+    "content": {
+      "type": "legal-rich-text-page",
+      "settings": {
+        "background": "parchment",
+        "number_style": "circle"
+      },
+      "blocks": {
+        "intro": {
+          "type": "intro",
+          "settings": {
+            "text": "At Wand & Willow, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or make a purchase from us. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.",
+            "highlight": false
+          }
+        },
+        "collect": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "1",
+            "title": "Information We Collect",
+            "body": "Personal Data\nWhen you visit our website or place an order, we may collect personally identifiable information including name and contact information, payment information, account credentials, purchase history, and preferences.\n\nAutomatically Collected Information\nWe may automatically collect certain information about your device when you access our website, including your IP address, browser type, operating system, access times, and pages viewed.\n\nCookies and Tracking Technologies\nWe use cookies, web beacons, and other tracking technologies to enhance your experience, gather visitor information, and track visits to our website."
+          }
+        },
+        "use": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "2",
+            "title": "How We Use Your Information",
+            "body": "We may use the information we collect to process and fulfill orders, manage your account, provide customer support, send marketing communications with your consent, improve our website, prevent fraudulent transactions, and comply with legal obligations."
+          }
+        },
+        "disclosure": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "3",
+            "title": "Disclosure of Your Information",
+            "body": "We may share your information with third-party service providers who perform services on our behalf, such as payment processing, order fulfillment, data analysis, email delivery, and customer service.\n\nIn the event of a merger, acquisition, or sale of assets, your personal information may be transferred as part of that transaction.\n\nWe may disclose your information if required by law or in response to valid requests by public authorities."
+          }
+        },
+        "security": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "4",
+            "title": "Data Security",
+            "body": "We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include SSL/TLS encryption, secure hosting infrastructure, limited employee access, and periodic security assessments."
+          }
+        },
+        "warning": {
+          "type": "callout",
+          "settings": {
+            "tone": "warning",
+            "icon": "fa-solid fa-triangle-exclamation",
+            "title": "Important",
+            "body": "While we strive to protect your personal information, no security system is impenetrable. We cannot guarantee the absolute security of your data transmitted to our website."
+          }
+        },
+        "rights": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "5",
+            "title": "Your Privacy Rights",
+            "body": "Depending on your location, you may have rights to access, rectify, erase, restrict processing of, port, or opt out of use of your personal information.\n\nTo exercise any of these rights, please contact us at privacy@wandandwillow.com."
+          }
+        },
+        "third_party": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "6",
+            "title": "Third-Party Websites",
+            "body": "Our website may contain links to third-party websites and services that are not owned or controlled by Wand & Willow. We are not responsible for the privacy practices or content of these third-party sites."
+          }
+        },
+        "children": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "7",
+            "title": "Children's Privacy",
+            "body": "Our website and services are not intended for children under the age of 13. We do not knowingly collect personal information from children under 13."
+          }
+        },
+        "changes": {
+          "type": "numbered_section",
+          "settings": {
+            "number": "8",
+            "title": "Changes to This Privacy Policy",
+            "body": "We may update this Privacy Policy from time to time to reflect changes in our practices or for operational, legal, or regulatory reasons. Changes are effective when posted on this page."
+          }
+        },
+        "contact": {
+          "type": "contact_panel",
+          "settings": {
+            "title": "Questions About Our Privacy Policy?",
+            "body": "If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please don't hesitate to contact us.",
+            "email": "privacy@wandandwillow.com",
+            "address": "123 Diagon Alley\nLondon, UK",
+            "phone": "+44 (0) 20 1234 5678"
+          }
+        }
+      },
+      "block_order": ["intro", "collect", "use", "disclosure", "security", "warning", "rights", "third_party", "children", "changes", "contact"]
+    }
+  },
+  "order": ["hero", "content"]
+}

@@ -1,0 +1,368 @@
+<section id="legal-content-{{ section.id }}" class="py-16 lg:py-24 {% if section.settings.background == 'white' %}bg-white{% else %}bg-brand-parchment{% endif %}">
+  <div class="max-w-4xl mx-auto px-6 lg:px-12">
+    <div class="space-y-12 lg:space-y-16">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'intro' %}
+            <div class="{% if block.settings.highlight %}bg-brand-parchment border-l-4 border-brand-gold p-6 lg:p-8 rounded-sm{% endif %}" {{ block.shopify_attributes }}>
+              <p class="font-body text-base lg:text-lg text-brand-text leading-relaxed">
+                {{ block.settings.text }}
+              </p>
+            </div>
+
+          {% when 'numbered_section' %}
+            <div class="{% unless forloop.first %}border-t border-brand-sand pt-10 lg:pt-12{% endunless %}" id="{{ block.settings.title | handleize }}" {{ block.shopify_attributes }}>
+              <h2 class="font-heading text-2xl lg:text-3xl text-brand-forest mb-6 flex items-start gap-3">
+                <span class="{% if section.settings.number_style == 'circle' %}w-10 h-10 shrink-0 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold font-bold text-lg{% else %}text-brand-gold{% endif %}">
+                  {{ block.settings.number }}{% if section.settings.number_style == 'plain' %}.{% endif %}
+                </span>
+                <span>{{ block.settings.title }}</span>
+              </h2>
+              <div class="font-body text-brand-text leading-relaxed space-y-4 md:pl-14">
+                {{ block.settings.body | newline_to_br }}
+              </div>
+            </div>
+
+          {% when 'callout' %}
+            <div class="{% if block.settings.tone == 'dark' %}bg-brand-forest text-brand-parchment{% elsif block.settings.tone == 'warning' %}bg-amber-50 border border-amber-200 text-brand-text{% else %}bg-white border border-brand-sand text-brand-text{% endif %} p-6 lg:p-8 rounded-sm" {{ block.shopify_attributes }}>
+              {% if block.settings.icon != blank %}
+                <i class="{{ block.settings.icon }} text-brand-gold text-3xl mb-4" aria-hidden="true"></i>
+              {% endif %}
+              <h3 class="font-heading text-2xl lg:text-3xl mb-4 {% if block.settings.tone == 'dark' %}text-brand-parchment{% else %}text-brand-forest{% endif %}">
+                {{ block.settings.title }}
+              </h3>
+              <div class="font-body leading-relaxed {% if block.settings.tone == 'dark' %}text-brand-sand{% else %}text-brand-text{% endif %}">
+                {{ block.settings.body | newline_to_br }}
+              </div>
+            </div>
+
+          {% when 'contact_panel' %}
+            <div class="bg-brand-forest text-brand-parchment rounded-sm p-8 lg:p-12" {{ block.shopify_attributes }}>
+              <div class="text-center mb-8">
+                {% if block.settings.icon != blank %}
+                  <i class="{{ block.settings.icon }} text-brand-gold text-4xl mb-4" aria-hidden="true"></i>
+                {% endif %}
+                <h2 class="font-heading text-3xl mb-4">{{ block.settings.title }}</h2>
+                <p class="font-body text-brand-sand max-w-2xl mx-auto">{{ block.settings.body }}</p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+                <div class="text-center">
+                  <i class="fa-solid fa-paper-plane text-brand-gold text-2xl mb-3" aria-hidden="true"></i>
+                  <h4 class="font-heading text-lg mb-2">{{ block.settings.email_label }}</h4>
+                  <p class="font-body text-sm text-brand-sand">{{ block.settings.email }}</p>
+                </div>
+                <div class="text-center">
+                  <i class="fa-solid fa-location-dot text-brand-gold text-2xl mb-3" aria-hidden="true"></i>
+                  <h4 class="font-heading text-lg mb-2">{{ block.settings.address_label }}</h4>
+                  <p class="font-body text-sm text-brand-sand">{{ block.settings.address | newline_to_br }}</p>
+                </div>
+                <div class="text-center">
+                  <i class="fa-solid fa-phone text-brand-gold text-2xl mb-3" aria-hidden="true"></i>
+                  <h4 class="font-heading text-lg mb-2">{{ block.settings.phone_label }}</h4>
+                  <p class="font-body text-sm text-brand-sand">{{ block.settings.phone }}</p>
+                </div>
+              </div>
+            </div>
+
+          {% when 'related_links' %}
+            <div class="pt-4" {{ block.shopify_attributes }}>
+              <h3 class="font-heading text-2xl text-brand-forest mb-8 text-center">{{ block.settings.title }}</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="{{ block.settings.link_1_url | default: '#' }}" class="bg-white p-6 rounded-sm border border-brand-sand hover:shadow-lg transition-shadow text-center">
+                  <i class="{{ block.settings.link_1_icon }} text-brand-gold text-3xl mb-4" aria-hidden="true"></i>
+                  <h4 class="font-heading text-lg text-brand-forest mb-2">{{ block.settings.link_1_title }}</h4>
+                  <p class="font-body text-sm text-brand-muted">{{ block.settings.link_1_body }}</p>
+                </a>
+                <a href="{{ block.settings.link_2_url | default: '#' }}" class="bg-white p-6 rounded-sm border border-brand-sand hover:shadow-lg transition-shadow text-center">
+                  <i class="{{ block.settings.link_2_icon }} text-brand-gold text-3xl mb-4" aria-hidden="true"></i>
+                  <h4 class="font-heading text-lg text-brand-forest mb-2">{{ block.settings.link_2_title }}</h4>
+                  <p class="font-body text-sm text-brand-muted">{{ block.settings.link_2_body }}</p>
+                </a>
+                <a href="{{ block.settings.link_3_url | default: '#' }}" class="bg-white p-6 rounded-sm border border-brand-sand hover:shadow-lg transition-shadow text-center">
+                  <i class="{{ block.settings.link_3_icon }} text-brand-gold text-3xl mb-4" aria-hidden="true"></i>
+                  <h4 class="font-heading text-lg text-brand-forest mb-2">{{ block.settings.link_3_title }}</h4>
+                  <p class="font-body text-sm text-brand-muted">{{ block.settings.link_3_body }}</p>
+                </a>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Legal content",
+  "tag": "section",
+  "class": "legal-rich-text-page",
+  "settings": [
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        {
+          "value": "parchment",
+          "label": "Parchment"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "parchment"
+    },
+    {
+      "type": "select",
+      "id": "number_style",
+      "label": "Number style",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "plain",
+          "label": "Plain"
+        }
+      ],
+      "default": "circle"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "intro",
+      "name": "Intro",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Welcome to Wand & Willow. Please read this policy carefully."
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Highlight",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "numbered_section",
+      "name": "Numbered section",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Information We Collect"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Add legal copy here."
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "name": "Callout",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tone",
+          "label": "Tone",
+          "options": [
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            },
+            {
+              "value": "warning",
+              "label": "Warning"
+            }
+          ],
+          "default": "light"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon class",
+          "default": "fa-solid fa-circle-info"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Important"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Add highlighted legal copy here."
+        }
+      ]
+    },
+    {
+      "type": "contact_panel",
+      "name": "Contact panel",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon class",
+          "default": "fa-solid fa-envelope"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Questions?"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "If you have questions about this policy, contact us."
+        },
+        {
+          "type": "text",
+          "id": "email_label",
+          "label": "Email label",
+          "default": "Email"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "privacy@wandandwillow.com"
+        },
+        {
+          "type": "text",
+          "id": "address_label",
+          "label": "Address label",
+          "default": "Address"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "default": "123 Diagon Alley\nLondon, UK"
+        },
+        {
+          "type": "text",
+          "id": "phone_label",
+          "label": "Phone label",
+          "default": "Phone"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "+44 (0) 20 1234 5678"
+        }
+      ]
+    },
+    {
+      "type": "related_links",
+      "name": "Related links",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Related Legal Documents"
+        },
+        {
+          "type": "text",
+          "id": "link_1_icon",
+          "label": "Link 1 icon",
+          "default": "fa-solid fa-shield-halved"
+        },
+        {
+          "type": "text",
+          "id": "link_1_title",
+          "label": "Link 1 title",
+          "default": "Privacy Policy"
+        },
+        {
+          "type": "text",
+          "id": "link_1_body",
+          "label": "Link 1 body",
+          "default": "Learn how we protect your data"
+        },
+        {
+          "type": "url",
+          "id": "link_1_url",
+          "label": "Link 1 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_2_icon",
+          "label": "Link 2 icon",
+          "default": "fa-solid fa-rotate-left"
+        },
+        {
+          "type": "text",
+          "id": "link_2_title",
+          "label": "Link 2 title",
+          "default": "Return Policy"
+        },
+        {
+          "type": "text",
+          "id": "link_2_body",
+          "label": "Link 2 body",
+          "default": "30-day hassle-free returns"
+        },
+        {
+          "type": "url",
+          "id": "link_2_url",
+          "label": "Link 2 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_3_icon",
+          "label": "Link 3 icon",
+          "default": "fa-solid fa-truck-fast"
+        },
+        {
+          "type": "text",
+          "id": "link_3_title",
+          "label": "Link 3 title",
+          "default": "Shipping Policy"
+        },
+        {
+          "type": "text",
+          "id": "link_3_body",
+          "label": "Link 3 body",
+          "default": "Delivery times and costs"
+        },
+        {
+          "type": "url",
+          "id": "link_3_url",
+          "label": "Link 3 URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Legal content"
+    }
+  ]
+}
+{% endschema %}
