@@ -3,6 +3,7 @@ if (!customElements.get('collection-catalog-filters')) {
     connectedCallback() {
       this.abortController = new AbortController();
       this.abortFetchController = null;
+      this.renderTimeout = null;
 
       this.bindEvents();
       this.syncAllRangeGroups();
@@ -11,6 +12,7 @@ if (!customElements.get('collection-catalog-filters')) {
     disconnectedCallback() {
       this.abortController?.abort();
       this.abortFetchController?.abort();
+      window.clearTimeout(this.renderTimeout);
     }
 
     bindEvents() {
@@ -38,6 +40,15 @@ if (!customElements.get('collection-catalog-filters')) {
       if (target.matches('[data-collection-sort]')) {
         event.preventDefault();
         this.handleSortChange(target);
+        return;
+      }
+
+      if (target.matches('input[type="checkbox"], input[type="radio"]')) {
+        const form = target.closest('[data-collection-filter-form]');
+        if (!form) return;
+
+        event.preventDefault();
+        this.scheduleFormRender(form, 120);
       }
     }
 
@@ -50,6 +61,8 @@ if (!customElements.get('collection-catalog-filters')) {
         const group = target.closest('[data-price-range-group]');
         if (!group) return;
         this.syncRangeGroup(group, target.dataset.priceRangeSlider);
+        const form = target.closest('[data-collection-filter-form]');
+        if (form) this.scheduleFormRender(form, 250);
         return;
       }
 
@@ -57,6 +70,8 @@ if (!customElements.get('collection-catalog-filters')) {
         const group = target.closest('[data-price-range-group]') || target.form?.querySelector('[data-price-range-group]');
         if (!group) return;
         this.syncRangeGroup(group, target.dataset.priceRangeInput, true);
+        const form = target.closest('[data-collection-filter-form]');
+        if (form) this.scheduleFormRender(form, 350);
       }
     }
 
@@ -76,15 +91,39 @@ if (!customElements.get('collection-catalog-filters')) {
       this.renderFromUrl(this.urlFromForm(form));
     }
 
+    scheduleFormRender(form, delay = 200) {
+      if (!(form instanceof HTMLFormElement)) return;
+
+      window.clearTimeout(this.renderTimeout);
+      this.renderTimeout = window.setTimeout(() => {
+        this.renderTimeout = null;
+        this.renderFromUrl(this.urlFromForm(form));
+      }, delay);
+    }
+
     handleClick(event) {
       const target = event.target;
 
       if (!(target instanceof Element)) return;
 
+      const filterToggle = target.closest('[data-filter-toggle]');
+      const moreToggle = target.closest('[data-filter-show-more]');
       const openButton = target.closest(`[data-open-collection-filters="${this.dataset.sectionId}"]`);
       const closeButton = target.closest(`[data-close-collection-filters="${this.dataset.sectionId}"]`);
       const ajaxLink = target.closest('[data-collection-ajax-link]');
       const overlay = target.closest(`#CollectionFilterOverlay-${this.dataset.sectionId}`);
+
+      if (filterToggle) {
+        event.preventDefault();
+        this.toggleFilterGroup(filterToggle.closest('[data-filter-group]'));
+        return;
+      }
+
+      if (moreToggle) {
+        event.preventDefault();
+        this.toggleFilterMore(moreToggle.closest('[data-filter-group]'));
+        return;
+      }
 
       if (openButton) {
         event.preventDefault();
@@ -198,6 +237,53 @@ if (!customElements.get('collection-catalog-filters')) {
       this.querySelectorAll('[data-price-range-group]').forEach((group) => {
         this.syncRangeGroup(group);
       });
+    }
+
+    toggleFilterGroup(group) {
+      if (!(group instanceof HTMLElement)) return;
+
+      const panel = group.querySelector('[data-filter-panel]');
+      const toggle = group.querySelector('[data-filter-toggle]');
+      const isExpanded = group.dataset.filterExpanded !== 'false';
+      const nextExpanded = !isExpanded;
+
+      group.dataset.filterExpanded = String(nextExpanded);
+
+      if (panel) {
+        panel.hidden = !nextExpanded;
+      }
+
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', String(nextExpanded));
+        const label = toggle.querySelector('.sr-only');
+        if (label) {
+          label.textContent = nextExpanded ? toggle.dataset.labelClose || 'Close' : toggle.dataset.labelOpen || 'Open';
+        }
+      }
+    }
+
+    toggleFilterMore(group) {
+      if (!(group instanceof HTMLElement)) return;
+
+      const extraItems = group.querySelectorAll('[data-filter-extra-item]');
+      const button = group.querySelector('[data-filter-show-more]');
+      if (!extraItems.length || !button) return;
+
+      const isExpanded = group.dataset.filterMoreExpanded === 'true';
+      const nextExpanded = !isExpanded;
+
+      group.dataset.filterMoreExpanded = String(nextExpanded);
+
+      extraItems.forEach((item) => {
+        item.hidden = !nextExpanded;
+      });
+
+      button.setAttribute('aria-expanded', String(nextExpanded));
+
+      const label = button.querySelector('[data-more-label]');
+      if (label) {
+        label.textContent = nextExpanded ? button.dataset.labelLess || 'Show less' : button.dataset.labelMore || 'More';
+      }
     }
 
     syncRangeGroup(group, changedControl = null, fromInput = false) {
