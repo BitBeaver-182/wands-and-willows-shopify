@@ -1,0 +1,182 @@
+{% liquid
+  assign active_tag_handle = blank
+  if current_tags != blank
+    assign active_tag_handle = current_tags | first | handleize
+  endif
+%}
+
+<section id="topic-filter" class="py-4 md:py-12 bg-white border-b border-brand-sand sticky top-16 md:top-20 z-40">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <div class="flex md:flex-wrap md:justify-center items-center gap-2 md:gap-4 overflow-x-auto hide-scrollbar pb-2 md:pb-0" data-topic-filter>
+      <a
+        href="{{ blog.url }}"
+        data-topic-filter-link
+        data-all-topics
+        class="flex-shrink-0 px-4 md:px-6 py-2.5 md:py-3 {% if active_tag_handle == blank %}bg-brand-forest text-white{% else %}bg-transparent border-2 border-brand-sand text-brand-forest hover:border-brand-gold hover:text-brand-gold{% endif %} font-medium text-xs md:text-sm uppercase tracking-wider md:tracking-widest rounded-sm transition-all"
+      >
+        {{ section.settings.all_label }}
+      </a>
+      {% for block in section.blocks %}
+        {%- assign tag_handle = block.settings.tag | handleize -%}
+        {%- assign is_active = false -%}
+        {%- if active_tag_handle == tag_handle -%}
+          {%- assign is_active = true -%}
+        {%- endif -%}
+        <a
+          href="{{ blog.url }}/tagged/{{ tag_handle }}"
+          data-topic-filter-link
+          data-topic-label="{{ block.settings.label | default: block.settings.tag | escape }}"
+          data-topic-tag="{{ block.settings.tag | escape }}"
+          data-topic-tag-handle="{{ tag_handle }}"
+          class="flex-shrink-0 px-4 md:px-6 py-2.5 md:py-3 {% if is_active %}bg-brand-forest border-2 border-brand-forest text-white{% else %}bg-transparent border-2 border-brand-sand text-brand-forest hover:border-brand-gold hover:text-brand-gold{% endif %} font-medium text-xs md:text-sm uppercase tracking-wider md:tracking-widest rounded-sm transition-all"
+          {{ block.shopify_attributes }}
+        >
+          {{ block.settings.label | default: block.settings.tag }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% javascript %}
+  const normalizeTopicFilterValue = (value) =>
+    (value || '')
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/['"]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+  const setTopicFilterState = (container) => {
+    if (!container) return;
+
+    const links = Array.from(container.querySelectorAll('[data-topic-filter-link]'));
+    if (!links.length) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const queryTopic = params.get('topic') || params.get('tag');
+    if (!queryTopic) return;
+
+    const normalizedTopic = normalizeTopicFilterValue(queryTopic);
+    if (!normalizedTopic) return;
+
+    const matchedLink = links.find((link) => {
+      const candidates = [
+        link.dataset.topicLabel,
+        link.dataset.topicTag,
+        link.dataset.topicTagHandle,
+      ]
+        .filter(Boolean)
+        .map(normalizeTopicFilterValue);
+
+      return candidates.includes(normalizedTopic);
+    });
+
+    if (!matchedLink) return;
+
+    links.forEach((link) => {
+      const candidates = [
+        link.dataset.topicLabel,
+        link.dataset.topicTag,
+        link.dataset.topicTagHandle,
+      ]
+        .filter(Boolean)
+        .map(normalizeTopicFilterValue);
+
+      const isMatch = candidates.includes(normalizedTopic);
+      link.classList.toggle('bg-brand-forest', isMatch);
+      link.classList.toggle('border-brand-forest', isMatch);
+      link.classList.toggle('text-white', isMatch);
+      link.classList.toggle('bg-transparent', !isMatch);
+      link.classList.toggle('border-brand-sand', !isMatch);
+      link.classList.toggle('text-brand-forest', !isMatch);
+      link.classList.toggle('hover:border-brand-gold', !isMatch);
+      link.classList.toggle('hover:text-brand-gold', !isMatch);
+
+      if (link.hasAttribute('data-all-topics')) {
+        link.classList.toggle('bg-brand-forest', false);
+        link.classList.toggle('text-white', false);
+        link.classList.toggle('bg-transparent', true);
+        link.classList.toggle('border-2', true);
+        link.classList.toggle('border-brand-sand', true);
+        link.classList.toggle('text-brand-forest', true);
+        link.classList.toggle('hover:border-brand-gold', true);
+        link.classList.toggle('hover:text-brand-gold', true);
+      }
+    });
+
+    const allTopicsLink = container.querySelector('[data-all-topics]');
+    if (!allTopicsLink) return;
+
+    allTopicsLink.classList.remove('bg-brand-forest', 'text-white');
+    allTopicsLink.classList.add(
+      'bg-transparent',
+      'border-2',
+      'border-brand-sand',
+      'text-brand-forest',
+      'hover:border-brand-gold',
+      'hover:text-brand-gold'
+    );
+  };
+
+  document.querySelectorAll('[data-topic-filter]').forEach(setTopicFilterState);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Blog topic filter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "all_label",
+      "label": "All label",
+      "default": "All Articles"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "topic",
+      "name": "Topic",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Current Read"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Blog tag",
+          "default": "Current Read"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog topic filter",
+      "blocks": [
+        {
+          "type": "topic"
+        },
+        {
+          "type": "topic",
+          "settings": {
+            "label": "Artifact Spotlight",
+            "tag": "Artifact Spotlight"
+          }
+        },
+        {
+          "type": "topic",
+          "settings": {
+            "label": "Magic of Life",
+            "tag": "Magic of Life"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

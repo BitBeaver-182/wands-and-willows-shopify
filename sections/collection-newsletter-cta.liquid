@@ -1,8 +1,26 @@
-<section id="newsletter-cta" class="py-12 lg:py-20 bg-brand-forest text-brand-parchment">
+{%- liquid
+  assign background_style = section.settings.background_style | default: 'forest'
+  assign section_classes = 'py-12 lg:py-20'
+  assign icon_class = 'text-brand-gold'
+  assign heading_class = 'text-brand-parchment'
+  assign body_class = 'text-brand-sand'
+  assign input_class = 'bg-white/10 border-white/20 text-brand-parchment placeholder-brand-sand/50'
+
+  if background_style == 'parchment'
+    assign section_classes = section_classes | append: ' bg-brand-parchment'
+    assign heading_class = 'text-brand-forest'
+    assign body_class = 'text-brand-muted'
+    assign input_class = 'bg-white border-brand-sand text-brand-text placeholder-brand-muted/70'
+  else
+    assign section_classes = section_classes | append: ' bg-brand-forest text-brand-parchment'
+  endif
+-%}
+
+<section id="newsletter-cta" class="{{ section_classes }}">
   <div class="max-w-4xl mx-auto px-4 lg:px-6 text-center">
-    <i class="fa-solid fa-envelope-open-text text-brand-gold text-3xl mb-6" aria-hidden="true"></i>
-    <h2 class="font-heading text-3xl mb-4">{{ section.settings.title }}</h2>
-    <p class="font-body text-brand-sand text-sm lg:text-base mb-8 max-w-2xl mx-auto">
+    <i class="fa-solid fa-feather {{ icon_class }} text-3xl mb-6" aria-hidden="true"></i>
+    <h2 class="font-heading text-3xl {{ heading_class }} mb-4">{{ section.settings.title }}</h2>
+    <p class="font-body {{ body_class }} text-sm lg:text-base mb-8 max-w-2xl mx-auto">
       {{ section.settings.body }}
     </p>
 
@@ -16,7 +34,7 @@
         autocomplete="email"
         aria-label="{{ 'blocks.email_signup.label' | t }}"
         placeholder="{{ section.settings.placeholder }}"
-        class="flex-grow bg-white/10 border border-white/20 rounded-sm px-6 py-3 text-brand-parchment placeholder-brand-sand/50 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all"
+        class="flex-grow border rounded-sm px-6 py-3 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all {{ input_class }}"
       >
       {% render 'landing-button',
         label: section.settings.button_label,
@@ -37,6 +55,22 @@
   "tag": "section",
   "class": "collection-newsletter-cta",
   "settings": [
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background style",
+      "options": [
+        {
+          "value": "forest",
+          "label": "Forest"
+        },
+        {
+          "value": "parchment",
+          "label": "Parchment"
+        }
+      ],
+      "default": "forest"
+    },
     {
       "type": "text",
       "id": "title",

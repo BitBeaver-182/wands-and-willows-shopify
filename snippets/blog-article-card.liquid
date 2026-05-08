@@ -1,0 +1,69 @@
+{%- doc -%}
+  Shared article card used across landing and blog surfaces.
+
+  @param {object} article - Shopify article
+  @param {string} [surface] - `parchment` or `white`
+  @param {string} [layout] - `grid` or `horizontal`
+  @param {boolean} [show_meta] - Show publish date and author metadata
+  @param {string} [badge_text] - Override badge text
+  @param {string} [read_label] - Override CTA label
+  @param {string} [image_height_class] - Override image height classes for grid layout
+{%- enddoc -%}
+
+{%- liquid
+  assign surface = surface | default: 'parchment'
+  assign layout = layout | default: 'grid'
+  assign show_meta = show_meta
+  assign card_bg = 'bg-brand-parchment'
+  if surface == 'white'
+    assign card_bg = 'bg-white'
+  endif
+  if show_meta == blank
+    assign show_meta = true
+  endif
+  assign primary_tag = badge_text | default: article.tags.first | default: blog.title
+  assign cta_label = read_label | strip
+  if cta_label == blank
+    assign cta_label = 'content.read_more' | t
+  endif
+  assign image_height_class = image_height_class | default: 'h-56 md:h-72'
+-%}
+
+<article class="{{ card_bg }} rounded-sm overflow-hidden card-hover{% if layout == 'horizontal' %} flex flex-col lg:flex-row{% endif %}">
+  <a href="{{ article.url }}" class="{% if layout == 'horizontal' %}lg:w-2/5 h-56 lg:h-auto{% else %}{{ image_height_class }}{% endif %} overflow-hidden block">
+    {% if article.image != blank %}
+      {{
+        article.image
+        | image_url: width: 900
+        | image_tag:
+          class: 'w-full h-full object-cover transition-transform duration-500 hover:scale-105',
+          loading: 'lazy',
+          alt: article.image.alt | default: article.title
+      }}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover text-brand-sand bg-white' }}
+    {% endif %}
+  </a>
+  <div class="{% if layout == 'horizontal' %}lg:w-3/5{% endif %} p-5 lg:p-8 flex flex-col justify-center">
+    <span class="text-brand-gold text-[10px] lg:text-xs font-bold uppercase tracking-widest mb-3 block">{{ primary_tag }}</span>
+    <h2 class="font-heading text-lg lg:text-2xl text-brand-forest mb-3 lg:mb-4 leading-tight">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h2>
+    {% if show_meta %}
+      <div class="flex flex-wrap items-center gap-3 lg:gap-4 mb-3 lg:mb-4 text-xs text-brand-muted">
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'abbreviated_date' }}</time>
+        <span aria-hidden="true">•</span>
+        <span>{{ article.author }}</span>
+      </div>
+    {% endif %}
+    {% if article.excerpt_or_content != blank %}
+      <p class="font-body text-brand-text/80 text-sm mb-5 lg:mb-6 leading-relaxed">
+        {{ article.excerpt_or_content | strip_html | truncatewords: 24 }}
+      </p>
+    {% endif %}
+    <a href="{{ article.url }}" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+      {{ cta_label }}
+      <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+    </a>
+  </div>
+</article>

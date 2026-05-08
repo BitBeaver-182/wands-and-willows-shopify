@@ -9,7 +9,18 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {% for block in section.blocks %}
         {% if block.settings.article != blank %}
-          {% render 'landing-curators-desk-article-card', article: block.settings.article %}
+          {% liquid
+            assign badge_text = block.settings.article.metafields.blogpost.category.value | default: block.settings.article.blog.title
+          %}
+          {% render 'blog-article-card',
+            article: block.settings.article,
+            surface: 'white',
+            layout: 'grid',
+            show_meta: false,
+            badge_text: badge_text,
+            read_label: 'Read Article',
+            image_height_class: 'h-64'
+          %}
         {% endif %}
       {% endfor %}
     </div>

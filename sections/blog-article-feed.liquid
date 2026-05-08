@@ -1,0 +1,177 @@
+{% liquid
+  assign curated_count = 0
+  for block in section.blocks
+    if block.settings.article != blank
+      assign curated_count = curated_count | plus: 1
+    endif
+  endfor
+%}
+
+{% paginate blog.articles by section.settings.articles_per_page %}
+  <section id="article-feed" class="py-10 md:py-20 {% if section.settings.surface == 'white' %}bg-white{% else %}bg-brand-parchment{% endif %}">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+      <div class="mb-8 md:mb-12">
+        <div class="flex items-center gap-3 md:gap-4 mb-2 md:mb-4">
+          <i class="{{ section.settings.icon }} text-brand-gold text-xl md:text-2xl" aria-hidden="true"></i>
+          <h2 class="font-heading text-2xl md:text-3xl text-brand-forest">{{ section.settings.heading }}</h2>
+        </div>
+        <p class="font-body text-sm md:text-base text-brand-muted">{{ section.settings.text }}</p>
+      </div>
+
+      <div class="{% if section.settings.layout == 'horizontal' %}grid grid-cols-1 lg:grid-cols-2{% else %}grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3{% endif %} gap-6 md:gap-8">
+        {% if curated_count > 0 %}
+          {% for block in section.blocks %}
+            {% if block.settings.article != blank %}
+              {% render 'blog-article-card',
+                article: block.settings.article,
+                surface: section.settings.card_surface,
+                layout: section.settings.layout
+              %}
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {% for article in blog.articles %}
+            {% render 'blog-article-card',
+              article: article,
+              surface: section.settings.card_surface,
+              layout: section.settings.layout
+            %}
+          {% else %}
+            <div class="bg-white border border-brand-sand rounded-sm p-8">
+              <p class="font-body text-brand-muted">{{ 'content.no_results_found' | t }}</p>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      {% if curated_count == 0 and paginate.pages > 1 %}
+        <nav class="flex items-center justify-center gap-3 mt-12" aria-label="{{ 'content.pagination.nav_label' | t }}">
+          {% if paginate.previous %}
+            <a href="{{ paginate.previous.url }}" class="px-5 py-3 border border-brand-sand text-brand-forest rounded-sm hover:border-brand-gold transition-colors">
+              {{ 'content.pagination.previous' | t }}
+            </a>
+          {% endif %}
+          <span class="font-body text-sm text-brand-muted">{{ 'content.pagination.page' | t: page: paginate.current_page }}</span>
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}" class="px-5 py-3 border border-brand-sand text-brand-forest rounded-sm hover:border-brand-gold transition-colors">
+              {{ 'content.pagination.next' | t }}
+            </a>
+          {% endif %}
+        </nav>
+      {% endif %}
+    </div>
+  </section>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Blog article feed",
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "article_card",
+      "name": "Article card",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Article"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icon class",
+      "default": "fa-solid fa-book-open"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Current Read"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Literary explorations and magical bibliographies"
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Surface",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "parchment",
+          "label": "Parchment"
+        }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "card_surface",
+      "label": "Card surface",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "parchment",
+          "label": "Parchment"
+        }
+      ],
+      "default": "parchment"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "label": "Articles per page",
+      "min": 3,
+      "max": 24,
+      "step": 1,
+      "default": 9
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog article feed",
+      "blocks": [
+        {
+          "type": "article_card"
+        },
+        {
+          "type": "article_card"
+        },
+        {
+          "type": "article_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
