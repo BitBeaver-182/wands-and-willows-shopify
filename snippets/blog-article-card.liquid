@@ -22,7 +22,10 @@
     assign show_meta = true
   endif
   assign primary_tag = badge_text | default: article.tags.first | default: blog.title
-  assign cta_label = read_label | default: 'content.read_more' | t
+  assign cta_label = read_label | strip
+  if cta_label == blank
+    assign cta_label = 'content.read_more' | t
+  endif
   assign image_height_class = image_height_class | default: 'h-56 md:h-72'
 -%}
 

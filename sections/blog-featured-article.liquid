@@ -1,8 +1,36 @@
 {%- liquid
-  assign featured_article = section.settings.article | default: blog.articles.first
+  assign active_tag_handle = blank
+  if current_tags != blank
+    assign active_tag_handle = current_tags | first | handleize
+  endif
+
+  assign archive_slug = blank
+  if request.query_string != blank and request.query_string contains 'archive='
+    assign query_parts = request.query_string | split: '&'
+    for part in query_parts
+      if part contains 'archive='
+        assign archive_slug = part | remove: 'archive=' | split: '#' | first | url_decode
+      endif
+    endfor
+  endif
+
+  assign featured_article = section.settings.article
+
+  if featured_article == blank and section.settings.featured_tag != blank
+    for article in blog.articles
+      if article.tags contains section.settings.featured_tag
+        assign featured_article = article
+        break
+      endif
+    endfor
+  endif
+
+  if featured_article == blank
+    assign featured_article = blog.articles.first
+  endif
 -%}
 
-{% if featured_article != blank %}
+{% if featured_article != blank and active_tag_handle == blank and archive_slug == blank %}
   <section id="featured-article" class="py-8 md:py-20 bg-brand-parchment">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
       <div class="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
@@ -61,6 +89,12 @@
       "type": "article",
       "id": "article",
       "label": "Article"
+    },
+    {
+      "type": "text",
+      "id": "featured_tag",
+      "label": "Fallback featured tag",
+      "default": "Artifact Spotlight"
     },
     {
       "type": "text",

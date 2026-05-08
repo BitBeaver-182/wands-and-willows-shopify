@@ -1,0 +1,350 @@
+{% liquid
+  assign active_tag_handle = blank
+  if current_tags != blank
+    assign active_tag_handle = current_tags | first | handleize
+  endif
+
+  assign archive_slug = blank
+  if request.query_string != blank and request.query_string contains 'archive='
+    assign query_parts = request.query_string | split: '&'
+    for part in query_parts
+      if part contains 'archive='
+        assign archive_slug = part | remove: 'archive=' | split: '#' | first | url_decode
+      endif
+    endfor
+  endif
+
+  assign section_tag = section.settings.tag | strip
+  assign section_tag_handle = section_tag | handleize
+  assign is_archive_state = false
+  assign is_topic_state = false
+  assign is_all_state = false
+  assign should_render = false
+
+  if archive_slug != blank
+    assign is_archive_state = true
+  endif
+
+  if active_tag_handle != blank
+    assign is_topic_state = true
+  endif
+
+  if is_topic_state == false and is_archive_state == false
+    assign is_all_state = true
+  endif
+
+  if is_all_state
+    assign should_render = true
+  elsif active_tag_handle == section_tag_handle
+    assign should_render = true
+  endif
+
+  assign article_limit = section.settings.all_articles_limit
+  if is_all_state == false
+    assign article_limit = section.settings.filtered_articles_limit
+  endif
+
+  assign section_surface_class = 'bg-white'
+  if section.settings.surface == 'parchment'
+    assign section_surface_class = 'bg-brand-parchment'
+  endif
+
+  assign card_surface = section.settings.card_surface
+  assign cta_label = section.settings.read_label | strip
+%}
+
+{% if should_render %}
+  {% liquid
+    assign article_count = 0
+    for article in blog.articles
+      assign include_article = true
+
+      if is_all_state
+        unless article.tags contains section_tag
+          assign include_article = false
+        endunless
+      endif
+
+      assign article_archive_slug = article.published_at | date: '%Y-%m'
+      if archive_slug != blank and article_archive_slug != archive_slug
+        assign include_article = false
+      endif
+
+      if include_article
+        assign article_count = article_count | plus: 1
+      endif
+    endfor
+  %}
+
+  <section id="topic-{{ section_tag_handle }}" class="py-8 md:py-20 {{ section_surface_class }}">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+      <div class="mb-8 md:mb-12">
+        <div class="flex items-center gap-3 md:gap-4 mb-2 md:mb-4">
+          <i class="{{ section.settings.icon }} text-brand-gold text-xl md:text-2xl" aria-hidden="true"></i>
+          <h2 class="font-heading text-2xl md:text-3xl text-brand-forest">{{ section.settings.heading }}</h2>
+        </div>
+        {% if section.settings.text != blank %}
+          <p class="font-body text-sm md:text-base text-brand-muted">{{ section.settings.text }}</p>
+        {% endif %}
+      </div>
+
+      {% if article_count > 0 %}
+        {% if section.settings.layout_variant == 'horizontal-editorial' %}
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            {% assign rendered_count = 0 %}
+            {% for article in blog.articles %}
+              {% liquid
+                assign include_article = true
+
+                if is_all_state
+                  unless article.tags contains section_tag
+                    assign include_article = false
+                  endunless
+                endif
+
+                assign article_archive_slug = article.published_at | date: '%Y-%m'
+                if archive_slug != blank and article_archive_slug != archive_slug
+                  assign include_article = false
+                endif
+              %}
+              {% if include_article and rendered_count < article_limit %}
+                {% render 'blog-article-card',
+                  article: article,
+                  surface: card_surface,
+                  layout: 'horizontal',
+                  read_label: cta_label
+                %}
+                {% assign rendered_count = rendered_count | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% elsif section.settings.layout_variant == 'mixed-editorial' %}
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-12">
+            {% assign rendered_count = 0 %}
+            {% for article in blog.articles %}
+              {% liquid
+                assign include_article = true
+
+                if is_all_state
+                  unless article.tags contains section_tag
+                    assign include_article = false
+                  endunless
+                endif
+
+                assign article_archive_slug = article.published_at | date: '%Y-%m'
+                if archive_slug != blank and article_archive_slug != archive_slug
+                  assign include_article = false
+                endif
+              %}
+              {% if include_article and rendered_count < article_limit and rendered_count < 2 %}
+                {% render 'blog-article-card',
+                  article: article,
+                  surface: card_surface,
+                  layout: 'grid',
+                  read_label: cta_label,
+                  image_height_class: 'h-64 md:h-80'
+                %}
+                {% assign rendered_count = rendered_count | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          {% if article_count > 2 %}
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              {% assign rendered_count = 0 %}
+              {% for article in blog.articles %}
+                {% liquid
+                  assign include_article = true
+
+                  if is_all_state
+                    unless article.tags contains section_tag
+                      assign include_article = false
+                    endunless
+                  endif
+
+                  assign article_archive_slug = article.published_at | date: '%Y-%m'
+                  if archive_slug != blank and article_archive_slug != archive_slug
+                    assign include_article = false
+                  endif
+                %}
+                {% if include_article %}
+                  {% assign rendered_count = rendered_count | plus: 1 %}
+                  {% if rendered_count > 2 and rendered_count <= article_limit %}
+                    <article class="bg-brand-parchment rounded-sm p-5 md:p-6 card-hover">
+                      <span class="text-brand-gold text-[10px] md:text-xs font-bold uppercase tracking-widest mb-2 md:mb-3 block">
+                        {{ article.tags.first | default: section.settings.heading }}
+                      </span>
+                      <h3 class="font-heading text-base md:text-xl text-brand-forest mb-2 md:mb-3 leading-tight">
+                        <a href="{{ article.url }}">{{ article.title }}</a>
+                      </h3>
+                      <div class="flex flex-wrap items-center gap-3 md:gap-4 mb-2 md:mb-3 text-xs text-brand-muted">
+                        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'abbreviated_date' }}</time>
+                        <span aria-hidden="true">•</span>
+                        <span>{{ article.author }}</span>
+                      </div>
+                      {% if article.excerpt_or_content != blank %}
+                        <p class="font-body text-brand-text/80 text-sm mb-3 md:mb-4 leading-relaxed">
+                          {{ article.excerpt_or_content | strip_html | truncatewords: 16 }}
+                        </p>
+                      {% endif %}
+                      <a href="{{ article.url }}" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                        {{ cta_label }}
+                        <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+                      </a>
+                    </article>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% else %}
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {% assign rendered_count = 0 %}
+            {% for article in blog.articles %}
+              {% liquid
+                assign include_article = true
+
+                if is_all_state
+                  unless article.tags contains section_tag
+                    assign include_article = false
+                  endunless
+                endif
+
+                assign article_archive_slug = article.published_at | date: '%Y-%m'
+                if archive_slug != blank and article_archive_slug != archive_slug
+                  assign include_article = false
+                endif
+              %}
+              {% if include_article and rendered_count < article_limit %}
+                {% render 'blog-article-card',
+                  article: article,
+                  surface: card_surface,
+                  layout: 'grid',
+                  read_label: cta_label
+                %}
+                {% assign rendered_count = rendered_count | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="bg-white border border-brand-sand rounded-sm p-8">
+          <p class="font-body text-brand-muted">{{ 'content.no_results_found' | t }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Blog topic section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Current Read"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Blog tag",
+      "default": "Current Read"
+    },
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icon class",
+      "default": "fa-solid fa-book-open"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Intro text",
+      "default": "Literary explorations and magical bibliographies"
+    },
+    {
+      "type": "text",
+      "id": "read_label",
+      "label": "Read link label",
+      "default": "Continue Reading"
+    },
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Section surface",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "parchment",
+          "label": "Parchment"
+        }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "card_surface",
+      "label": "Card surface",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "parchment",
+          "label": "Parchment"
+        }
+      ],
+      "default": "parchment"
+    },
+    {
+      "type": "select",
+      "id": "layout_variant",
+      "label": "Layout variant",
+      "options": [
+        {
+          "value": "standard-grid",
+          "label": "Standard grid"
+        },
+        {
+          "value": "horizontal-editorial",
+          "label": "Horizontal editorial"
+        },
+        {
+          "value": "mixed-editorial",
+          "label": "Mixed editorial"
+        }
+      ],
+      "default": "standard-grid"
+    },
+    {
+      "type": "range",
+      "id": "all_articles_limit",
+      "label": "All articles preview count",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "filtered_articles_limit",
+      "label": "Filtered page article count",
+      "min": 1,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog topic section"
+    }
+  ]
+}
+{% endschema %}

@@ -56,54 +56,75 @@
       "type": "blog-featured-article",
       "settings": {
         "article": "",
+        "featured_tag": "Artifact Spotlight",
         "badge": "Featured",
         "button_label": "Read Full Article"
       }
     },
-    "feed": {
-      "type": "blog-article-feed",
-      "blocks": {
-        "current_read_article_1": {
-          "type": "article_card",
-          "settings": {
-            "article": ""
-          }
-        },
-        "current_read_article_2": {
-          "type": "article_card",
-          "settings": {
-            "article": ""
-          }
-        },
-        "current_read_article_3": {
-          "type": "article_card",
-          "settings": {
-            "article": ""
-          }
-        }
-      },
-      "block_order": [
-        "current_read_article_1",
-        "current_read_article_2",
-        "current_read_article_3"
-      ],
+    "current_read": {
+      "type": "blog-topic-section",
       "settings": {
         "icon": "fa-solid fa-book-open",
         "heading": "Current Read",
+        "tag": "Current Read",
         "text": "Literary explorations and magical bibliographies",
+        "read_label": "Continue Reading",
         "surface": "white",
         "card_surface": "parchment",
-        "layout": "grid",
-        "articles_per_page": 9
+        "layout_variant": "standard-grid",
+        "all_articles_limit": 3,
+        "filtered_articles_limit": 12
+      }
+    },
+    "artifact_spotlight": {
+      "type": "blog-topic-section",
+      "settings": {
+        "icon": "fa-solid fa-gem",
+        "heading": "Artifact Spotlight",
+        "tag": "Artifact Spotlight",
+        "text": "Examining legendary objects and their stories",
+        "read_label": "Explore Artifact",
+        "surface": "parchment",
+        "card_surface": "white",
+        "layout_variant": "horizontal-editorial",
+        "all_articles_limit": 4,
+        "filtered_articles_limit": 12
+      }
+    },
+    "magic_of_life": {
+      "type": "blog-topic-section",
+      "settings": {
+        "icon": "fa-solid fa-sparkles",
+        "heading": "Magic of Life",
+        "tag": "Magic of Life",
+        "text": "Bringing enchantment into everyday moments",
+        "read_label": "Discover More",
+        "surface": "white",
+        "card_surface": "parchment",
+        "layout_variant": "mixed-editorial",
+        "all_articles_limit": 5,
+        "filtered_articles_limit": 12
+      }
+    },
+    "archives": {
+      "type": "blog-archives",
+      "settings": {
+        "heading": "Explore the Archives",
+        "text": "Browse past editions by month and topic",
+        "results_kicker": "Archive selection",
+        "clear_archive_label": "View all articles",
+        "results_read_label": "Read More",
+        "max_archives": 6,
+        "results_limit": 9
       }
     },
     "newsletter": {
       "type": "collection-newsletter-cta",
       "settings": {
-        "kicker_icon": "fa-solid fa-envelope-open-text",
-        "heading": "Stay Connected to the Magic",
-        "text": "Subscribe for new stories, magical findings, and exclusive collection notes.",
-        "disclaimer": "By subscribing, you agree to receive marketing emails. Unsubscribe anytime.",
+        "background_style": "parchment",
+        "title": "Never Miss an Entry",
+        "body": "Subscribe to receive new articles from The Curator's Desk delivered directly to your inbox every week.",
+        "placeholder": "Enter your email address",
         "button_label": "Subscribe"
       }
     }
@@ -112,7 +133,10 @@
     "hero",
     "topics",
     "featured",
-    "feed",
+    "current_read",
+    "artifact_spotlight",
+    "magic_of_life",
+    "archives",
     "newsletter"
   ]
 }
