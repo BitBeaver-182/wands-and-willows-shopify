@@ -62,6 +62,31 @@
     },
     "feed": {
       "type": "blog-article-feed",
+      "blocks": {
+        "current_read_article_1": {
+          "type": "article_card",
+          "settings": {
+            "article": ""
+          }
+        },
+        "current_read_article_2": {
+          "type": "article_card",
+          "settings": {
+            "article": ""
+          }
+        },
+        "current_read_article_3": {
+          "type": "article_card",
+          "settings": {
+            "article": ""
+          }
+        }
+      },
+      "block_order": [
+        "current_read_article_1",
+        "current_read_article_2",
+        "current_read_article_3"
+      ],
       "settings": {
         "icon": "fa-solid fa-book-open",
         "heading": "Current Read",

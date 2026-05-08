@@ -1,3 +1,12 @@
+{% liquid
+  assign curated_count = 0
+  for block in section.blocks
+    if block.settings.article != blank
+      assign curated_count = curated_count | plus: 1
+    endif
+  endfor
+%}
+
 {% paginate blog.articles by section.settings.articles_per_page %}
   <section id="article-feed" class="py-10 md:py-20 {% if section.settings.surface == 'white' %}bg-white{% else %}bg-brand-parchment{% endif %}">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
@@ -10,20 +19,32 @@
       </div>
 
       <div class="{% if section.settings.layout == 'horizontal' %}grid grid-cols-1 lg:grid-cols-2{% else %}grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3{% endif %} gap-6 md:gap-8">
-        {% for article in blog.articles %}
-          {% render 'blog-article-card',
-            article: article,
-            surface: section.settings.card_surface,
-            layout: section.settings.layout
-          %}
+        {% if curated_count > 0 %}
+          {% for block in section.blocks %}
+            {% if block.settings.article != blank %}
+              {% render 'blog-article-card',
+                article: block.settings.article,
+                surface: section.settings.card_surface,
+                layout: section.settings.layout
+              %}
+            {% endif %}
+          {% endfor %}
         {% else %}
-          <div class="bg-white border border-brand-sand rounded-sm p-8">
-            <p class="font-body text-brand-muted">{{ 'content.no_results_found' | t }}</p>
-          </div>
-        {% endfor %}
+          {% for article in blog.articles %}
+            {% render 'blog-article-card',
+              article: article,
+              surface: section.settings.card_surface,
+              layout: section.settings.layout
+            %}
+          {% else %}
+            <div class="bg-white border border-brand-sand rounded-sm p-8">
+              <p class="font-body text-brand-muted">{{ 'content.no_results_found' | t }}</p>
+            </div>
+          {% endfor %}
+        {% endif %}
       </div>
 
-      {% if paginate.pages > 1 %}
+      {% if curated_count == 0 and paginate.pages > 1 %}
         <nav class="flex items-center justify-center gap-3 mt-12" aria-label="{{ 'content.pagination.nav_label' | t }}">
           {% if paginate.previous %}
             <a href="{{ paginate.previous.url }}" class="px-5 py-3 border border-brand-sand text-brand-forest rounded-sm hover:border-brand-gold transition-colors">
@@ -45,6 +66,20 @@
 {% schema %}
 {
   "name": "Blog article feed",
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "article_card",
+      "name": "Article card",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Article"
+        }
+      ]
+    }
+  ],
   "settings": [
     {
       "type": "text",
@@ -124,7 +159,18 @@
   ],
   "presets": [
     {
-      "name": "Blog article feed"
+      "name": "Blog article feed",
+      "blocks": [
+        {
+          "type": "article_card"
+        },
+        {
+          "type": "article_card"
+        },
+        {
+          "type": "article_card"
+        }
+      ]
     }
   ]
 }
