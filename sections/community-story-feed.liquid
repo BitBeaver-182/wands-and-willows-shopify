@@ -1,0 +1,109 @@
+<section id="featured-stories" class="py-16 md:py-24 bg-brand-parchment">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="font-heading text-4xl text-brand-forest mb-4">{{ section.settings.heading }}</h2>
+      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+      <p class="font-body text-brand-muted max-w-2xl mx-auto">{{ section.settings.text }}</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+      {% for block in section.blocks %}
+        <article class="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-lg transition-shadow" {{ block.shopify_attributes }}>
+          <div class="h-72 md:h-80 overflow-hidden">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 1000
+                | image_tag:
+                  class: 'w-full h-full object-cover transition-transform duration-500 hover:scale-105',
+                  loading: 'lazy',
+                  alt: block.settings.image.alt | default: block.settings.title
+              }}
+            {% else %}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover text-brand-sand bg-brand-parchment' }}
+            {% endif %}
+          </div>
+          <div class="p-6 md:p-8">
+            <div class="flex items-center gap-4 mb-4">
+              {% if block.settings.avatar != blank %}
+                {{
+                  block.settings.avatar
+                  | image_url: width: 120
+                  | image_tag:
+                    class: 'w-12 h-12 rounded-full object-cover',
+                    loading: 'lazy',
+                    alt: block.settings.author
+                }}
+              {% endif %}
+              <div>
+                <div class="font-body font-semibold text-brand-forest">{{ block.settings.author }}</div>
+                <div class="text-xs text-brand-muted">{{ block.settings.house }}</div>
+              </div>
+            </div>
+            <h3 class="font-heading text-2xl text-brand-forest mb-3">{{ block.settings.title }}</h3>
+            <p class="font-body text-brand-text/80 text-sm mb-6 leading-relaxed">{{ block.settings.excerpt }}</p>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <a href="{{ block.settings.link }}" class="text-brand-forest font-medium text-sm hover:text-brand-gold flex items-center gap-2 transition-colors">
+                {{ section.settings.read_label }} <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+              </a>
+              <div class="flex items-center gap-4 text-brand-muted text-sm">
+                <span><i class="fa-regular fa-heart" aria-hidden="true"></i> {{ block.settings.likes }}</span>
+                <span><i class="fa-regular fa-comment" aria-hidden="true"></i> {{ block.settings.comments }}</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.button_label != blank %}
+      <div class="text-center">
+        {% render 'landing-button',
+          label: section.settings.button_label,
+          link: section.settings.button_link,
+          style: 'secondary',
+          class: 'px-8 py-3'
+        %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Community story feed",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Featured Stories" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Discover how our community members weave magic into their daily lives." },
+    { "type": "text", "id": "read_label", "label": "Read label", "default": "Read Full Story" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "View All Stories" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "story_card",
+      "name": "Story card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" },
+        { "type": "text", "id": "author", "label": "Author", "default": "Sarah M." },
+        { "type": "text", "id": "house", "label": "House", "default": "House of Wisdom" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Creating My Personal Library Sanctuary" },
+        { "type": "textarea", "id": "excerpt", "label": "Excerpt", "default": "After years of collecting, I finally transformed my spare room into the magical library I've always dreamed of." },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "likes", "label": "Likes", "default": "342" },
+        { "type": "text", "id": "comments", "label": "Comments", "default": "28" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Community story feed",
+      "blocks": [
+        { "type": "story_card" },
+        { "type": "story_card", "settings": { "author": "Marcus T.", "house": "House of Ambition", "title": "My Monthly Ritual Space", "likes": "287", "comments": "19" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

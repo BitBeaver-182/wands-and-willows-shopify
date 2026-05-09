@@ -1,0 +1,89 @@
+<section id="upcoming-events" class="py-16 md:py-24 bg-brand-parchment">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="font-heading text-4xl text-brand-forest mb-4">{{ section.settings.heading }}</h2>
+      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6"></div>
+      <p class="font-body text-brand-muted max-w-2xl mx-auto">{{ section.settings.text }}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for block in section.blocks %}
+        <div class="bg-white rounded-sm p-6 lg:p-8 border border-brand-sand/50 hover:shadow-lg transition-shadow" {{ block.shopify_attributes }}>
+          <div class="flex items-start gap-4 mb-6">
+            <div class="bg-brand-forest text-white rounded-sm p-4 text-center min-w-[70px]">
+              <div class="text-2xl font-heading">{{ block.settings.day }}</div>
+              <div class="text-xs uppercase tracking-wider">{{ block.settings.month }}</div>
+            </div>
+            <div class="flex-1">
+              <span class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-2 block">{{ block.settings.kicker }}</span>
+              <h3 class="font-heading text-xl text-brand-forest mb-2">{{ block.settings.title }}</h3>
+              <p class="text-brand-muted text-sm mb-3">{{ block.settings.text }}</p>
+              <div class="flex items-center gap-2 text-brand-muted text-xs">
+                <i class="{{ block.settings.meta_icon }}" aria-hidden="true"></i>
+                <span>{{ block.settings.meta }}</span>
+              </div>
+            </div>
+          </div>
+          {% render 'landing-button',
+            label: block.settings.button_label,
+            link: block.settings.button_link,
+            style: 'primary',
+            palette: 'forest',
+            full_width: true,
+            class: 'py-3 text-sm'
+          %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.button_label != blank %}
+      <div class="mt-12 text-center">
+        {% render 'landing-button',
+          label: section.settings.button_label,
+          link: section.settings.button_link,
+          style: 'secondary',
+          class: 'px-8 py-3'
+        %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Community events feed",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Upcoming Events" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Join us for magical gatherings, workshops, and community celebrations." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "View All Events" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "event_card",
+      "name": "Event card",
+      "settings": [
+        { "type": "text", "id": "day", "label": "Day", "default": "15" },
+        { "type": "text", "id": "month", "label": "Month", "default": "Jan" },
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Virtual Workshop" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Wand Crafting 101" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Learn the basics of wand making with our master artisan." },
+        { "type": "text", "id": "meta_icon", "label": "Meta icon", "default": "fa-regular fa-clock" },
+        { "type": "text", "id": "meta", "label": "Meta", "default": "7:00 PM EST" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Register Now" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Community events feed",
+      "blocks": [
+        { "type": "event_card" },
+        { "type": "event_card", "settings": { "day": "22", "kicker": "Book Club", "title": "Monthly Read Discussion", "meta": "6:00 PM EST" } },
+        { "type": "event_card", "settings": { "day": "28", "kicker": "In-Person", "title": "House Cup Trivia Night", "meta_icon": "fa-solid fa-location-dot", "meta": "Salem, MA" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

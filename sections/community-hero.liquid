@@ -1,0 +1,91 @@
+<section id="community-hero" class="relative w-full h-[520px] md:h-[600px] flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    {% if section.settings.image != blank %}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'w-full h-full object-cover',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: section.settings.image.alt | default: section.settings.heading
+      }}
+    {% else %}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'w-full h-full object-cover text-brand-sand bg-brand-dark' }}
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-dark/50 to-brand-forest/90"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center text-brand-parchment">
+    <span class="block text-brand-gold font-body tracking-[0.2em] text-xs md:text-sm mb-4 uppercase">{{ section.settings.kicker }}</span>
+    <h1 class="font-heading text-4xl md:text-7xl font-bold mb-6 leading-tight">{{ section.settings.heading }}</h1>
+    <p class="font-body text-base md:text-xl mb-10 text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">{{ section.settings.text }}</p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      {% for block in section.blocks %}
+        {% render 'landing-button',
+          label: block.settings.label,
+          link: block.settings.link,
+          style: block.settings.style,
+          tone: 'dark',
+          palette: block.settings.palette,
+          full_width: true,
+          class: 'sm:w-auto',
+          open_in_new_tab: block.settings.open_in_new_tab
+        %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Community hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Welcome Home" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Common Room" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "A gathering place for kindred spirits who believe in the magic of everyday moments. Share your story, find inspiration, and connect with fellow enchanters." }
+  ],
+  "blocks": [
+    {
+      "type": "cta_button",
+      "name": "CTA button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Share Your Magic" },
+        { "type": "url", "id": "link", "label": "Link" },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "primary", "label": "Primary" },
+            { "value": "secondary", "label": "Secondary" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "select",
+          "id": "palette",
+          "label": "Palette",
+          "options": [
+            { "value": "auto", "label": "Auto" },
+            { "value": "gold", "label": "Gold" },
+            { "value": "forest", "label": "Forest" }
+          ],
+          "default": "gold"
+        },
+        { "type": "checkbox", "id": "open_in_new_tab", "label": "Open in new tab", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Community hero",
+      "blocks": [
+        { "type": "cta_button" },
+        { "type": "cta_button", "settings": { "label": "Join the Circle", "style": "secondary", "palette": "auto" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
