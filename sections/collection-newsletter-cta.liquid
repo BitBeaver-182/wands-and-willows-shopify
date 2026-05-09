@@ -24,27 +24,43 @@
       {{ section.settings.body }}
     </p>
 
-    {% form 'customer', class: 'flex flex-col sm:flex-row gap-4 max-w-xl mx-auto' %}
+    {% form 'customer', class: 'flex flex-col gap-4 max-w-xl mx-auto' %}
       <input type="hidden" name="contact[tags]" value="newsletter">
-      <label class="sr-only" for="CollectionNewsletterEmail-{{ section.id }}">{{ 'blocks.email_signup.label' | t }}</label>
-      <input
-        id="CollectionNewsletterEmail-{{ section.id }}"
-        type="email"
-        name="contact[email]"
-        autocomplete="email"
-        aria-label="{{ 'blocks.email_signup.label' | t }}"
-        placeholder="{{ section.settings.placeholder }}"
-        class="flex-grow border rounded-sm px-6 py-3 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all {{ input_class }}"
-      >
-      {% render 'landing-button',
-        label: section.settings.button_label,
-        style: 'primary',
-        tone: 'dark',
-        palette: 'gold',
-        element: 'button',
-        type: 'submit',
-        class: 'whitespace-nowrap'
-      %}
+      {% if section.settings.show_name_field %}
+        <div>
+          <label class="sr-only" for="CollectionNewsletterFirstName-{{ section.id }}">{{ section.settings.first_name_label }}</label>
+          <input
+            id="CollectionNewsletterFirstName-{{ section.id }}"
+            type="text"
+            name="contact[first_name]"
+            autocomplete="given-name"
+            aria-label="{{ section.settings.first_name_label }}"
+            placeholder="{{ section.settings.first_name_placeholder }}"
+            class="w-full border rounded-sm px-6 py-3 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all {{ input_class }}"
+          >
+        </div>
+      {% endif %}
+      <div class="flex flex-col sm:flex-row gap-4">
+        <label class="sr-only" for="CollectionNewsletterEmail-{{ section.id }}">{{ 'blocks.email_signup.label' | t }}</label>
+        <input
+          id="CollectionNewsletterEmail-{{ section.id }}"
+          type="email"
+          name="contact[email]"
+          autocomplete="email"
+          aria-label="{{ 'blocks.email_signup.label' | t }}"
+          placeholder="{{ section.settings.placeholder }}"
+          class="flex-grow border rounded-sm px-6 py-3 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold font-body transition-all {{ input_class }}"
+        >
+        {% render 'landing-button',
+          label: section.settings.button_label,
+          style: 'primary',
+          tone: 'dark',
+          palette: 'gold',
+          element: 'button',
+          type: 'submit',
+          class: 'whitespace-nowrap'
+        %}
+      </div>
     {% endform %}
   </div>
 </section>
@@ -94,6 +110,24 @@
       "id": "button_label",
       "label": "Button label",
       "default": "Subscribe"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_name_field",
+      "label": "Show first name field",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "first_name_label",
+      "label": "First name label",
+      "default": "First name"
+    },
+    {
+      "type": "text",
+      "id": "first_name_placeholder",
+      "label": "First name placeholder",
+      "default": "Enter your first name"
     }
   ],
   "presets": [
