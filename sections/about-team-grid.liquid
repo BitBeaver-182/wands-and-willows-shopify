@@ -11,12 +11,16 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       {% for block in section.blocks %}
         <div class="text-center" {{ block.shopify_attributes }}>
-          <div class="w-40 h-40 lg:w-48 lg:h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-brand-gold/30 bg-white">
+          <div
+            class="about-team-grid__avatar w-[160px] h-[160px] lg:w-[192px] lg:h-[192px] mx-auto mb-4 rounded-full overflow-hidden border-4 border-brand-gold/30 bg-white shrink-0"
+          >
             {% if block.settings.image != blank %}
               {{
                 block.settings.image
-                | image_url: width: 600
-                | image_tag: loading: 'lazy', class: 'w-full h-full object-cover'
+                | image_url: width: 600, height: 600, crop: 'center'
+                | image_tag:
+                  loading: 'lazy',
+                  class: 'about-team-grid__avatar-image w-full h-full object-cover object-center'
               }}
             {% endif %}
           </div>
@@ -28,6 +32,33 @@
     </div>
   </div>
 </section>
+
+<style>
+  #shopify-section-{{ section.id }} .about-team-grid__avatar {
+    width: 160px !important;
+    height: 160px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 9999px !important;
+    overflow: hidden !important;
+  }
+
+  #shopify-section-{{ section.id }} .about-team-grid__avatar-image {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 9999px !important;
+    display: block !important;
+  }
+
+  @media screen and (min-width: 1024px) {
+    #shopify-section-{{ section.id }} .about-team-grid__avatar {
+      width: 192px !important;
+      height: 192px !important;
+    }
+  }
+</style>
 
 {% schema %}
 {
