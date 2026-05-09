@@ -10,13 +10,13 @@
 
     <div class="space-y-4 max-w-4xl mx-auto">
       {% for block in section.blocks %}
-        <details class="group bg-white border border-brand-sand/50 rounded-sm overflow-hidden" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
-          <summary class="w-full px-6 lg:px-8 py-5 lg:py-6 text-left flex justify-between items-center hover:bg-brand-sand/30 transition-colors cursor-pointer list-none">
+        <details class="group bg-white border border-brand-sand/50 rounded-sm overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(15,31,21,0.08)]" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary class="w-full px-8 lg:px-10 py-6 lg:py-7 text-left flex justify-between items-center gap-6 hover:bg-brand-sand/30 transition-colors cursor-pointer list-none">
             <h3 class="font-heading text-lg lg:text-xl text-brand-forest">{{ block.settings.question }}</h3>
             <i class="fa-solid fa-chevron-down text-brand-gold transition-transform group-open:rotate-180" aria-hidden="true"></i>
           </summary>
           {% if block.settings.answer != blank %}
-            <div class="px-6 lg:px-8 pb-6 font-body text-brand-text text-sm lg:text-base leading-relaxed">
+            <div class="px-8 lg:px-10 pb-8 lg:pb-9 font-body text-brand-text text-sm lg:text-base leading-relaxed">
               {{ block.settings.answer }}
             </div>
           {% endif %}

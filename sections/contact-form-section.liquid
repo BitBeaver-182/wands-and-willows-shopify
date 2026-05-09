@@ -1,7 +1,7 @@
 <section id="contact-form-section" class="py-24 bg-white">
   <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
-      <div class="lg:col-span-2 space-y-8">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 lg:items-start">
+      <div class="space-y-8">
         <div>
           <h2 class="font-heading text-4xl text-brand-forest mb-4">{{ section.settings.title }}</h2>
           <div class="w-16 h-0.5 bg-brand-gold mb-6"></div>
@@ -16,18 +16,14 @@
                 <div {{ block.shopify_attributes }}>
                   <h4 class="font-heading text-xl text-brand-forest mb-4">{{ block.settings.title }}</h4>
                   <div class="space-y-2 font-body text-sm text-brand-text">
-                    <div class="flex justify-between gap-4">
-                      <span class="text-brand-muted">{{ block.settings.row_1_label }}</span>
-                      <span class="font-medium text-right">{{ block.settings.row_1_value }}</span>
-                    </div>
-                    <div class="flex justify-between gap-4">
-                      <span class="text-brand-muted">{{ block.settings.row_2_label }}</span>
-                      <span class="font-medium text-right">{{ block.settings.row_2_value }}</span>
-                    </div>
-                    <div class="flex justify-between gap-4">
-                      <span class="text-brand-muted">{{ block.settings.row_3_label }}</span>
-                      <span class="font-medium text-right">{{ block.settings.row_3_value }}</span>
-                    </div>
+                    {% for hours_row in section.blocks %}
+                      {% if hours_row.type == 'business_hours_row' %}
+                        <div class="flex justify-between gap-4" {{ hours_row.shopify_attributes }}>
+                          <span class="text-brand-muted">{{ hours_row.settings.label }}</span>
+                          <span class="font-medium text-right">{{ hours_row.settings.value }}</span>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
                   </div>
                 </div>
               {% when 'socials' %}
@@ -61,7 +57,7 @@
         </div>
       </div>
 
-      <div class="lg:col-span-3">
+      <div>
         {% form 'contact', class: 'bg-brand-parchment p-6 lg:p-10 rounded-sm shadow-lg border border-brand-sand/30' %}
           {% if form.posted_successfully? %}
             <div class="mb-6 rounded-sm border border-brand-gold/40 bg-brand-gold/10 px-4 py-3 font-body text-sm text-brand-forest">
@@ -276,48 +272,32 @@
     {
       "type": "hours",
       "name": "Business hours",
+      "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "title",
           "label": "Title",
           "default": "Business Hours"
-        },
+        }
+      ]
+    },
+    {
+      "type": "business_hours_row",
+      "name": "Business hours row",
+      "limit": 7,
+      "settings": [
         {
           "type": "text",
-          "id": "row_1_label",
-          "label": "Row 1 label",
+          "id": "label",
+          "label": "Label",
           "default": "Monday - Friday"
         },
         {
           "type": "text",
-          "id": "row_1_value",
-          "label": "Row 1 value",
+          "id": "value",
+          "label": "Value",
           "default": "9:00 AM - 6:00 PM"
-        },
-        {
-          "type": "text",
-          "id": "row_2_label",
-          "label": "Row 2 label",
-          "default": "Saturday"
-        },
-        {
-          "type": "text",
-          "id": "row_2_value",
-          "label": "Row 2 value",
-          "default": "10:00 AM - 4:00 PM"
-        },
-        {
-          "type": "text",
-          "id": "row_3_label",
-          "label": "Row 3 label",
-          "default": "Sunday"
-        },
-        {
-          "type": "text",
-          "id": "row_3_value",
-          "label": "Row 3 value",
-          "default": "Closed"
         }
       ]
     },
@@ -360,6 +340,23 @@
       "blocks": [
         {
           "type": "hours"
+        },
+        {
+          "type": "business_hours_row"
+        },
+        {
+          "type": "business_hours_row",
+          "settings": {
+            "label": "Saturday",
+            "value": "10:00 AM - 4:00 PM"
+          }
+        },
+        {
+          "type": "business_hours_row",
+          "settings": {
+            "label": "Sunday",
+            "value": "Closed"
+          }
         },
         {
           "type": "socials"

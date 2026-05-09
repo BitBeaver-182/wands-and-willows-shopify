@@ -47,12 +47,33 @@
           "type": "hours",
           "settings": {}
         },
+        "hours_monday_friday": {
+          "type": "business_hours_row",
+          "settings": {
+            "label": "Monday - Friday",
+            "value": "9:00 AM - 6:00 PM"
+          }
+        },
+        "hours_saturday": {
+          "type": "business_hours_row",
+          "settings": {
+            "label": "Saturday",
+            "value": "10:00 AM - 4:00 PM"
+          }
+        },
+        "hours_sunday": {
+          "type": "business_hours_row",
+          "settings": {
+            "label": "Sunday",
+            "value": "Closed"
+          }
+        },
         "socials": {
           "type": "socials",
           "settings": {}
         }
       },
-      "block_order": ["hours", "socials"],
+      "block_order": ["hours", "hours_monday_friday", "hours_saturday", "hours_sunday", "socials"],
       "settings": {}
     },
     "faq": {
@@ -98,34 +119,7 @@
       "settings": {}
     },
     "newsletter": {
-      "type": "contact-newsletter",
-      "blocks": {
-        "early_access": {
-          "type": "benefit",
-          "settings": {
-            "text": "Early access to limited edition products"
-          }
-        },
-        "discounts": {
-          "type": "benefit",
-          "settings": {
-            "text": "Exclusive subscriber-only discounts"
-          }
-        },
-        "stories": {
-          "type": "benefit",
-          "settings": {
-            "text": "Behind-the-scenes stories and magical inspiration"
-          }
-        },
-        "birthday": {
-          "type": "benefit",
-          "settings": {
-            "text": "Special birthday surprises for subscribers"
-          }
-        }
-      },
-      "block_order": ["early_access", "discounts", "stories", "birthday"],
+      "type": "collection-newsletter-cta",
       "settings": {}
     }
   },

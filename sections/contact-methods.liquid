@@ -1,25 +1,62 @@
-<section id="contact-info" class="py-16 bg-brand-parchment">
+<section id="contact-info" class="bg-brand-parchment py-16 md:py-20">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
       {% for block in section.blocks %}
-        <div class="bg-white p-10 rounded-sm text-center border border-brand-sand/50 hover:shadow-lg transition-shadow" {{ block.shopify_attributes }}>
-          <div class="w-16 h-16 bg-brand-forest rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="contact-method-card bg-white p-8 lg:px-10 lg:pb-12 lg:pt-14 rounded-sm text-center border border-brand-sand/50 transition-all duration-200" {{ block.shopify_attributes }}>
+          <div class="contact-method-icon bg-brand-forest rounded-full flex items-center justify-center mx-auto mb-8">
             <i class="{{ block.settings.icon }} text-brand-gold text-2xl" aria-hidden="true"></i>
           </div>
-          <h3 class="font-heading text-2xl text-brand-forest mb-3">{{ block.settings.title }}</h3>
-          <p class="font-body text-brand-muted mb-4 text-sm">{{ block.settings.body }}</p>
+          <h3 class="font-heading text-2xl lg:text-[2.125rem] text-brand-forest mb-4">{{ block.settings.title }}</h3>
+          <p class="font-body text-brand-muted mb-8 text-sm lg:text-base">{{ block.settings.body }}</p>
           {% if block.settings.link != blank %}
-            <a href="{{ block.settings.link }}" class="font-body text-brand-forest hover:text-brand-gold transition-colors font-medium">
+            <a href="{{ block.settings.link }}" class="contact-method-value font-body text-brand-forest hover:text-brand-gold transition-colors font-medium text-xl lg:text-[1.625rem] leading-tight break-words">
               {{ block.settings.link_label }}
             </a>
           {% else %}
-            <p class="font-body text-brand-forest font-medium">{{ block.settings.link_label | newline_to_br }}</p>
+            <p class="contact-method-value font-body text-brand-forest font-medium text-xl lg:text-[1.625rem] leading-tight">{{ block.settings.link_label | newline_to_br }}</p>
           {% endif %}
         </div>
       {% endfor %}
     </div>
   </div>
 </section>
+
+{% stylesheet %}
+  #contact-info {
+    padding-block: 3rem;
+  }
+
+  .contact-method-card {
+    box-shadow: 0 10px 26px rgba(15, 31, 21, 0.04);
+  }
+
+  .contact-method-card:hover {
+    box-shadow: 0 24px 56px rgba(15, 31, 21, 0.14);
+    transform: translateY(-4px);
+  }
+
+  .contact-method-icon {
+    aspect-ratio: 1 / 1;
+    border-radius: 9999px;
+    flex: 0 0 4.5rem;
+    height: 4.5rem;
+    overflow: hidden;
+    width: 4.5rem;
+  }
+
+  .contact-method-value {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  @media (min-width: 768px) {
+    #contact-info {
+      padding-block: 5rem;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
