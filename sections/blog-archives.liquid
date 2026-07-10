@@ -1,0 +1,201 @@
+{% liquid
+  assign active_tag_handle = blank
+  if current_tags != blank
+    assign active_tag_handle = current_tags | first | handleize
+  endif
+
+  assign archive_slug = blank
+  if request.query_string != blank and request.query_string contains 'archive='
+    assign query_parts = request.query_string | split: '&'
+    for part in query_parts
+      if part contains 'archive='
+        assign archive_slug = part | remove: 'archive=' | split: '#' | first | url_decode
+      endif
+    endfor
+  endif
+
+  assign archive_base_url = blog.url
+  if active_tag_handle != blank
+    assign archive_base_url = blog.url | append: '/tagged/' | append: active_tag_handle
+  endif
+
+  assign clear_archive_url = archive_base_url | append: '#archive'
+  assign archive_surface_class = 'bg-brand-forest text-brand-parchment'
+
+  assign archive_results_label = blank
+  if archive_slug != blank
+    assign archive_results_label = archive_slug | append: '-01' | date: '%B %Y'
+  endif
+%}
+
+<section id="archive" class="py-10 md:py-20 {{ archive_surface_class }}">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    {% if archive_slug != blank and active_tag_handle == blank %}
+      {% liquid
+        assign archive_results_count = 0
+        for article in blog.articles
+          assign article_archive_slug = article.published_at | date: '%Y-%m'
+          if article_archive_slug == archive_slug
+            assign archive_results_count = archive_results_count | plus: 1
+          endif
+        endfor
+      %}
+
+      <div class="mb-10 md:mb-12">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+          <div>
+            <p class="text-brand-gold text-[10px] md:text-xs font-bold uppercase tracking-widest mb-2">
+              {{ section.settings.results_kicker }}
+            </p>
+            <h2 class="font-heading text-2xl md:text-4xl text-white">{{ archive_results_label }}</h2>
+          </div>
+          <a href="{{ clear_archive_url }}" class="text-brand-sand hover:text-white transition-colors text-sm">
+            {{ section.settings.clear_archive_label }}
+          </a>
+        </div>
+
+        {% if archive_results_count > 0 %}
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {% assign rendered_count = 0 %}
+            {% for article in blog.articles %}
+              {% assign article_archive_slug = article.published_at | date: '%Y-%m' %}
+              {% if article_archive_slug == archive_slug and rendered_count < section.settings.results_limit %}
+                {% render 'blog-article-card',
+                  article: article,
+                  surface: 'white',
+                  layout: 'grid',
+                  read_label: section.settings.results_read_label
+                %}
+                {% assign rendered_count = rendered_count | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="bg-white/5 border border-white/10 rounded-sm p-8">
+            <p class="font-body text-brand-sand">{{ 'content.no_results_found' | t }}</p>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="text-center mb-8 md:mb-12">
+      <h2 class="font-heading text-2xl md:text-3xl mb-2 md:mb-4">{{ section.settings.heading }}</h2>
+      <p class="font-body text-sm md:text-base text-brand-sand">{{ section.settings.text }}</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
+      {% liquid
+        assign rendered_archives = 0
+        assign rendered_month_tokens = blank
+
+        for article in blog.articles
+          assign month_key = article.published_at | date: '%Y-%m'
+          capture month_token
+            echo '|'
+            echo month_key
+            echo '|'
+          endcapture
+
+          unless rendered_month_tokens contains month_token
+            capture rendered_month_tokens
+              echo rendered_month_tokens
+              echo month_token
+            endcapture
+
+            assign tile_href = archive_base_url | append: '?archive=' | append: month_key | append: '#archive'
+            assign is_active_archive = false
+            if archive_slug == month_key
+              assign is_active_archive = true
+            endif
+
+            echo '<a href="'
+            echo tile_href
+            echo '" class="rounded-sm p-4 md:p-6 text-center transition-all border '
+
+            if is_active_archive
+              echo 'bg-white/15 border-brand-gold'
+            else
+              echo 'bg-white/5 hover:bg-white/10 border-white/10'
+            endif
+
+            echo '">'
+            echo '<div class="font-heading text-lg md:text-2xl mb-1 md:mb-2">'
+            echo article.published_at | date: '%b'
+            echo '</div>'
+            echo '<div class="font-body text-xs md:text-sm text-brand-sand">'
+            echo article.published_at | date: '%Y'
+            echo '</div>'
+            echo '</a>'
+
+            assign rendered_archives = rendered_archives | plus: 1
+          endunless
+
+          if rendered_archives >= section.settings.max_archives
+            break
+          endif
+        endfor
+      %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog archives",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore the Archives"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Browse past editions by month and topic"
+    },
+    {
+      "type": "text",
+      "id": "results_kicker",
+      "label": "Archive results kicker",
+      "default": "Archive selection"
+    },
+    {
+      "type": "text",
+      "id": "clear_archive_label",
+      "label": "Clear archive label",
+      "default": "View all articles"
+    },
+    {
+      "type": "text",
+      "id": "results_read_label",
+      "label": "Archive result link label",
+      "default": "Read More"
+    },
+    {
+      "type": "range",
+      "id": "max_archives",
+      "label": "Maximum archive tiles",
+      "min": 3,
+      "max": 18,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "results_limit",
+      "label": "Archive result count",
+      "min": 3,
+      "max": 24,
+      "step": 1,
+      "default": 9
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog archives"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,132 @@
+<section id="founder-story" class="py-16 lg:py-24 bg-white px-5 lg:px-0">
+  <div class="w-full max-w-md lg:max-w-[1200px] mx-auto lg:px-12">
+    <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+      <div class="w-full lg:w-1/2">
+        <div class="aspect-[4/5] w-full max-w-lg mx-auto rounded-sm overflow-hidden shadow-2xl mb-8 lg:mb-0 bg-brand-parchment">
+          {% if section.settings.image != blank %}
+            {{
+              section.settings.image
+              | image_url: width: 1200
+              | image_tag: loading: 'lazy', class: 'w-full h-full object-cover'
+            }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        {% if section.settings.eyebrow != blank %}
+          <span class="text-brand-gold font-body tracking-[0.15em] lg:tracking-[0.2em] text-xs lg:text-sm mb-3 lg:mb-4 uppercase block">
+            {{ section.settings.eyebrow }}
+          </span>
+        {% endif %}
+        <h2 class="font-heading text-3xl lg:text-5xl text-brand-forest mb-5 lg:mb-6 leading-tight">
+          {{ section.settings.title }}
+        </h2>
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'paragraph' %}
+              <p class="font-body text-brand-text text-base lg:text-lg mb-5 lg:mb-6 leading-relaxed" {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+              </p>
+            {% when 'quote' %}
+              <div class="pt-8 mt-8 lg:pt-10 lg:mt-10 border-t border-brand-sand" {{ block.shopify_attributes }}>
+                <p class="font-heading text-xl lg:text-2xl text-brand-forest mb-2 italic leading-snug">
+                  "{{ block.settings.quote }}"
+                </p>
+                {% if block.settings.attribution != blank %}
+                  <p class="font-body text-sm lg:text-base text-brand-muted">{{ block.settings.attribution }}</p>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Founder story",
+  "tag": "section",
+  "class": "about-founder-story",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Founder image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Beginning"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Where Magic Met Craftsmanship"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "name": "Paragraph",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "It started in a small apartment in Edinburgh, where I spent countless evenings trying to recreate the perfect wand from my favorite stories."
+        }
+      ]
+    },
+    {
+      "type": "quote",
+      "name": "Founder quote",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Magic isn't just found in books; it's woven into the very fabric of our daily lives."
+        },
+        {
+          "type": "text",
+          "id": "attribution",
+          "label": "Attribution",
+          "default": "- Eleanor Vance, Founder"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Founder story",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "settings": {
+            "text": "It started in a small apartment in Edinburgh, where I spent countless evenings trying to recreate the perfect wand from my favorite stories. What began as a personal obsession soon became something much larger - a mission to bring authentic, meaningful magical artifacts into the hands of fellow enthusiasts."
+          }
+        },
+        {
+          "type": "paragraph",
+          "settings": {
+            "text": "I was frustrated by mass-produced replicas that lacked soul. I wanted pieces that felt real, that carried weight and history, that made you believe in magic again. So I taught myself traditional woodworking, studied historical craftsmanship, and poured my heart into every detail."
+          }
+        },
+        {
+          "type": "paragraph",
+          "settings": {
+            "text": "That first wand took me three weeks to complete. When I finally held it in my hands, I knew I had found my calling."
+          }
+        },
+        {
+          "type": "quote"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

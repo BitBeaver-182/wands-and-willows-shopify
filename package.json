@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "build:css": "tailwindcss -i ./src/landing.css -o ./assets/landing-tailwind.css --minify",
-    "dev:css": "tailwindcss -i ./src/landing.css -o ./assets/landing-tailwind.css --watch"
+    "dev:css": "tailwindcss -i ./src/landing.css -o ./assets/landing-tailwind.css --watch",
+    "check": "shopify theme check",
+    "dev": "shopify theme dev"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",

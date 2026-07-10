@@ -1,0 +1,97 @@
+<section id="values" class="py-16 lg:py-24 bg-brand-forest text-brand-parchment px-5 lg:px-0">
+  <div class="w-full max-w-md lg:max-w-[1200px] mx-auto lg:px-12">
+    <div class="text-center mb-12 lg:mb-16">
+      <h2 class="font-heading text-3xl lg:text-4xl mb-3 lg:mb-4">{{ section.settings.title }}</h2>
+      <div class="w-12 lg:w-16 h-0.5 bg-brand-gold mx-auto mb-5 lg:mb-6"></div>
+      {% if section.settings.body != blank %}
+        <p class="font-body text-brand-sand text-sm lg:text-lg leading-relaxed max-w-2xl mx-auto">{{ section.settings.body }}</p>
+      {% endif %}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-12">
+      {% for block in section.blocks %}
+        <div class="text-center" {{ block.shopify_attributes }}>
+          <div class="w-14 h-14 lg:w-16 lg:h-16 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-5 lg:mb-6">
+            <i class="{{ block.settings.icon }} text-brand-gold text-2xl" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-heading text-xl lg:text-2xl mb-3 lg:mb-4">{{ block.settings.title }}</h3>
+          <p class="font-body text-brand-sand text-sm lg:text-base leading-relaxed">{{ block.settings.body }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About values",
+  "tag": "section",
+  "class": "about-values-grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "What We Believe"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "The principles that guide every decision we make and every product we create."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon class",
+          "default": "fa-solid fa-hand-holding-heart"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Craftsmanship"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Every piece is crafted with care and attention to detail. We honor traditional techniques while embracing modern innovation."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About values",
+      "blocks": [
+        {
+          "type": "value"
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "fa-solid fa-users",
+            "title": "Community",
+            "body": "We're more than a brand - we're a gathering place for kindred spirits who believe in the power of magic and storytelling."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "fa-solid fa-leaf",
+            "title": "Sustainability",
+            "body": "We source materials ethically, minimize waste, and use eco-friendly packaging. Magic should protect, not harm, our world."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

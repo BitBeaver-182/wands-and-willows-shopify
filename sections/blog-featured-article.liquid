@@ -1,0 +1,118 @@
+{%- liquid
+  assign active_tag_handle = blank
+  if current_tags != blank
+    assign active_tag_handle = current_tags | first | handleize
+  endif
+
+  assign archive_slug = blank
+  if request.query_string != blank and request.query_string contains 'archive='
+    assign query_parts = request.query_string | split: '&'
+    for part in query_parts
+      if part contains 'archive='
+        assign archive_slug = part | remove: 'archive=' | split: '#' | first | url_decode
+      endif
+    endfor
+  endif
+
+  assign featured_article = section.settings.article
+
+  if featured_article == blank and section.settings.featured_tag != blank
+    for article in blog.articles
+      if article.tags contains section.settings.featured_tag
+        assign featured_article = article
+        break
+      endif
+    endfor
+  endif
+
+  if featured_article == blank
+    assign featured_article = blog.articles.first
+  endif
+-%}
+
+{% if featured_article != blank and active_tag_handle == blank and archive_slug == blank %}
+  <section id="featured-article" class="py-8 md:py-20 bg-brand-parchment">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+      <div class="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
+        <div class="w-full lg:w-1/2">
+          <a href="{{ featured_article.url }}" class="relative h-[280px] md:h-[600px] overflow-hidden rounded-sm block">
+            {% if featured_article.image != blank %}
+              {{
+                featured_article.image
+                | image_url: width: 1200
+                | image_tag:
+                  class: 'w-full h-full object-cover',
+                  loading: 'lazy',
+                  alt: featured_article.image.alt | default: featured_article.title
+              }}
+            {% else %}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'w-full h-full object-cover text-brand-sand bg-white' }}
+            {% endif %}
+            <span class="absolute top-4 md:top-6 left-4 md:left-6 bg-brand-gold text-white text-[10px] md:text-xs font-bold px-3 md:px-4 py-1.5 md:py-2 uppercase tracking-wider">
+              {{ section.settings.badge }}
+            </span>
+          </a>
+        </div>
+        <div class="w-full lg:w-1/2">
+          <span class="text-brand-gold text-[10px] md:text-xs font-bold uppercase tracking-widest mb-2 md:mb-3 block">
+            {{ featured_article.tags.first | default: blog.title }}
+          </span>
+          <h2 class="font-heading text-2xl md:text-5xl text-brand-forest mb-4 md:mb-6 leading-tight">
+            <a href="{{ featured_article.url }}">{{ featured_article.title }}</a>
+          </h2>
+          <div class="flex flex-wrap items-center gap-3 md:gap-6 mb-4 md:mb-6 text-xs md:text-sm text-brand-muted">
+            <span class="font-medium text-brand-text">{{ featured_article.author }}</span>
+            <time datetime="{{ featured_article.published_at | date: '%Y-%m-%d' }}">{{ featured_article.published_at | date: format: 'abbreviated_date' }}</time>
+          </div>
+          <p class="font-body text-brand-text text-sm md:text-lg mb-6 md:mb-8 leading-relaxed">
+            {{ featured_article.excerpt_or_content | strip_html | truncatewords: 34 }}
+          </p>
+          {% render 'landing-button',
+            label: section.settings.button_label,
+            link: featured_article.url,
+            style: 'primary',
+            palette: 'forest',
+            icon: 'fa-solid fa-arrow-right',
+            class: 'w-full sm:w-auto'
+          %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Blog featured article",
+  "settings": [
+    {
+      "type": "article",
+      "id": "article",
+      "label": "Article"
+    },
+    {
+      "type": "text",
+      "id": "featured_tag",
+      "label": "Fallback featured tag",
+      "default": "Artifact Spotlight"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Featured"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Read Full Article"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog featured article"
+    }
+  ]
+}
+{% endschema %}

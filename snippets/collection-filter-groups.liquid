@@ -5,32 +5,133 @@
 {%- enddoc -%}
 
 {% for filter in collection_resource.filters %}
-  <div class="{% unless forloop.last %}mb-8 pb-8 border-b border-brand-sand{% endunless %}">
-    <h4 class="font-heading text-lg text-brand-forest mb-4">{{ filter.label }}</h4>
+  {%- liquid
+    assign collapsible_filter = true
+    assign list_preview_count = 4
+
+    if filter.type == 'price_range'
+      assign collapsible_filter = false
+    endif
+  -%}
+  <div
+    class="{% unless forloop.last %}mb-8 pb-8 border-b border-brand-sand{% endunless %}"
+    data-filter-group
+    {% if collapsible_filter %}
+      data-filter-expanded="true"
+    {% endif %}
+  >
+    <div class="mb-4 flex items-center justify-between gap-4">
+      <h4 class="font-heading text-lg text-brand-forest">{{ filter.label }}</h4>
+      {% if collapsible_filter %}
+        <button
+          class="filter-group-toggle inline-flex h-8 w-8 items-center justify-center rounded-sm text-brand-forest transition-colors hover:bg-white/60"
+          type="button"
+          aria-expanded="true"
+          data-filter-toggle
+          data-label-open="{{ 'actions.open' | t }}"
+          data-label-close="{{ 'actions.close' | t }}"
+        >
+          <span class="sr-only">{{ 'actions.close' | t }}</span>
+          <svg class="filter-group-toggle__icon h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 10.5 8 5.5l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
 
     {% case filter.type %}
       {% when 'boolean', 'list' %}
-        <div class="space-y-3">
+        {%- liquid
+          assign render_as_color_filter = false
+          assign filter_label_downcase = filter.label | downcase
+          assign filter_param_downcase = filter.param_name | downcase
+
+          if filter_label_downcase contains 'color' or filter_param_downcase contains 'option.color'
+            assign render_as_color_filter = true
+          endif
+
+          unless render_as_color_filter
+            for filter_value in filter.values
+              if filter_value.swatch
+                assign render_as_color_filter = true
+                break
+              endif
+            endfor
+          endunless
+        -%}
+        <div
+          class="{% if render_as_color_filter %}space-y-2{% else %}space-y-3{% endif %}"
+          data-filter-panel
+        >
           {% for filter_value in filter.values %}
-            <label class="flex items-center gap-3 cursor-pointer group">
-              <input
-                type="checkbox"
-                name="{{ filter_value.param_name }}"
-                value="{{ filter_value.value }}"
-                class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold"
-                {% if filter_value.active %}
-                  checked
-                {% endif %}
-                {% if filter_value.count == 0 and filter_value.active == false %}
-                  disabled
-                {% endif %}
-              >
-              <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">
-                {{ filter_value.label }}
-                <span class="text-brand-muted">({{ filter_value.count }})</span>
-              </span>
-            </label>
+            <div
+              {% if forloop.index > list_preview_count %}
+                data-filter-extra-item
+                hidden
+              {% endif %}
+            >
+              {% if render_as_color_filter %}
+                <label class="flex items-center gap-2.5 cursor-pointer group hover:bg-white/50 px-2 py-1.5 rounded transition-colors">
+                  <input
+                    type="checkbox"
+                    name="{{ filter_value.param_name }}"
+                    value="{{ filter_value.value }}"
+                    class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold"
+                    {% if filter_value.active %}
+                      checked
+                    {% endif %}
+                    {% if filter_value.count == 0 and filter_value.active == false %}
+                      disabled
+                    {% endif %}
+                  >
+                  <div class="flex items-center gap-2 flex-1">
+                    {% if filter_value.swatch %}
+                      {% render 'swatch', swatch: filter_value.swatch, mode: 'filter' %}
+                    {% else %}
+                      <div class="w-5 h-5 rounded border border-brand-sand bg-brand-parchment"></div>
+                    {% endif %}
+                    <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">{{ filter_value.label }}</span>
+                  </div>
+                  <span class="text-brand-muted text-xs">({{ filter_value.count }})</span>
+                </label>
+              {% else %}
+                <label class="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    name="{{ filter_value.param_name }}"
+                    value="{{ filter_value.value }}"
+                    class="w-4 h-4 rounded border-brand-sand text-brand-gold focus:ring-brand-gold"
+                    {% if filter_value.active %}
+                      checked
+                    {% endif %}
+                    {% if filter_value.count == 0 and filter_value.active == false %}
+                      disabled
+                    {% endif %}
+                  >
+                  <span class="font-body text-sm text-brand-text group-hover:text-brand-forest">
+                    {{ filter_value.label }}
+                    <span class="text-brand-muted">({{ filter_value.count }})</span>
+                  </span>
+                </label>
+              {% endif %}
+            </div>
           {% endfor %}
+
+          {% if filter.values.size > list_preview_count %}
+            <button
+              class="filter-group-more inline-flex items-center gap-2 pt-1 font-body text-sm text-brand-gold transition-colors hover:text-brand-forest"
+              type="button"
+              aria-expanded="false"
+              data-filter-show-more
+              data-label-more="{{ 'actions.more' | t }}"
+              data-label-less="{{ 'actions.show_less' | t }}"
+            >
+              <svg class="filter-group-more__icon h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span data-more-label>{{ 'actions.more' | t }}</span>
+            </button>
+          {% endif %}
         </div>
       {% when 'price_range' %}
         {%- liquid
@@ -46,7 +147,7 @@
             assign current_max_amount = filter.max_value.value | divided_by: 100.0
           endif
         -%}
-        <div class="space-y-4">
+        <div class="space-y-4" data-filter-panel>
           <div
             class="space-y-2"
             data-price-range-group
@@ -103,24 +204,30 @@
               data-price-range-input="max"
             >
           </div>
-          <p class="font-body text-xs text-brand-muted">
-            {{ 'content.price_filter_html' | t: price: filter.range_max | money }}
-          </p>
         </div>
     {% endcase %}
   </div>
 {% endfor %}
 
-{% if collection_resource.filters.size > 0 %}
-  <button
-    class="w-full mt-8 py-3 bg-brand-forest text-white font-medium text-sm hover:bg-brand-dark transition-colors rounded-sm"
-    type="submit"
-  >
-    {{ 'actions.apply' | t }}
-  </button>
-{% endif %}
-
 {% stylesheet %}
+  [data-filter-panel][hidden],
+  [data-filter-extra-item][hidden] {
+    display: none !important;
+  }
+
+  .filter-group-toggle__icon,
+  .filter-group-more__icon {
+    transition: transform 0.2s ease;
+  }
+
+  [data-filter-group][data-filter-expanded="false"] .filter-group-toggle__icon {
+    transform: rotate(180deg);
+  }
+
+  [data-filter-group][data-filter-more-expanded="true"] .filter-group-more__icon {
+    transform: rotate(180deg);
+  }
+
   .price-range-shell {
     position: relative;
     height: 1.5rem;
@@ -196,5 +303,28 @@
 
   .price-range-slider-max {
     z-index: 30;
+  }
+
+  .swatch {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.125rem;
+    background: var(--swatch-background);
+    background-position: var(--swatch-focal-point, center);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .swatch--unavailable {
+    background: rgb(var(--landing-color-parchment-rgb) / 1);
+  }
+
+  .swatch--filter {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.125rem;
+    border: 1px solid rgb(var(--landing-color-sand-rgb) / 1);
   }
 {% endstylesheet %}

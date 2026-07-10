@@ -5,7 +5,7 @@ Task: Convert Tailwind HTML export into a functional Horizon Theme.
 ## Technical Rules
 
 1. **Architecture:** Use the Horizon "Theme Blocks" pattern. Do not put all HTML into one section. Break UI into `/blocks` for atomic elements (buttons, cards).
-2. **Styling:** Preserve all Tailwind classes. Ensure `tailwind.config.js` includes `./blocks/*.liquid`.
+2. **Styling:** Preserve all Tailwind classes. Ensure `tailwind.config.cjs` includes `./blocks/*.liquid`. Run `npm run build:css` after adding new Tailwind classes.
 3. **Logic Mapping:**
    - Replace static text with `{{ 'key' | t }}` and update `locales/en.default.json`.
    - Map `<img>` to `{{ image | image_tag: loading: 'lazy' }}`.

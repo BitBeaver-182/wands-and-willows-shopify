@@ -1,0 +1,76 @@
+<section id="blog-hero" class="relative w-full h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    {% if section.settings.image != blank %}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'w-full h-full object-cover',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: section.settings.image.alt | default: blog.title
+      }}
+    {% elsif blog.articles.first.image != blank %}
+      {{
+        blog.articles.first.image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'w-full h-full object-cover',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: blog.articles.first.image.alt | default: blog.title
+      }}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover text-brand-sand bg-brand-dark' }}
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-dark/50 to-brand-forest/80"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center text-brand-parchment">
+    <span class="block text-brand-gold font-body tracking-[0.2em] text-[10px] md:text-sm mb-3 md:mb-4 uppercase">
+      {{ section.settings.kicker }}
+    </span>
+    <h1 class="font-heading text-3xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight">
+      {{ section.settings.heading | default: blog.title }}
+    </h1>
+    <p class="font-body text-sm md:text-xl text-brand-sand max-w-2xl mx-auto font-light leading-relaxed">
+      {{ section.settings.text }}
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Stories, Insights & Magical Findings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Curator's Desk"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "A monthly journal of magical discoveries, thoughtful curation, and the enchantment woven into everyday life."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog hero"
+    }
+  ]
+}
+{% endschema %}

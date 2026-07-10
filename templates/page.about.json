@@ -1,0 +1,242 @@
+{
+  "sections": {
+    "hero": {
+      "type": "about-hero",
+      "settings": {}
+    },
+    "founder": {
+      "type": "about-founder-story",
+      "settings": {},
+      "blocks": {
+        "paragraph_1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "It started in a small apartment in Edinburgh, where I spent countless evenings trying to recreate the perfect wand from my favorite stories. What began as a personal obsession soon became something much larger - a mission to bring authentic, meaningful magical artifacts into the hands of fellow enthusiasts."
+          }
+        },
+        "paragraph_2": {
+          "type": "paragraph",
+          "settings": {
+            "text": "I was frustrated by mass-produced replicas that lacked soul. I wanted pieces that felt real, that carried weight and history, that made you believe in magic again. So I taught myself traditional woodworking, studied historical craftsmanship, and poured my heart into every detail."
+          }
+        },
+        "paragraph_3": {
+          "type": "paragraph",
+          "settings": {
+            "text": "That first wand took me three weeks to complete. When I finally held it in my hands, I knew I had found my calling."
+          }
+        },
+        "quote": {
+          "type": "quote",
+          "settings": {}
+        }
+      },
+      "block_order": ["paragraph_1", "paragraph_2", "paragraph_3", "quote"]
+    },
+    "timeline": {
+      "type": "about-timeline",
+      "settings": {},
+      "blocks": {
+        "year_2019": {
+          "type": "milestone",
+          "settings": {
+            "year": "2019",
+            "title": "The First Wand",
+            "body": "Eleanor crafts her first wand in her Edinburgh apartment. Friends and family are amazed by the quality and detail. Word spreads through local fan communities, and the first orders begin to arrive."
+          }
+        },
+        "year_2020": {
+          "type": "milestone",
+          "settings": {
+            "year": "2020",
+            "title": "Wand & Willow is Born",
+            "body": "The brand officially launches with a small collection of handcrafted wands and apothecary candles. An Etsy shop gains traction, and Eleanor hires her first assistant to help with production. The community begins to form."
+          }
+        },
+        "year_2021": {
+          "type": "milestone",
+          "settings": {
+            "year": "2021",
+            "title": "Expanding the Collection",
+            "body": "Jewelry, stationery, and home goods are added to the catalog. Wand & Willow secures official licensing partnerships with major studios. The team grows to five artisans, each specializing in different crafts."
+          }
+        },
+        "year_2022": {
+          "type": "milestone",
+          "settings": {
+            "year": "2022",
+            "title": "The Monthly Dose of Magic",
+            "body": "The subscription box launches, offering curated monthly parcels of exclusive items. It becomes an instant hit, with over 2,000 subscribers in the first month. A dedicated workshop space is established in Glasgow."
+          }
+        },
+        "year_2023": {
+          "type": "milestone",
+          "settings": {
+            "year": "2023",
+            "title": "Building the Common Room",
+            "body": "The online community flourishes with forums, virtual events, and meetups. Wand & Willow hosts its first in-person gathering in London, bringing together hundreds of fans. The team expands to 15 members."
+          }
+        },
+        "year_2024": {
+          "type": "milestone",
+          "settings": {
+            "year": "2024",
+            "title": "A New Chapter",
+            "body": "Wand & Willow expands internationally, shipping to over 40 countries. New product lines inspired by Wicked and other magical worlds are introduced. The brand continues to grow while staying true to its artisanal roots."
+          }
+        }
+      },
+      "block_order": ["year_2019", "year_2020", "year_2021", "year_2022", "year_2023", "year_2024"]
+    },
+    "values": {
+      "type": "about-values-grid",
+      "settings": {},
+      "blocks": {
+        "craft": {
+          "type": "value",
+          "settings": {
+            "icon": "fa-solid fa-hand-holding-heart",
+            "title": "Craftsmanship",
+            "body": "Every piece is crafted with care and attention to detail. We honor traditional techniques while embracing modern innovation."
+          }
+        },
+        "community": {
+          "type": "value",
+          "settings": {
+            "icon": "fa-solid fa-users",
+            "title": "Community",
+            "body": "We're more than a brand - we're a gathering place for kindred spirits who believe in the power of magic and storytelling."
+          }
+        },
+        "sustainability": {
+          "type": "value",
+          "settings": {
+            "icon": "fa-solid fa-leaf",
+            "title": "Sustainability",
+            "body": "We source materials ethically, minimize waste, and use eco-friendly packaging. Magic should protect, not harm, our world."
+          }
+        }
+      },
+      "block_order": ["craft", "community", "sustainability"]
+    },
+    "workshop": {
+      "type": "about-workshop-gallery",
+      "settings": {},
+      "blocks": {
+        "image_1": {
+          "type": "image",
+          "settings": {}
+        },
+        "image_2": {
+          "type": "image",
+          "settings": {}
+        },
+        "image_3": {
+          "type": "image",
+          "settings": {}
+        },
+        "image_4": {
+          "type": "image",
+          "settings": {}
+        }
+      },
+      "block_order": ["image_1", "image_2", "image_3", "image_4"]
+    },
+    "team": {
+      "type": "about-team-grid",
+      "settings": {},
+      "blocks": {
+        "member_1": {
+          "type": "member",
+          "settings": {
+            "name": "Eleanor Vance",
+            "role": "Founder & Head Archivist",
+            "bio": "Master wandmaker and visionary"
+          }
+        },
+        "member_2": {
+          "type": "member",
+          "settings": {
+            "name": "Thomas Blackwood",
+            "role": "Lead Artisan",
+            "bio": "Specialist in dark woods & metals"
+          }
+        },
+        "member_3": {
+          "type": "member",
+          "settings": {
+            "name": "Isla MacGregor",
+            "role": "Apothecary Master",
+            "bio": "Creator of our signature scents"
+          }
+        },
+        "member_4": {
+          "type": "member",
+          "settings": {
+            "name": "Marcus Chen",
+            "role": "Jewelry Designer",
+            "bio": "Precious metals & gemstones expert"
+          }
+        }
+      },
+      "block_order": ["member_1", "member_2", "member_3", "member_4"]
+    },
+    "impact": {
+      "type": "about-impact",
+      "settings": {},
+      "blocks": {
+        "members": {
+          "type": "stat",
+          "settings": {
+            "value": "50K+",
+            "label": "Community Members"
+          }
+        },
+        "countries": {
+          "type": "stat",
+          "settings": {
+            "value": "40+",
+            "label": "Countries Served"
+          }
+        },
+        "wands": {
+          "type": "stat",
+          "settings": {
+            "value": "25K+",
+            "label": "Wands Crafted"
+          }
+        },
+        "donated": {
+          "type": "stat",
+          "settings": {
+            "value": "$100K+",
+            "label": "Donated to Literacy"
+          }
+        }
+      },
+      "block_order": ["members", "countries", "wands", "donated"]
+    },
+    "cta": {
+      "type": "about-story-cta",
+      "settings": {},
+      "blocks": {
+        "shop": {
+          "type": "cta_button",
+          "settings": {
+            "label": "Shop Our Collections",
+            "style": "primary"
+          }
+        },
+        "community": {
+          "type": "cta_button",
+          "settings": {
+            "label": "Join the Community",
+            "style": "secondary"
+          }
+        }
+      },
+      "block_order": ["shop", "community"]
+    }
+  },
+  "order": ["hero", "founder", "timeline", "values", "workshop", "team", "impact", "cta"]
+}
