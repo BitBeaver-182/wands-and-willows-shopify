@@ -1,0 +1,306 @@
+<script src="{{ 'product-page.js' | asset_url }}" defer></script>
+
+<section id="product-tabs" class="py-16 lg:py-20 bg-white">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+    <wand-product-tabs class="block">
+      <div class="mb-8 flex gap-3 border-b border-brand-sand pb-1 overflow-x-auto hide-scrollbar" role="tablist">
+        <button
+          id="tab-description"
+          class="px-6 lg:px-8 py-4 border-b-2 border-brand-gold text-brand-forest font-body font-semibold transition-all flex items-center gap-3 whitespace-nowrap"
+          type="button"
+          role="tab"
+          aria-selected="true"
+          aria-controls="content-description"
+          data-product-tab-button="description"
+        >
+          <i class="fa-solid fa-scroll text-brand-gold text-lg" aria-hidden="true"></i>
+          <span>{{ 'content.product_information' | t }}</span>
+        </button>
+        <button
+          id="tab-details"
+          class="px-6 lg:px-8 py-4 border-b-2 border-transparent text-brand-muted font-body font-medium transition-all hover:text-brand-forest hover:border-brand-sand flex items-center gap-3 whitespace-nowrap"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          aria-controls="content-details"
+          data-product-tab-button="details"
+        >
+          <i class="fa-solid fa-circle-info text-brand-gold text-lg" aria-hidden="true"></i>
+          <span>{{ 'content.view_more_details' | t }}</span>
+        </button>
+      </div>
+
+      <div id="content-description" role="tabpanel" aria-labelledby="tab-description" data-product-tab-panel="description">
+        <div class="max-w-4xl">
+          <h2 class="font-heading text-3xl text-brand-forest mb-6">{{ section.settings.description_heading }}</h2>
+
+          {% if product.description != blank %}
+            <div class="font-body text-brand-text leading-relaxed text-base mb-8 rte">
+              {{ product.description }}
+            </div>
+          {% elsif section.settings.description_text != blank %}
+            <p class="font-body text-brand-text leading-relaxed text-base mb-8">
+              {{ section.settings.description_text }}
+            </p>
+          {% endif %}
+
+          {% if section.settings.callout_heading != blank or section.settings.callout_text != blank %}
+            <div class="bg-brand-parchment border border-brand-sand rounded-lg p-6 lg:p-8 mb-8">
+              <h3 class="font-heading text-xl text-brand-forest mb-4 flex items-center gap-3">
+                <i class="{{ section.settings.callout_icon }} text-brand-gold text-lg" aria-hidden="true"></i>
+                {{ section.settings.callout_heading }}
+              </h3>
+              <p class="font-body text-brand-text leading-relaxed">{{ section.settings.callout_text }}</p>
+            </div>
+          {% endif %}
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for block in section.blocks %}
+              {% if block.type == 'feature_card' %}
+                <div class="{% cycle 'bg-white', 'bg-brand-parchment' %} border border-brand-sand rounded-lg p-6" {{ block.shopify_attributes }}>
+                  <div class="flex items-center gap-3 mb-4">
+                    <i class="{{ block.settings.icon }} text-brand-gold text-2xl" aria-hidden="true"></i>
+                    <h3 class="font-heading text-lg text-brand-forest">{{ block.settings.heading }}</h3>
+                  </div>
+                  <div class="font-body text-brand-text text-sm leading-relaxed">
+                    {{ block.settings.text }}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div id="content-details" class="hidden" role="tabpanel" aria-labelledby="tab-details" data-product-tab-panel="details">
+        <div class="max-w-4xl">
+          <h2 class="font-heading text-3xl text-brand-forest mb-8">{{ section.settings.details_heading }}</h2>
+
+          <div class="bg-white border border-brand-sand rounded-lg p-6 lg:p-8 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+              {% for block in section.blocks %}
+                {% if block.type == 'detail_row' %}
+                  <div class="flex items-center justify-between gap-4 pb-4 border-b border-brand-sand" {{ block.shopify_attributes }}>
+                    <span class="font-body font-semibold text-brand-forest">{{ block.settings.label }}</span>
+                    <span class="font-body text-brand-text text-right">{{ block.settings.value }}</span>
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+              {% if product.selected_or_first_available_variant.sku != blank %}
+                <div class="flex items-center justify-between gap-4 pb-4 border-b border-brand-sand">
+                  <span class="font-body font-semibold text-brand-forest">{{ 'content.variant' | t }}</span>
+                  <span class="font-body text-brand-text text-right">{{ product.selected_or_first_available_variant.sku }}</span>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-brand-parchment border border-brand-sand rounded-lg p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <i class="fa-solid fa-box text-brand-gold text-xl" aria-hidden="true"></i>
+                <h3 class="font-heading text-lg text-brand-forest">{{ section.settings.included_heading }}</h3>
+              </div>
+              <ul class="space-y-2 font-body text-brand-text text-sm">
+                {% for block in section.blocks %}
+                  {% if block.type == 'included_item' %}
+                    <li class="flex items-start gap-2" {{ block.shopify_attributes }}>
+                      <i class="fa-solid fa-check text-brand-gold mt-1 text-xs" aria-hidden="true"></i>
+                      <span>{{ block.settings.text }}</span>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+
+            <div class="bg-white border border-brand-sand rounded-lg p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <i class="fa-solid fa-heart-pulse text-brand-gold text-xl" aria-hidden="true"></i>
+                <h3 class="font-heading text-lg text-brand-forest">{{ section.settings.care_heading }}</h3>
+              </div>
+              <ul class="space-y-2 font-body text-brand-text text-sm">
+                {% for block in section.blocks %}
+                  {% if block.type == 'care_item' %}
+                    <li class="flex items-start gap-2" {{ block.shopify_attributes }}>
+                      <i class="{{ block.settings.icon }} text-brand-gold mt-1 text-xs" aria-hidden="true"></i>
+                      <span>{{ block.settings.text }}</span>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </wand-product-tabs>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product story tabs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "description_heading",
+      "label": "Description heading",
+      "default": "About This Artifact"
+    },
+    {
+      "type": "textarea",
+      "id": "description_text",
+      "label": "Fallback description",
+      "default": "Add product storytelling in the product description or use this fallback copy."
+    },
+    {
+      "type": "text",
+      "id": "callout_icon",
+      "label": "Callout icon class",
+      "default": "fa-solid fa-sparkles"
+    },
+    {
+      "type": "text",
+      "id": "callout_heading",
+      "label": "Callout heading",
+      "default": "Perfect For"
+    },
+    {
+      "type": "textarea",
+      "id": "callout_text",
+      "label": "Callout text",
+      "default": "Collectors, readers, gift-givers, and anyone adding a little magic to their daily rituals."
+    },
+    {
+      "type": "text",
+      "id": "details_heading",
+      "label": "Details heading",
+      "default": "Product Details"
+    },
+    {
+      "type": "text",
+      "id": "included_heading",
+      "label": "Included heading",
+      "default": "What's Included"
+    },
+    {
+      "type": "text",
+      "id": "care_heading",
+      "label": "Care heading",
+      "default": "Care Instructions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_card",
+      "name": "Feature card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon class",
+          "default": "fa-solid fa-gem"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Key Features"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Hand-finished, display-ready, and selected for lasting quality.</p>"
+        }
+      ]
+    },
+    {
+      "type": "detail_row",
+      "name": "Detail row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Material"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "Elderwood"
+        }
+      ]
+    },
+    {
+      "type": "included_item",
+      "name": "Included item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Certificate of authenticity"
+        }
+      ]
+    },
+    {
+      "type": "care_item",
+      "name": "Care item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon class",
+          "default": "fa-solid fa-droplet"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Wipe gently with a soft, dry cloth."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product story tabs",
+      "blocks": [
+        {
+          "type": "feature_card"
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "icon": "fa-solid fa-certificate",
+            "heading": "Authenticity",
+            "text": "<p>Each artifact is selected for a business-owned collection, not a generic theme demo.</p>"
+          }
+        },
+        {
+          "type": "detail_row",
+          "settings": {
+            "label": "Material",
+            "value": "Elderwood"
+          }
+        },
+        {
+          "type": "detail_row",
+          "settings": {
+            "label": "Finish",
+            "value": "Natural oil"
+          }
+        },
+        {
+          "type": "included_item"
+        },
+        {
+          "type": "care_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

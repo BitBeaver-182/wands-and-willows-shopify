@@ -1,0 +1,28 @@
+{%- doc -%}
+  Canonical wishlist integration hook.
+
+  @param {object} product - Shopify product
+  @param {string} [class] - Button classes
+{%- enddoc -%}
+
+{%- liquid
+  assign product = product | default: blank
+  assign custom_class = class | default: blank
+  if product == blank
+    break
+  endif
+-%}
+
+{% if custom_class != blank %}
+  <button
+    class="{{ custom_class }}"
+    type="button"
+    aria-label="Add to wishlist"
+    data-product-id="{{ product.id }}"
+    data-product-handle="{{ product.handle }}"
+  >
+    <i class="fa-regular fa-heart text-xl" aria-hidden="true"></i>
+  </button>
+{% else %}
+  {% render 'wishlisthero-collection-product', product: product %}
+{% endif %}
